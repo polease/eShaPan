@@ -1,0 +1,26 @@
+[
+{
+    "name":"Task",
+    "value":"task",
+    "definition":[
+        { "text": "Name", "value": "name" },
+        { "text": "Owner", "value": "owner" },
+        { "text": "StartDate", "value": "startDate" },
+        { "text": "EndDate", "value": "endDate" },
+        { "text": "Status", "value": "status" },
+        { "text": "Note", "value": "note" }
+    ]
+
+},
+{
+    "name":"Resource",
+    "value":"resource",
+    "definition":[
+        { "text": "Name", "value": "name" },
+        { "text": "URI", "value": "uri" },
+        { "text": "Thumb", "value": "thumb" },
+        { "text": "Added Date", "value": "addedDate" },
+        { "text": "Note", "value": "note" }
+    ]
+
+}]

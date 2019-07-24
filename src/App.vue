@@ -24,10 +24,8 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer">
         <font-awesome-icon icon="brain"></font-awesome-icon>
       </v-toolbar-side-icon>
-      <font-awesome-icon icon="coffee"></font-awesome-icon>
-      <v-icon class="mx-3">fa fa-brain</v-icon>
-      <v-toolbar-title class="mr-5 align-center">
-        <span class="title">Hard Brain</span>
+      <v-toolbar-title>
+        <span class="title app-title">eBrain</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-layout row align-center style="max-width: 650px">
@@ -55,6 +53,9 @@
 .sys-toolbar {
   background-color: $primary !important;
 
+.app-title{
+  font-family: Didot,'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
   .search{
     font-size: 12px !important;

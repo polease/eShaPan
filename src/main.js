@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import './plugins/vuetify'
 import App from './App.vue'
+import store from './stores/store'
 
 import ListPage from './components/ListPage.vue'
 import LoginPage from './components/LoginPage.vue'
@@ -34,6 +35,7 @@ const router = new VueRouter({
 
 
 new Vue({
+  store,
   router,
   render: h => h(App),
 }).$mount('#app')

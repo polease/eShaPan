@@ -43,10 +43,7 @@
 export default {
   data() {
     return {
-      list: [
-        { name: "List A", id: "1", level: 0 },
-        { name: "List B", id: "2", level: 4 }
-      ]
+      list: this.$store.state.currentList
     };
   },
   methods: {

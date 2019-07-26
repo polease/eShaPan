@@ -1,26 +1,36 @@
 [
-{
-    "name":"Task",
-    "value":"task",
-    "definition":[
-        { "text": "Name", "value": "name" },
-        { "text": "Owner", "value": "owner" },
-        { "text": "StartDate", "value": "startDate" },
-        { "text": "EndDate", "value": "endDate" },
-        { "text": "Status", "value": "status" },
-        { "text": "Note", "value": "note" }
+  {
+    "name": "__eBrainBase__",
+    "value": "eBrian base type",
+    "prefix": "__",
+    "definition": [
+      { "text": "#", "value": "__rid__", "hidden": true },
+      { "text": "Name", "value": "__name__" },
+      { "text": "Created Time", "value": "__createdtime__", "hidden": true },
+      { "text": "Updated Time", "value": "__updatedtime__", "hidden": true }
     ]
-
-},
-{
-    "name":"Resource",
-    "value":"resource",
-    "definition":[
-        { "text": "Name", "value": "name" },
-        { "text": "URI", "value": "uri" },
-        { "text": "Thumb", "value": "thumb" },
-        { "text": "Added Date", "value": "addedDate" },
-        { "text": "Note", "value": "note" }
+  },
+  {
+    "name": "Task",
+    "value": "task",
+    "prefix": "t__",
+    "definition": [
+      { "text": "Owner", "value": "t__owner" },
+      { "text": "StartDate", "value": "t__startDate" },
+      { "text": "EndDate", "value": "t__endDate" },
+      { "text": "Status", "value": "t__status" },
+      { "text": "Note", "value": "t__note" }
     ]
-
-}]
+  },
+  {
+    "name": "Resource",
+    "value": "resource",
+    "prefix": "r__",
+    "definition": [
+      { "text": "URI", "value": "r__uri" },
+      { "text": "Thumb", "value": "r__thumb" },
+      { "text": "Added Date", "value": "r__addedDate" },
+      { "text": "Note", "value": "r__note" }
+    ]
+  }
+]

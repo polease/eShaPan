@@ -24,7 +24,7 @@
         </v-flex>
       </v-layout> 
     <v-list class="grow">
-      <v-list-tile v-for="list in lists" :key="list" @click="" :to="list.link">
+      <v-list-tile v-for="list in lists" :key="list" @click="listClick(list)" :to="list.link">
           <v-list-icon><v-icon>list</v-icon></v-list-icon>
         <v-list-tile-title v-text="list.name" class="list-title"> 
         </v-list-tile-title>
@@ -59,9 +59,14 @@ export default {
       lists: [{ name: "List A", id: "1", link:'/list/1' }, { name: "List B", id: "2", link:'/list/2' }]
     };
   },
+   mounted() {
+       this.$store.dispatch('getCurrentListDetails', "1");
+      
+    },
   methods: {
+   
     listClick(listMeta) {
-      alert(listMeta);
+       this.$store.dispatch('getCurrentListDetails', listMeta.id);
     }
   }
 };

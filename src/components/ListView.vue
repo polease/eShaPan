@@ -1,9 +1,9 @@
 <template>
   <v-flex class="list-page">
-    <v-layout v-for="(listItem,index) in list" :key="index" class="list-item" row>
+    <v-layout v-for="(listItem,index) in list.items" :key="index" class="list-item" row>
       <span class="list-item-prefix">{{index+1}}</span>
       <v-text-field
-        v-model="listItem.name"
+        v-model="listItem.__name__"
         single-line
         
         v-on:keyup.enter="enterListItem($event,listItem, index)"
@@ -41,9 +41,13 @@
 
 <script>
 export default {
+  computed:{
+    list(){
+      return this.$store.state.currentList;
+    }
+  },
   data() {
-    return {
-      list: this.$store.state.currentList
+    return { 
     };
   },
   methods: {
@@ -58,7 +62,7 @@ export default {
     },
     enterListItem(event, listItem, index) {
       var newItem = this.createListItem();
-      this.list.splice(index + 1, 0, newItem);
+      this.list.items.splice(index + 1, 0, newItem);
       this.$refs.listItems[index + 1].focus();
     },
     keyUpListItem(event, listItem, index) {

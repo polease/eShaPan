@@ -1,10 +1,17 @@
 <template>
   <v-flex class="list-page">
-    <v-data-table :headers="headers" :items="listItems" class="elevation-1">
+    <v-data-table :headers="currentList.definition.filter(i =>i.type !='system')" :items="currentList.items" class="elevation-1">
       <template slot="items" slot-scope="props">
-        <td class="text-xs-right" v-for="(p, index) in headers" :key="index">
-          <v-text-field v-model="props.item[p.value]" single-line class="body-1 pa-0" ref="'listItem_'+p.value"/>
-        </td> 
+        <td class="text-xs-right" v-for="(p, index) in currentList.definition.filter(i =>i.type !='system')" :key="index">
+          <span v-if="p.value === '__index__'">{{props.index}}</span>
+          <v-text-field
+            v-if="p.type != 'dynamic'"
+            v-model="props.item[p.value]"
+            single-line
+            class="body-1 pa-0"
+            ref="'listItem_'+p.value"
+          />
+        </td>
       </template>
     </v-data-table>
   </v-flex>
@@ -20,19 +27,20 @@
 </style>
 
 <script>
+import ListType from "../data/list-type.json";
 
-import ListType from '../data/list-type.json'
+import { mapState } from "vuex";
+
+var jmespath = require("jmespath");
 
 export default {
   data() {
     return {
-      headers:  ListType[0].definition,
-      listItems: [
-        { name: "List A", id: "1", level: 0 },
-        { name: "List B", id: "2", level: 4 }
-      ]
+ 
     };
   },
+  computed: mapState(["currentList"]),
+  mounted() {},
   methods: {
     createListItem() {
       return { name: "", id: "1", level: 0 };
@@ -57,6 +65,10 @@ export default {
     },
     generateMargin(listItem) {
       return "0 0 0 " + listItem.level * 20 + "px";
+    },
+    setData() {
+      if (this.$store.state.currentList != null)
+        this.listItems = this.$store.state.currentList.items;
     }
   }
 };

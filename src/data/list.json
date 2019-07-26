@@ -1,4 +1,34 @@
-[
-    {   "name" : "Take photo",   "owner" : "Emily" , "startDate":"20190810",  "endDate" : null,  "status" : "open", "note":"" },
-    {   "name" : "Take photo",   "owner" : "Emily" , "startDate":"20190810",  "endDate" : null,  "status" : "open", "note":"" }
-]
+{
+  "name": "Italy Visit",
+  "baseTypes": ["task"],
+  "definition": [
+    { "text": "#", "value": "__rid__", "type": "system" },
+    { "text": "#", "value": "__index__", "type": "dynamic" },
+    { "text": "Name", "value": "__name__" , "type": "default" },
+    { "text": "Created Time", "value": "__createdtime__", "type": "system" },
+    { "text": "Updated Time", "value": "__updatedtime__",  "type": "system"  },
+    { "text": "Owner", "value": "t__owner" },
+    { "text": "StartDate", "value": "t__startDate" },
+    { "text": "EndDate", "value": "t__endDate" },
+    { "text": "Status", "value": "t__status" },
+    { "text": "Note", "value": "t__note" }
+  ],
+  "items": [
+    {
+      "__name__": "Take photo",
+      "t__owner": "Emily",
+      "t__startDate": "20190810",
+      "t__endDate": null,
+      "t__status": "open",
+      "t__note": ""
+    },
+    {
+      "__name__": "Take photo",
+      "t__owner": "Emily",
+      "t__startDate": "20190810",
+      "t__endDate": null,
+      "t__status": "open",
+      "t__note": ""
+    }
+  ]
+}

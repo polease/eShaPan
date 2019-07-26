@@ -2,11 +2,11 @@
   "name": "Italy Visit",
   "baseTypes": ["task"],
   "definition": [
-    { "text": "#", "value": "__rid__", "type": "system" },
-    { "text": "#", "value": "__index__", "type": "dynamic" },
-    { "text": "Name", "value": "__name__" , "type": "default" },
-    { "text": "Created Time", "value": "__createdtime__", "type": "system" },
-    { "text": "Updated Time", "value": "__updatedtime__",  "type": "system"  },
+    { "text": "#", "value": "__rid", "type": "system" },
+    { "text": "#", "value": "__index", "type": "dynamic" },
+    { "text": "Name", "value": "__name" , "type": "default" },
+    { "text": "Created Time", "value": "__createdtime", "type": "system" },
+    { "text": "Updated Time", "value": "__updatedtime",  "type": "system"  },
     { "text": "Owner", "value": "t__owner" },
     { "text": "StartDate", "value": "t__startDate" },
     { "text": "EndDate", "value": "t__endDate" },
@@ -15,20 +15,22 @@
   ],
   "items": [
     {
-      "__name__": "Take photo",
+      "__name": "Take photo",
       "t__owner": "Emily",
       "t__startDate": "20190810",
       "t__endDate": null,
       "t__status": "open",
-      "t__note": ""
+      "t__note": "",
+      "r__uri":"www.google.com"
     },
     {
-      "__name__": "Take photo",
+      "__name": "Aanade",
       "t__owner": "Emily",
       "t__startDate": "20190810",
       "t__endDate": null,
       "t__status": "open",
-      "t__note": ""
+      "t__note": "",
+      "r__uri":"www.avanade.com"
     }
   ]
 }

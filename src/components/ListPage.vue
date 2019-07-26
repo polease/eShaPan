@@ -26,6 +26,7 @@
     <v-tabs class="views">
       <v-tab>List</v-tab>
       <v-tab v-on:click="tableViewClicked()">Table</v-tab>
+      <v-tab>Resource</v-tab>
       <v-tab>Timeline</v-tab>
       <v-tab>Image</v-tab>
       <v-tab>Landscape</v-tab>
@@ -36,7 +37,7 @@
         <table-view ref="tableView"></table-view>
       </v-tab-item>
       <v-tab-item class="my-3">
-        <list-view></list-view>
+        <resource-view></resource-view>
       </v-tab-item>
     </v-tabs>
   </v-flex>
@@ -55,11 +56,13 @@
 <script>
 import ListView from "./ListView.vue";
 import TableView from "./TableView.vue";
+import ResourceView from "./ResourceView.vue";
 
 export default {
   components: {
     ListView,
-    TableView
+    TableView,
+    ResourceView
   },
   data() {
     return {

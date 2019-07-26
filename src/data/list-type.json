@@ -4,10 +4,10 @@
     "value": "eBrian base type",
     "prefix": "__",
     "definition": [
-      { "text": "#", "value": "__rid__", "hidden": true },
-      { "text": "Name", "value": "__name__" },
-      { "text": "Created Time", "value": "__createdtime__", "hidden": true },
-      { "text": "Updated Time", "value": "__updatedtime__", "hidden": true }
+      { "text": "#", "value": "__rid", "hidden": true },
+      { "text": "Name", "value": "__name" },
+      { "text": "Created Time", "value": "__createdtime", "hidden": true },
+      { "text": "Updated Time", "value": "__updatedtime", "hidden": true }
     ]
   },
   {
@@ -28,9 +28,9 @@
     "prefix": "r__",
     "definition": [
       { "text": "URI", "value": "r__uri" },
+      { "text": "Tags", "value": "r__tags" },
       { "text": "Thumb", "value": "r__thumb" },
-      { "text": "Added Date", "value": "r__addedDate" },
-      { "text": "Note", "value": "r__note" }
+      { "text": "Content", "value": "r__content" }
     ]
   }
 ]

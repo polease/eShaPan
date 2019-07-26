@@ -1,6 +1,10 @@
 <template>
   <v-flex class="list-page">
-    <v-data-table :headers="currentList.definition.filter(i =>i.type !='system')" :items="currentList.items" class="elevation-1">
+    <v-data-table :headers="currentList.definition.filter(i =>i.type !='system')" 
+        :items="currentList.items" class="elevation-1"
+        :footer-props="{
+            disablePagination:true
+    }"> 
       <template slot="items" slot-scope="props">
         <td class="text-xs-right" v-for="(p, index) in currentList.definition.filter(i =>i.type !='system')" :key="index">
           <span v-if="p.value === '__index__'">{{props.index}}</span>
@@ -12,7 +16,7 @@
             ref="'listItem_'+p.value"
           />
         </td>
-      </template>
+      </template> 
     </v-data-table>
   </v-flex>
 </template>
@@ -27,15 +31,16 @@
 </style>
 
 <script>
-import ListType from "../data/list-type.json";
+
 
 import { mapState } from "vuex";
 
-var jmespath = require("jmespath");
+//var jmespath = require("jmespath");
 
 export default {
   data() {
     return {
+       
  
     };
   },
@@ -45,7 +50,7 @@ export default {
     createListItem() {
       return { name: "", id: "1", level: 0 };
     },
-    tabListItem(event, listItem, index) {
+    tabListItem(event, listItem) {
       if (event.shiftKey && listItem.level > 0)
         listItem.level = listItem.level - 1;
       else if (!event.shiftKey) listItem.level = listItem.level + 1;

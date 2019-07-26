@@ -14,6 +14,7 @@
     "core-js": "^2.6.5",
     "jmespath": "^0.15.0",
     "vue": "^2.6.10",
+    "vue-clipboard2": "^0.3.0",
     "vue-router": "^3.0.7",
     "vuetify": "^1.5.5",
     "vuex": "^3.1.1"

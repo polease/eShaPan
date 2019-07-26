@@ -3,7 +3,7 @@
     <v-layout v-for="(listItem,index) in list.items" :key="index" class="list-item" row>
       <span class="list-item-prefix">{{index+1}}</span>
       <v-text-field
-        v-model="listItem.__name__"
+        v-model="listItem.__name"
         single-line
         
         v-on:keyup.enter="enterListItem($event,listItem, index)"
@@ -54,7 +54,7 @@ export default {
     createListItem() {
       return { name: "", id: "1", level: 0 };
     },
-    tabListItem(event, listItem, index) {
+    tabListItem(event, listItem) {
       if (event.shiftKey && listItem.level > 0)
         listItem.level = listItem.level - 1;
       else if (!event.shiftKey) listItem.level = listItem.level + 1;

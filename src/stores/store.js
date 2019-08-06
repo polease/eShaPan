@@ -1,36 +1,32 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import {
-  emulateGetListTypes,
-  emulateGetListDetails
-} from "../services/requests";
-
-// Также можно использовать async/await
-/*async function getData() {
-  try {
-    let data = await emulateGetRequest();
-    return data;
-  }
-  catch(err) {
-    console.log(err);
-  }
-}*/
+  getBook,
+  getBooks,
+  getList,
+  getListTypes
+} from "../services/list-service";
+ 
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     books: [],
-    currentBookListMeta: [],
+    currentBook: {},
     currentList: {},
     listTypes: [],
     loaded: false, // sets if JSON data loaded
     errorDeleting: false // error deleting
   },
-  getters:{
-     
-  },
+  getters: {},
   mutations: {
+    setBooks(state, payload) {
+      state.books = payload;
+    },
+    setCurrentBook(state, payload) {
+      state.currentBook = payload;
+    },
     setListTypes(state, payload) {
       state.listTypes = payload;
     },
@@ -48,31 +44,20 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getData({ commit }) {
+    async getBooks({ commit }) {
       // get data from JSON
-      emulateGetListTypes()
-        .then(success => {
-          commit("setListTypes", success);
-          commit("setLoaded", true);
-          commit("setError", false);
-        })
-        .catch(() => { 
-          commit("setError", true);
-          commit("setLoaded", true);
-        });
-    },
-    getCurrentListDetails({ id, commit }) {
-      emulateGetListDetails(id)
-        .then(success => {
-          commit("setCurrentList", success);
-          commit("setLoaded", true);
-          commit("setError", false);
-        })
-        .catch(() => {
-          commit("setError", true);
-          commit("setLoaded", true);
-        });
-    },
+      const types = await getListTypes();
+      commit("setListTypes", types);
 
+      const book = await getBook(1);
+      commit("setCurrentBook", book);
+
+      let books = await getBooks();
+      commit("setBooks", books);
+    },
+    async getList({ id, commit }) {
+      const list = await getList(id);
+      commit("setCurrentList", list);
+    }
   }
 });

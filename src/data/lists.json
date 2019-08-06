@@ -1,4 +1,5 @@
-{
+[{
+  "id":1,
   "name": "Italy Visit",
   "baseTypes": ["task"],
   "definition": [
@@ -33,4 +34,4 @@
       "r__uri":"www.avanade.com"
     }
   ]
-}
+}]

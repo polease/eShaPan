@@ -65,8 +65,7 @@ export default {
     ResourceView
   },
   data() {
-    return {
-      list: { name: "List A", id: "1", createdTime: "2019-07-07 13:45" },
+    return { 
       listTypes: [{ name: "Task", id: "1" }, { name: "Resource", id: "2" }]
     };
   },

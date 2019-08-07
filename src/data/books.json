@@ -1,12 +1,12 @@
 [
   {
-    "id": 1,
+    "id": "d5e0dfb3-603f-4364-8cf8-c872ab1e005b",
     "name": "personal",
     "lists": [
-      { "id": 1, "name": "Work task list A" },
-      { "id": 2, "name": "Work task list B" }
+      { "id": "ddeb27fb-d9a0-4624-be4d-4615062daed4", "name": "Work task list A" },
+      { "id": "9002c468-22b9-4f2a-afb6-4011e6f42721", "name": "Work task list B" }
     ]
   },
-  { "id": 2, "name": "work" },
-  { "id": 3, "name": "work2" }
+  { "id": "5eb16ebb-f476-4efe-9512-7ad41e71f80a", "name": "work" },
+  { "id": "6ebdc9fb-8985-4f1f-b7f6-37ca34fa6ade", "name": "work2" }
 ]

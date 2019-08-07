@@ -1,13 +1,15 @@
 [
   {
     "id": "__eBrainBase__",
+    "type" :"default",
     "name": "General",
     "prefix": "__",
     "definition": [
-      { "text": "#", "value": "__rid", "hidden": true },
-      { "text": "Name", "value": "__name" },
-      { "text": "Created Time", "value": "__createdtime", "hidden": true },
-      { "text": "Updated Time", "value": "__updatedtime", "hidden": true }
+      { "text": "#", "value": "__rid", "type": "system",  "defaultValue" : "uuid"  },
+      { "text": "#", "value": "__index", "type": "dynamic" },
+      { "text": "Name", "value": "__name" , "type": "default" },
+      { "text": "Created Time", "value": "__createdtime", "type": "system", "defaultValue" : "currentTime"  },
+      { "text": "Updated Time", "value": "__updatedtime",  "type": "system" , "defaultValue" : "currentTime"  }
     ]
   },
   {

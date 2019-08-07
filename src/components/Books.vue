@@ -22,13 +22,21 @@
         ></v-overflow-btn>
       </v-flex>
     </v-layout>
-    <v-list class="grow">
+    <v-list class="grow" v-model="currentList">
       <v-list-tile v-for="(list,i) in currentBook.lists" :key="i" @click="listClick(list)">
         <v-list-icon>
           <v-icon>list</v-icon>
         </v-list-icon>
         <v-list-tile-title v-text="list.name" class="list-title"></v-list-tile-title>
       </v-list-tile>
+    </v-list>
+    <v-list>
+       <v-list-tile @click="newList()">
+          <v-list-tile-action>
+            <v-icon color= "darken-1">add_circle_outline</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title class="text--darken-1">New List</v-list-tile-title>
+        </v-list-tile>
     </v-list>
   </v-flex>
 </template>
@@ -44,18 +52,21 @@
 }
 </style>
 <script>
-
-  import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
 export default {
-  computed: mapState(["books", "currentBook"]),
+  computed: mapState(["books", "currentBook", "currentList"]),
   mounted() {
-    this.$store.dispatch("getBooks", 1);
+    this.$store.dispatch("getBooks");
+    this.$router.push({ path: `/list/1` });
   },
   methods: {
     listClick(listMeta) {
       this.$store.dispatch("getList", listMeta.id);
       this.$router.push({ path: `/list/${listMeta.id}` });
+    },
+    newList(){
+      this.$store.dispatch("newList", 0);
     }
   }
 };

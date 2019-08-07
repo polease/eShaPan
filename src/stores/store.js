@@ -2,6 +2,8 @@ import Vue from "vue";
 import Vuex from "vuex";
 import shortid from "shortid";
 
+import {newList} from "../models/list"
+
 import * as ListService from "../services/list-service";
  
 
@@ -38,6 +40,10 @@ export default new Vuex.Store({
     },
     addListItem(state, payload, index) {
       state.currentList.items.splice(index, 0, payload);
+    },
+    newList(state, payload, index){
+      state.currentList = payload;
+      state.currentBook.lists.splice(index,0,payload);
     }
   },
   actions: {
@@ -46,11 +52,14 @@ export default new Vuex.Store({
       const types = await ListService.getListTypes();
       commit("setListTypes", types);
 
-      const book = await ListService.getBook(1);
-      commit("setCurrentBook", book);
-
       let books = await ListService.getBooks();
       commit("setBooks", books);
+
+      let book = await ListService.getBook(books[0]);
+      commit("setCurrentBook", book);
+
+      if(book.lists.length > 0)
+        await this.getList({commit}, book.lists[0].id);
     },
     async getList({ commit }, id) {
       const list = await ListService.getList(id);
@@ -62,6 +71,11 @@ export default new Vuex.Store({
     },
     async saveCurrentList(){
       await ListService.saveList(this.state.currentList);
+    },
+    async newList({commit}, index){
+      let baseTypes = this.state.listTypes.filter(i=>i.type === "default");
+      let newList = newList(baseTypes);
+      commit("newList", newList,index);
     }
   }
 });

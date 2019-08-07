@@ -25,7 +25,7 @@
 
           <v-list class="pt-0" dense>
             <v-divider></v-divider>
-            <v-list-tile v-for="item in items" :key="item.title" @click="menuClick(item.title)">
+            <v-list-tile   @click="menuClick(item.title)">
               <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-tile-action>
@@ -88,7 +88,7 @@ export default {
           alert("hello");
           break;
       }
-    }
+    } 
   }
 };
 </script>

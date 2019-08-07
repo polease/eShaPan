@@ -4,9 +4,9 @@ import ListTypes from "../data/list-types.json";
 import Dexie from "dexie";
 
 var db = new Dexie("HardBrainDB");
-db.version(1).stores({ books: "++id,name" });
-db.version(1).stores({ lists: "++id,name,baseTypes" });
-db.version(1).stores({ listTypes: "++id,name,value,prefix" });
+db.version(1).stores({ books: "id,name" });
+db.version(1).stores({ lists: "id,name" });
+db.version(1).stores({ listTypes: "id,name,value,prefix" });
 
 // ========= Sample data =====
 
@@ -37,7 +37,7 @@ async function getBook(id) {
     await initSampleBooks();
   }
 
-  let book = db.books.get(id);
+  let book = await db.books.get(id);
   return book;
 }
 
@@ -46,8 +46,17 @@ async function getList(id) {
     await initSampleLists();
   }
 
-  let list = db.lists.get(id);
+  let list = await db.lists.get(id);
   return list;
+}
+
+// should have some method to lists.update instead of put
+async function updateList(id, changes) { 
+  await db.lists.update(id,changes);
+}
+
+async function saveList(list) { 
+  await db.lists.put(list);
 }
 
 async function getListTypes() {
@@ -59,4 +68,8 @@ async function getListTypes() {
   return types;
 }
 
-export { getBook, getList, getListTypes, getBooks };
+
+
+
+
+export { getBook, getList, updateList,saveList, getListTypes, getBooks };

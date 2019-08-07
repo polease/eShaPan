@@ -1,6 +1,6 @@
 <template>
   <v-flex class="list-page">
-    <v-layout v-for="(listItem,index) in list.items" :key="index" class="list-item" row>
+    <v-layout v-for="(listItem,index) in currentList.items" :key="index" class="list-item" row>
       <span class="list-item-prefix">{{index+1}}</span>
       <v-text-field
         v-model="listItem.__name"
@@ -40,30 +40,31 @@
 </style>
 
 <script>
+
+import {mapState} from 'vuex'
+
 export default {
-  computed:{
-    list(){
-      return this.$store.state.currentList;
-    }
-  },
+  
+    computed: mapState([ "currentList"]),
   data() {
     return { 
     };
   },
-  methods: {
-    createListItem() {
-      return { name: "", id: "1", level: 0 };
-    },
+  methods: { 
     tabListItem(event, listItem) {
+      if(!listItem.level)
+        listItem.level =0;
+
       if (event.shiftKey && listItem.level > 0)
         listItem.level = listItem.level - 1;
       else if (!event.shiftKey) listItem.level = listItem.level + 1;
       event.preventDefault();
     },
-    enterListItem(event, listItem, index) {
-      var newItem = this.createListItem();
-      this.list.items.splice(index + 1, 0, newItem);
+    async enterListItem(event, listItem, index) {
+      
+      await this.$store.dispatch("createListItem",index);
       this.$refs.listItems[index + 1].focus();
+      await this.$store.dispatch("saveCurrentList");
     },
     keyUpListItem(event, listItem, index) {
       if(index > 0)

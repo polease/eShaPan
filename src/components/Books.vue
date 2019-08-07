@@ -23,7 +23,7 @@
       </v-flex>
     </v-layout>
     <v-list class="grow">
-      <v-list-tile v-for="(list,i) in currentBook.lists" :key="i" @click="listClick(list)" :to="list.link">
+      <v-list-tile v-for="(list,i) in currentBook.lists" :key="i" @click="listClick(list)">
         <v-list-icon>
           <v-icon>list</v-icon>
         </v-list-icon>
@@ -55,6 +55,7 @@ export default {
   methods: {
     listClick(listMeta) {
       this.$store.dispatch("getList", listMeta.id);
+      this.$router.push({ path: `/list/${listMeta.id}` });
     }
   }
 };

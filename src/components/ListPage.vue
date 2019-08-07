@@ -2,7 +2,7 @@
   <v-flex class="mx-2 my-2" fill-height align-start>
     <v-layout>
       <v-flex md4 lg4>
-        <v-text-field class="title ma-0 pa-0" v-model="list.name" single-line></v-text-field>
+        <v-text-field class="title ma-0 pa-0" v-model="currentList.name" single-line></v-text-field>
       </v-flex>
       <v-spacer></v-spacer>
       <v-flex md4 lg3>
@@ -22,7 +22,7 @@
         ></v-select>
       </v-flex>
     </v-layout>
-    <div class="list-meta mb-3">{{list.createdTime}}</div>
+    <div class="list-meta mb-3">{{currentList.createdTime}}</div>
     <v-tabs class="views">
       <v-tab>List</v-tab>
       <v-tab v-on:click="tableViewClicked()">Table</v-tab>
@@ -58,15 +58,17 @@ import ListView from "./ListView.vue";
 import TableView from "./TableView.vue";
 import ResourceView from "./ResourceView.vue";
 
+import {mapState} from 'vuex'
+
 export default {
   components: {
     ListView,
     TableView,
     ResourceView
   },
+    computed: mapState(["listTypes", "currentList"]),
   data() {
-    return { 
-      listTypes: [{ name: "Task", id: "1" }, { name: "Resource", id: "2" }]
+    return {  
     };
   },
   methods: {

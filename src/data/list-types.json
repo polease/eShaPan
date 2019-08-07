@@ -1,7 +1,7 @@
 [
   {
-    "name": "__eBrainBase__",
-    "value": "eBrian base type",
+    "id": "__eBrainBase__",
+    "name": "General",
     "prefix": "__",
     "definition": [
       { "text": "#", "value": "__rid", "hidden": true },
@@ -11,8 +11,8 @@
     ]
   },
   {
+    "id": "task",
     "name": "Task",
-    "value": "task",
     "prefix": "t__",
     "definition": [
       { "text": "Owner", "value": "t__owner" },
@@ -23,8 +23,8 @@
     ]
   },
   {
+    "id": "resource",
     "name": "Resource",
-    "value": "resource",
     "prefix": "r__",
     "definition": [
       { "text": "URI", "value": "r__uri" },

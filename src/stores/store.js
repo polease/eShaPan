@@ -1,11 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import {
-  getBook,
-  getBooks,
-  getList,
-  getListTypes
-} from "../services/list-service";
+import shortid from "shortid";
+
+import * as ListService from "../services/list-service";
  
 
 Vue.use(Vuex);
@@ -46,18 +43,25 @@ export default new Vuex.Store({
   actions: {
     async getBooks({ commit }) {
       // get data from JSON
-      const types = await getListTypes();
+      const types = await ListService.getListTypes();
       commit("setListTypes", types);
 
-      const book = await getBook(1);
+      const book = await ListService.getBook(1);
       commit("setCurrentBook", book);
 
-      let books = await getBooks();
+      let books = await ListService.getBooks();
       commit("setBooks", books);
     },
-    async getList({ id, commit }) {
-      const list = await getList(id);
+    async getList({ commit }, id) {
+      const list = await ListService.getList(id);
       commit("setCurrentList", list);
+    }, 
+    async createListItem({commit}, index){
+      let newItem = { name: "", id: shortid.generate(), level: 0 };
+      this.state.currentList.items.splice(index + 1, 0, newItem);
+    },
+    async saveCurrentList(){
+      await ListService.saveList(this.state.currentList);
     }
   }
 });

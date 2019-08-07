@@ -1,0 +1,15 @@
+[
+  {
+    "uuid": "663465bb-9055-4718-927e-0edbdb2d847d",
+    "username": "lin",
+    "state" : {
+      "selectedBookUuid": "d5e0dfb3-603f-4364-8cf8-c872ab1e005b",
+      "selectedListUuid" : ""
+    },
+    "books": [
+      { "uuid": "d5e0dfb3-603f-4364-8cf8-c872ab1e005b", "name": "personal" },
+      { "uuid": "5eb16ebb-f476-4efe-9512-7ad41e71f80a", "name": "work" },
+      { "uuid": "6ebdc9fb-8985-4f1f-b7f6-37ca34fa6ade", "name": "work2" }
+    ]
+  }
+]

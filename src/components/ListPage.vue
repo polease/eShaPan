@@ -2,7 +2,7 @@
   <v-flex class="mx-2 my-2" fill-height align-start>
     <v-layout>
       <v-flex md4 lg4>
-        <v-text-field class="title ma-0 pa-0" v-model="currentList.name" single-line></v-text-field>
+        <v-text-field class="title ma-0 pa-0" v-model="currentList.name" @input="listNameUpdated()" single-line></v-text-field>
       </v-flex>
       <v-spacer></v-spacer>
       <v-flex md4 lg3>
@@ -11,7 +11,7 @@
           v-model="value"
           :items="listTypes"
           item-text="name"
-          item-value="id"
+          item-value="uuid"
           prepend-icon="category"
           attach
           chips
@@ -72,9 +72,9 @@ export default {
     };
   },
   methods: {
-    listClick(listMeta) {
-      alert(listMeta);
-    },
+listNameUpdated(){
+  this.$store.dispatch("updateCurrentListName", this.$store.state.currentList.name );
+},
     tableViewClicked(){
       this.$refs.tableView.setData();
     }

@@ -25,7 +25,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueRouter)
 Vue.config.productionTip = false
 const routes = [
-  { path: '/list/:id', component: ListPage },
+  { path: '/list/:uuid', component: ListPage },
   { path: '/login', component: LoginPage }
 ];
 const router = new VueRouter({

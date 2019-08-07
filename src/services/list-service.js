@@ -1,12 +1,15 @@
+import Users from "../data/users.json";
 import Books from "../data/books.json";
 import Lists from "../data/lists.json";
 import ListTypes from "../data/list-types.json";
+
 import Dexie from "dexie";
 
 var db = new Dexie("HardBrainDB");
-db.version(1).stores({ books: "id,name" });
-db.version(1).stores({ lists: "id,name" });
-db.version(1).stores({ listTypes: "id,name,value,prefix" });
+db.version(1).stores({ users: "uuid,name" });
+db.version(1).stores({ books: "uuid,name" });
+db.version(1).stores({ lists: "uuid,name" });
+db.version(1).stores({ listTypes: "key,name,prefix" });
 
 // ========= Sample data =====
 
@@ -22,45 +25,57 @@ async function initSampleListTypes() {
   await db.listTypes.bulkAdd(ListTypes);
 }
 
-// ==============
-async function getBooks() {
-  if (await db.books.count() == 0) {
-    await initSampleBooks();
-  }
-
-  let books = await db.books.toArray();
-  return books;
+async function initSampleUsers() {
+  await db.users.bulkAdd(Users);
 }
 
-async function getBook(id) {
-  if (await db.books.count() == 0) {
+async function initSampleData() {
+  if ((await db.users.count()) == 0) {
+    await initSampleUsers();
+  }
+  if ((await db.books.count()) == 0) {
     await initSampleBooks();
   }
+  if ((await db.books.count()) == 0) {
+    await initSampleBooks();
+  }
+  if ((await db.lists.count()) == 0) {
+    await initSampleLists();
+  }
+}
 
-  let book = await db.books.get(id);
+
+// ==============
+async function getUser() {
+  let users = await db.users.toArray();
+  return users[0];
+} 
+
+async function getBook(uuid) {
+  let book = await db.books.get(uuid);
   return book;
 }
 
-async function getList(id) {
-  if (await db.lists.count() == 0) {
-    await initSampleLists();
-  }
+async function saveBook(book) {
+  await db.books.put(book);
+}
 
-  let list = await db.lists.get(id);
+async function getList(uuid) {
+  let list = await db.lists.get(uuid);
   return list;
 }
 
 // should have some method to lists.update instead of put
-async function updateList(id, changes) { 
-  await db.lists.update(id,changes);
+async function updateList(uuid, changes) {
+  await db.lists.update(uuid, changes);
 }
 
-async function saveList(list) { 
+async function saveList(list) {
   await db.lists.put(list);
 }
 
 async function getListTypes() {
-  if (await db.listTypes.count() == 0) {
+  if ((await db.listTypes.count()) == 0) {
     await initSampleListTypes();
   }
 
@@ -68,8 +83,4 @@ async function getListTypes() {
   return types;
 }
 
-
-
-
-
-export { getBook, getList, updateList,saveList, getListTypes, getBooks };
+export { initSampleData, getUser, getBook, saveBook, getList, updateList, saveList, getListTypes };

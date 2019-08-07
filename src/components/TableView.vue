@@ -46,10 +46,7 @@ export default {
   },
   computed: mapState(["currentList"]),
   mounted() {},
-  methods: {
-    createListItem() {
-      return { name: "", id: "1", level: 0 };
-    },
+  methods: { 
     tabListItem(event, listItem) {
       if (event.shiftKey && listItem.level > 0)
         listItem.level = listItem.level - 1;

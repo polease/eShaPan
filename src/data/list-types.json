@@ -1,9 +1,9 @@
 [
   {
-    "id": "__eBrainBase__",
-    "type" :"default",
+    "key": "__eBrainBase__",
     "name": "General",
     "prefix": "__",
+    "type" :"default",
     "definition": [
       { "text": "#", "value": "__rid", "type": "system",  "defaultValue" : "uuid"  },
       { "text": "#", "value": "__index", "type": "dynamic" },
@@ -13,7 +13,7 @@
     ]
   },
   {
-    "id": "task",
+    "key": "task",
     "name": "Task",
     "prefix": "t__",
     "definition": [
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "id": "resource",
+    "key": "resource",
     "name": "Resource",
     "prefix": "r__",
     "definition": [

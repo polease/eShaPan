@@ -2,16 +2,15 @@ import Vue from "vue";
 import Vuex from "vuex";
 import shortid from "shortid";
 
-import {newList} from "../models/list"
-
+import * as List from "../models/list";
 import * as ListService from "../services/list-service";
- 
+import { cpus } from "os";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    books: [],
+    currentUser: {},
     currentBook: {},
     currentList: {},
     listTypes: [],
@@ -20,11 +19,17 @@ export default new Vuex.Store({
   },
   getters: {},
   mutations: {
+    setCurrentUser(state, payload) {
+      state.currentUser = payload;
+    },
     setBooks(state, payload) {
       state.books = payload;
     },
     setCurrentBook(state, payload) {
       state.currentBook = payload;
+    },
+    setCurrentBookListMetas(state, listMetas){
+      state.currentBook.lists = listMetas;
     },
     setListTypes(state, payload) {
       state.listTypes = payload;
@@ -41,41 +46,66 @@ export default new Vuex.Store({
     addListItem(state, payload, index) {
       state.currentList.items.splice(index, 0, payload);
     },
-    newList(state, payload, index){
+    createList(state, payload, index) {
       state.currentList = payload;
-      state.currentBook.lists.splice(index,0,payload);
     }
   },
   actions: {
-    async getBooks({ commit }) {
+    async getUserData({ commit }) {
+      // this is for testing only
+      await ListService.initSampleData();
+
       // get data from JSON
       const types = await ListService.getListTypes();
       commit("setListTypes", types);
 
-      let books = await ListService.getBooks();
-      commit("setBooks", books);
+      let user = await ListService.getUser();
+      commit("setCurrentUser", user);
 
-      let book = await ListService.getBook(books[0]);
-      commit("setCurrentBook", book);
+      if (user.books && user.books.length > 0) {
+        let book = await ListService.getBook(user.books[0].uuid);
+        commit("setCurrentBook", book);
 
-      if(book.lists.length > 0)
-        await this.getList({commit}, book.lists[0].id);
+        if (book.lists && book.lists.length > 0)
+          await this.getList({ commit }, book.lists[0].uuid);
+      }
     },
-    async getList({ commit }, id) {
-      const list = await ListService.getList(id);
+    async selectBook ({commit}, uuid){
+      let book = await ListService.getBook(uuid);
+      commit("setCurrentBook", book);
+    },
+    async getList({ commit }, uuid) {
+      const list = await ListService.getList(uuid);
       commit("setCurrentList", list);
-    }, 
-    async createListItem({commit}, index){
-      let newItem = { name: "", id: shortid.generate(), level: 0 };
+    },
+    async createListItem({ commit }, index) {
+      let newItem = { name: "", uuid: shortid.generate(), level: 0 };
       this.state.currentList.items.splice(index + 1, 0, newItem);
     },
-    async saveCurrentList(){
+    async saveCurrentList() {
       await ListService.saveList(this.state.currentList);
     },
-    async newList({commit}, index){
-      let baseTypes = this.state.listTypes.filter(i=>i.type === "default");
-      let newList = newList(baseTypes);
-      commit("newList", newList,index);
+    async createList({ commit }, index) {
+      let baseTypes = this.state.listTypes.filter(i => i.type === "default");
+      let newList = List.newList(baseTypes);
+      commit("createList", newList, index);
+
+      // save list
+      await ListService.saveList(newList);
+
+      // save list meta to currentBook
+      let listMetas = [...this.state.currentBook.lists]; 
+      listMetas.splice(index, 0, List.getListMeta(newList));
+      commit("setCurrentBookListMetas", listMetas);
+      await ListService.saveBook(this.state.currentBook);
+
+    },
+    async updateCurrentListName({ commit }, newName) {
+      this.state.currentList.name = newName;
+      let listMetas = this.state.currentBook.lists.filter(
+        l => l.uuid == this.state.currentList.uuid
+      );
+      if (listMetas.length > 0) listMetas[0].name = newName;
     }
   }
 });

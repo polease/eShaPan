@@ -1,0 +1,39 @@
+
+
+
+  chainWebpack: config => {
+    ["vue-modules", "vue", "normal-modules", "normal"].forEach((match) => {
+      config.module.rule('scss').oneOf(match).use('sass-loader')
+        .tap(opt => Object.assign(opt, { data: `@import '~@/styles/_variables.scss';` }))
+    })
+  }
+  
+  0: {name: "", __name: "Day 1:  "}
+1: {name: "", uuid: "G6xj1Z3qn", level: 1, __name: "Home to Tulare  , Drive 5 hours"}
+2: {name: "", uuid: "ETKR4diNt", level: 2, __name: "7:30,  Home, Drive 2 hours with 0.5 hour break"}
+3: {name: "", uuid: "w4tL7cMlz", level: 2, __name: "10:00,  California Science Center (700 Exposition Park Dr., Los Angeles CA), Stay 2.5 hours "}
+4: {name: "", uuid: "r1NfW_h24", level: 2, __name: "12:30, Lunch, 0.5 hour  "}
+5: {name: "", uuid: "uO2S7Spq2", level: 2, __name: "13:00, Drive 2 hours"}
+6: {name: "", uuid: "VwGhxTssI", level: 2, __name: "15:00, Bakersfield, Yokuts Park (4200 Empire Dr, Bakersfield, CA 93309), stay 1 hours"}
+7: {name: "", uuid: "v22_91afp", level: 2, __name: "17:00, Drive 1 hour"}
+8: {name: "", uuid: "fL3GbAvls", level: 2, __name: "18:00, Tulare, Fairfield Inn & Suites Visalia Tulare (1225 Hillman Street, Tulare, CA 93274)"}
+9: {name: "", uuid: "HCwsUY3Wi", level: 0, __name: "Day 2:"}
+10: {name: "", uuid: "ecXMrQXuz", level: 1, __name: " Tulare to Sequoia National Park, Drive 3 hours"}
+11: {name: "", uuid: "Vp0mtvBmA", level: 1, __name: "7:30, Hotel, Drive 1 hour"}
+12: {name: "", uuid: "3DkdUByRa", level: 1, __name: "8:30, Foothills Visitor Center (47050 Generals Hwy, Three Rivers, CA 93271), stay 0.5 hour"}
+13: {name: "", uuid: "CpbftMJGq", level: 1, __name: "9:00 Drive 1 hour"}
+14: {name: "", uuid: "nTGTAZuI1", level: 1, __name: "10:00 Giant F7:orest Museum (47050 Generals Hwy, Three Rivers, CA 93271), stay 1 hour"}
+15: {name: "", uuid: "4ovF5iQrx", level: 1, __name: "11:00 Moro Rock/Crescent Meadow Road, Tunnel Log, Picnic Area Lunch, drive 0.5 hour, stay 4 hours"}
+16: {name: "", uuid: "Y2C7gbHmK", level: 1, __name: "15:00 General Sherman, stay 1 hour"}
+17: {name: "", uuid: "_6LPqFRQV", level: 1, __name: "16:00 Lodgepole Visitor Center, stay 1 hour"}
+18: {name: "", uuid: "JAT8wMLo-", level: 1, __name: "17:00 Drive 1 hour"}
+19: {name: "", uuid: "2zHOFrU4-", level: 1, __name: "18:00 Tulare, Fairfield Inn & Suites Visalia Tulare (1225 Hillman Street, Tulare, CA 93274)"}
+20: {name: "", uuid: "UjGu474sP", level: 0, __name: "Day 3: Back Home, Drive "}
+21: {name: "", uuid: "1w9MLTFJE", level: 0}
+22: {name: "", uuid: "0igWcdaxa", level: 1, __name: "9:00 Tulare, Fairfield Inn & Suites Visalia Tulare (1225 Hillman Street, Tulare, CA 93274), Drive"}
+23: {name: "", uuid: "0e204PNoRD", level: 0}
+24: {name: "", uuid: "3KyrJNeIw", level: 0}
+25: {name: "", uuid: "c0AhPIOqU", level: 0}
+length: 26
+name: "20190803 Sequoia National Park Trip"
+uuid: "22d729d2-6cf4-4dab-b0fb-46c893c7508b"

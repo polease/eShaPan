@@ -30,6 +30,7 @@
       <v-tab>Timeline</v-tab>
       <v-tab>Image</v-tab>
       <v-tab>Landscape</v-tab>
+      <v-tab>Map</v-tab>
       <v-tab-item class="my-3">
         <list-view></list-view>
       </v-tab-item>

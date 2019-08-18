@@ -2,7 +2,12 @@
   <v-flex class="mx-2 my-2" fill-height align-start>
     <v-layout>
       <v-flex md4 lg4>
-        <v-text-field class="title ma-0 pa-0" v-model="currentList.name" @input="listNameUpdated()" single-line></v-text-field>
+        <v-text-field
+          class="title ma-0 pa-0"
+          v-model="currentList.name"
+          @input="listNameUpdated()"
+          single-line
+        ></v-text-field>
       </v-flex>
       <v-spacer></v-spacer>
       <v-flex md4 lg3>
@@ -16,7 +21,7 @@
           attach
           chips
           hint="List Type"
-          persistent-hint="true"
+          persistent-hint
           multiple
           rounded
         ></v-select>
@@ -31,7 +36,7 @@
       <v-tab>Image</v-tab>
       <v-tab>Landscape</v-tab>
       <v-tab>Map</v-tab>
-      <v-tab-item class="my-3">
+      <v-tab-item class="mx-3 my-3">
         <list-view></list-view>
       </v-tab-item>
       <v-tab-item class="my-3">
@@ -59,7 +64,7 @@ import ListView from "./ListView.vue";
 import TableView from "./TableView.vue";
 import ResourceView from "./ResourceView.vue";
 
-import {mapState} from 'vuex'
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -67,16 +72,18 @@ export default {
     TableView,
     ResourceView
   },
-    computed: mapState(["listTypes", "currentList"]),
+  computed: mapState(["listTypes", "currentList"]),
   data() {
-    return {  
-    };
+    return {};
   },
   methods: {
-listNameUpdated(){
-  this.$store.dispatch("updateCurrentListName", this.$store.state.currentList.name );
-},
-    tableViewClicked(){
+    listNameUpdated() {
+      this.$store.dispatch(
+        "updateCurrentListName",
+        this.$store.state.currentList.name
+      );
+    },
+    tableViewClicked() {
       this.$refs.tableView.setData();
     }
   }

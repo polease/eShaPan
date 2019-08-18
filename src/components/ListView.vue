@@ -5,7 +5,6 @@
       <v-text-field
         v-model="listItem.__name"
         single-line
-        
         v-on:keyup.enter="enterListItem($event,listItem, index)"
         v-on:keydown.tab="tabListItem($event,listItem,index)"
         v-on:keydown.up="keyUpListItem($event,listItem,index)"
@@ -24,11 +23,15 @@
   .list-item {
     height: 32px;
 
-    .list-item-prefix{
+    .list-item-prefix {
       color: gray;
-      padding-top:10px;
-      width:14px;
-      font-size:10px;
+      padding-top: 10px;
+      width: 14px;
+      font-size: 10px;
+    }
+
+    .v-text-field input {
+      font-size: 0.8em;
     }
 
     .tree-level {
@@ -40,19 +43,16 @@
 </style>
 
 <script>
-
-import {mapState} from 'vuex'
+import { mapState } from "vuex";
 
 export default {
-    computed: mapState([ "currentList"]),
+  computed: mapState(["currentList"]),
   data() {
-    return { 
-    };
+    return {};
   },
-  methods: { 
+  methods: {
     tabListItem(event, listItem) {
-      if(!listItem.level)
-        listItem.level =0;
+      if (!listItem.level) listItem.level = 0;
 
       if (event.shiftKey && listItem.level > 0)
         listItem.level = listItem.level - 1;
@@ -60,17 +60,15 @@ export default {
       event.preventDefault();
     },
     async enterListItem(event, listItem, index) {
-      
-      await this.$store.dispatch("createListItem",index);
+      await this.$store.dispatch("createListItem", index);
       this.$refs.listItems[index + 1].focus();
       await this.$store.dispatch("saveCurrentList");
     },
     keyUpListItem(event, listItem, index) {
-      if(index > 0)
-        this.$refs.listItems[index - 1].focus();
+      if (index > 0) this.$refs.listItems[index - 1].focus();
     },
     keyDownListItem(event, listItem, index) {
-      if(index < this.$refs.listItems.length-1)
+      if (index < this.$refs.listItems.length - 1)
         this.$refs.listItems[index + 1].focus();
     },
     generateMargin(listItem) {

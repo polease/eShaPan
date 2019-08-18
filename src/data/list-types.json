@@ -5,8 +5,8 @@
     "prefix": "__",
     "type" :"default",
     "definition": [
-      { "text": "#", "value": "__rid", "type": "system",  "defaultValue" : "uuid"  },
-      { "text": "#", "value": "__index", "type": "dynamic" },
+      { "text": "RowID", "value": "__rid", "type": "system",  "defaultValue" : "uuid"  },
+      { "text": "#", "value": "__index", "type": "index" },
       { "text": "Name", "value": "__name" , "type": "default" },
       { "text": "Created Time", "value": "__createdtime", "type": "system", "defaultValue" : "currentTime"  },
       { "text": "Updated Time", "value": "__updatedtime",  "type": "system" , "defaultValue" : "currentTime"  }

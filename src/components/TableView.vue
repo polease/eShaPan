@@ -1,47 +1,10 @@
 <template>
-  <div>
-    <v-row justify="space-around">
-      <v-switch v-model="dense" class="mx-2" label="Dense"></v-switch>
-      <v-switch v-model="loading" class="mx-2" label="Loading"></v-switch>
-      <v-switch v-model="disableSort" class="mx-2" label="Disable sort"></v-switch>
-      <v-switch v-model="disablePagination" class="mx-2" label="Disable pagination"></v-switch>
-      <v-switch v-model="disableFiltering" class="mx-2" label="Disable filtering"></v-switch>
-      <v-switch v-model="hideDefaultHeader" class="mx-2" label="Hide default header"></v-switch>
-      <v-switch v-model="hideDefaultFooter" class="mx-2" label="Hide default footer"></v-switch>
-      <v-switch v-model="multiSort" class="mx-2" label="Multi sort"></v-switch>
-      <v-switch v-model="mustSort" class="mx-2" label="Must sort"></v-switch>
-      <v-switch v-model="showExpand" class="mx-2" label="Show expand"></v-switch>
-      <v-switch v-model="showGroupBy" class="mx-2" label="Show group by"></v-switch>
-      <v-switch v-model="showSelect" class="mx-2" label="Show select"></v-switch>
-      <v-btn-toggle
-        v-model="sortBy"
-        :multiple="multiSort"
-        :mandatory="mustSort"
-        :disable="disableSort"
-      >
-        <v-btn
-          v-for="header in headers"
-          :key="header.value"
-          text
-          :value="header.value"
-        >Sort by {{ header.text }}</v-btn>
-      </v-btn-toggle>
-      <v-btn-toggle v-model="groupBy">
-        <v-btn
-          v-for="header in headers"
-          :key="header.value"
-          text
-          :value="header.value"
-        >Group by {{ header.text }}</v-btn>
-      </v-btn-toggle>
-    </v-row>
-
+  <v-flex class="table-view">
     <v-data-table
-      :headers="headers"
-      :height="height"
-      :items="desserts"
-      :dense="dense"
-      :loading="loading"
+      :headers="currentList.definition.filter(i =>i.type !='system')"
+      :items="currentList.items"
+      dense
+      class="elevation-1"
       :disable-sort="disableSort"
       :disable-pagination="disablePagination"
       :disable-filtering="disableFiltering"
@@ -52,123 +15,107 @@
       :show-expand="showExpand"
       :show-group-by="showGroupBy"
       :show-select="showSelect"
-      :sort-by="sortBy"
-      item-key="name"
-      class="elevation-1"
-    ></v-data-table>
-  </div>
+    >
+      <template v-slot:item="{item}">
+        <tr>
+          <td
+            class="text-xs-right"
+            v-for="(p, propIndex) in currentList.definition.filter(i =>i.type !='system')"
+            :key="propIndex"
+          >
+            <span
+              v-if="p.type === 'index'"
+              class="list-item-prefix"
+            >{{currentList.items.indexOf(item)}}</span>
+            <v-text-field
+              v-if="p.type != 'index'"
+              v-model="item[p.value]"
+              single-line
+              class="body-1 pa-0"
+              ref="'listItem_'+p.value"
+              flat
+              hide-no-data
+              hide-details
+            />
+          </td>
+        </tr>
+      </template>
+      <template v-slot:no-data>
+        <v-btn color="primary" @click="initialize">Add list item</v-btn>
+      </template>
+    </v-data-table>
+  </v-flex>
 </template>
 
-<script>
-  export default {
-    data () {
-      return {
-        dense: false,
-        height: 300,
-        loading: false,
-        disableSort: false,
-        disablePagination: false,
-        disableFiltering: false,
-        hideDefaultHeader: false,
-        hideDefaultFooter: false,
-        multiSort: false,
-        mustSort: false,
-        showExpand: false,
-        showGroupBy: false,
-        showSelect: false,
-        sortBy: [],
-        groupBy: [],
-        headers: [
-          {
-            text: 'Dessert (100g serving)',
-            align: 'left',
-            value: 'name',
-          },
-          { text: 'Category', value: 'category' },
-        ],
-        desserts: [
-          {
-            name: 'Frozen Yogurt',
-            category: 'Ice cream',
-          },
-          {
-            name: 'Ice cream sandwich',
-            category: 'Ice cream',
-          },
-          {
-            name: 'Eclair',
-            category: 'Cookie',
-          },
-          {
-            name: 'Cupcake',
-            category: 'Pastry',
-          },
-          {
-            name: 'Gingerbread',
-            category: 'Cookie',
-          },
-          {
-            name: 'Jelly bean',
-            category: 'Candy',
-          },
-          {
-            name: 'Lollipop',
-            category: 'Candy',
-          },
-          {
-            name: 'Honeycomb',
-            category: 'Toffee',
-          },
-          {
-            name: 'Donut',
-            category: 'Pastry',
-          },
-          {
-            name: 'KitKat',
-            category: 'Candy',
-          },
-          {
-            name: 'Butterfinger',
-            category: 'Candy',
-          },
-          {
-            name: 'Scone',
-            category: 'Pastry',
-          },
-          {
-            name: 'Crunch bar',
-            category: 'Candy',
-          },
-          {
-            name: 'Fudge sundae',
-            category: 'Ice cream',
-          },
-          {
-            name: 'Twizzlers',
-            category: 'Candy',
-          },
-          {
-            name: 'Root beer float',
-            category: 'Ice cream',
-          },
-          {
-            name: 'Strawberry shortcake',
-            category: 'Pastry',
-          },
-          {
-            name: 'Croissant',
-            category: 'Pastry',
-          },
-          {
-            name: 'Cannoli dip',
-            category: 'Ice cream',
-          },
-          {
-            name: 'Sorbet',
-            category: 'Ice cream',
-          },
-        ],
-      }
-    },
+<style lang="scss">
+.table-view {
+  .list-item-prefix {
+    color: gray;
+    padding-top: 10px;
+    width: 14px;
+    font-size: 10px;
   }
+
+  .v-text-field input {
+    font-size: 0.8em;
+  }
+}
+</style>
+
+<script>
+import { mapState } from "vuex";
+
+//var jmespath = require("jmespath");
+
+export default {
+  data() {
+    return {
+      dense: false,
+      height: 300,
+      loading: false,
+      disableSort: false,
+      disablePagination: true,
+      disableFiltering: false,
+      hideDefaultHeader: false,
+      hideDefaultFooter: true,
+      multiSort: true,
+      mustSort: false,
+      showExpand: false,
+      showGroupBy: false,
+      showSelect: false,
+      sortBy: [],
+      groupBy: []
+    };
+  },
+  computed: mapState(["currentList"]),
+  mounted() {},
+  methods: {
+    tabListItem(event, listItem) {
+      if (event.shiftKey && listItem.level > 0)
+        listItem.level = listItem.level - 1;
+      else if (!event.shiftKey) listItem.level = listItem.level + 1;
+      event.preventDefault();
+    },
+    enterListItem(event, listItem, index) {
+      var newItem = this.createListItem();
+      this.list.splice(index + 1, 0, newItem);
+      this.$refs.listItems[index + 1].focus();
+    },
+    keyUpListItem(event, listItem, index) {
+      if (index > 0) this.$refs.listItems[index - 1].focus();
+    },
+    keyDownListItem(event, listItem, index) {
+      if (index < this.$refs.listItems.length - 1)
+        this.$refs.listItems[index + 1].focus();
+    },
+    generateMargin(listItem) {
+      return "0 0 0 " + listItem.level * 20 + "px";
+    },
+    setData() {
+      if (this.$store.state.currentList != null)
+        this.listItems = this.$store.state.currentList.items;
+    }
+  }
+};
 </script>
+

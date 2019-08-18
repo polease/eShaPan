@@ -3,8 +3,8 @@
   "name": "Italy Visit",
   "baseTypes": ["task"],
   "definition": [
-    { "text": "#", "value": "__rid", "type": "system" },
-    { "text": "#", "value": "__index", "type": "dynamic" },
+    { "text": "RowID", "value": "__rid", "type": "system" },
+    { "text": "#", "value": "__index", "type": "index" },
     { "text": "Name", "value": "__name" , "type": "default" },
     { "text": "Created Time", "value": "__createdtime", "type": "system" },
     { "text": "Updated Time", "value": "__updatedtime",  "type": "system"  },

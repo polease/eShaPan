@@ -67,7 +67,7 @@ export default new Vuex.Store({
         commit("setCurrentBook", book);
 
         if (book.lists && book.lists.length > 0)
-          await this.getList({ commit }, book.lists[0].uuid);
+          this.dispatch("getList", book.lists[0].uuid);
       }
     },
     async selectBook ({commit}, uuid){
@@ -79,7 +79,7 @@ export default new Vuex.Store({
       commit("setCurrentList", list);
     },
     async createListItem({ commit }, index) {
-      let newItem = { name: "", uuid: shortid.generate(), level: 0 };
+      let newItem = List.newListItem(this.state.currentList);
       this.state.currentList.items.splice(index + 1, 0, newItem);
     },
     async saveCurrentList() {

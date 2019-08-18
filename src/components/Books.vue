@@ -5,28 +5,30 @@
         <v-subheader class="grey--text text--darken-1" align-left>BOOKS</v-subheader>
       </v-col>
       <v-col md="9" right-align>
-         <v-select
-           v-model="currentSelectedBookUuid"
-          :items="currentUser.books" 
+        <v-select
+          v-model="currentSelectedBookUuid"
+          :items="currentUser.books"
           class="book-selection"
           @change="bookSelected()"
           item-text="name"
           item-value="uuid"
           prepend-icon="mdi-notebook"
           editable
-            attach
-            chips 
-            dense
-            flat
-            solo
-          ></v-select> 
+          attach
+          chips
+          dense
+          flat
+          solo
+          hide-no-data
+          hide-details
+        ></v-select>
       </v-col>
     </v-row>
     <v-list class="grow" v-model="currentSelectedListUuid">
       <v-list-item v-for="list in currentBook.lists" :key="list.uuid" @click="listClick(list)">
-        <v-list-icon>
+        <v-list-item-icon>
           <v-icon>mdi-format-list-bulleted</v-icon>
-        </v-list-icon>
+        </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title v-text="list.name" class="list-title"></v-list-item-title>
         </v-list-item-content>

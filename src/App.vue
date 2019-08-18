@@ -26,12 +26,11 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar class="sys-toolbar" dense fixed clipped-left app>
-       <v-app-bar-nav-icon @click.stop="drawer = !drawer">
-         <font-awesome-icon icon="brain"></font-awesome-icon>
-       </v-app-bar-nav-icon>
-    
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer">
+        <font-awesome-icon icon="brain"></font-awesome-icon>
+      </v-app-bar-nav-icon>
 
-       <v-toolbar-title class="mr-12 align-center">
+      <v-toolbar-title class="mr-12 align-center">
         <span class="title app-title">沙盘</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -44,7 +43,6 @@
           placeholder="Search your lists..."
           single-line
           append-icon="mdi-search"
- 
           hide-details
           filled
           rounded
@@ -59,23 +57,27 @@
   </v-app>
 </template>
 <style lang="scss">
-@import "./styles/_variables.scss";
-
+html,
 body {
-  
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow-y: auto;
 }
+
 .sys-toolbar {
   background-color: #c0c0c0 !important;
 
   .app-title {
     font-family: Didot, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-size:16px;
+    font-size: 16px;
     color: black;
     font-weight: bold;
   }
 
   .search {
-    font-size: 12px !important; 
+    font-size: 12px !important;
   }
 }
 </style>

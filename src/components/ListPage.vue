@@ -12,7 +12,7 @@
           :items="listTypes"
           item-text="name"
           item-value="uuid"
-          prepend-icon="category"
+          prepend-icon="mdi-shape"
           attach
           chips
           hint="List Type"

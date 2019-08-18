@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire" dark>
     <v-navigation-drawer v-model="drawer" fixed clipped app>
       <v-list dense>
         <books></books>
@@ -10,72 +10,64 @@
           <v-list-item-icon>
             <v-icon color="grey darken-1">mdi-settings-outline</v-icon>
           </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title class="grey--text text--darken-1">Browse Channels</v-list-item-title>
-          </v-list-item-content>
+          <v-list-item-title class="grey--text text--darken-1">Browse Channels</v-list-item-title>
         </v-list-item>
         <v-list-item>
           <v-list-item-icon>
             <v-icon color="grey darken-1">mdi-settings-outline</v-icon>
           </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title class="grey--text text--darken-1">Manage Subscriptions</v-list-item-title>
-          </v-list-item-content>
+          <v-list-item-title class="grey--text text--darken-1">Manage Subscriptions</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar class="sys-toolbar" dense fixed clipped-left app>
-       <v-app-bar-nav-icon @click.stop="drawer = !drawer">
-         <font-awesome-icon icon="brain"></font-awesome-icon>
-       </v-app-bar-nav-icon>
-    
-
-       <v-toolbar-title class="mr-12 align-center">
-        <span class="title app-title">沙盘</span>
+    <v-toolbar class="sys-toolbar" dense fixed clipped-left app>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer">
+        <font-awesome-icon icon="brain"></font-awesome-icon>
+      </v-toolbar-side-icon>
+      <v-toolbar-title>
+        <span class="title app-title">eBrain</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-
-      <v-row row align-center style="max-width: 650px">
+      <v-layout row align-center style="max-width: 650px">
         <v-text-field
           :append-icon-cb="() => {}"
           class="search"
-          color="#FFFFFF"
           placeholder="Search your lists..."
           single-line
-          append-icon="mdi-search"
- 
+          append-icon="search"
+          color="white"
           hide-details
           filled
           rounded
         ></v-text-field>
-      </v-row>
-    </v-app-bar>
+      </v-layout>
+    </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
-        <router-view></router-view>
+        <router-view></router-view> 
       </v-container>
     </v-content>
   </v-app>
 </template>
 <style lang="scss">
-@import "./styles/_variables.scss";
 
-body {
-  
+
+  @import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+  @import "../node_modules/ag-grid-community/dist/styles/ag-theme-material.css";
+
+
+body{
+  background-color: #303030;
 }
 .sys-toolbar {
-  background-color: #c0c0c0 !important;
+  background-color: $primary !important;
 
-  .app-title {
-    font-family: Didot, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-size:16px;
-    color: black;
-    font-weight: bold;
-  }
+.app-title{
+  font-family: Didot,'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-  .search {
-    font-size: 12px !important; 
+  .search{
+    font-size: 12px !important;
   }
 }
 </style>
@@ -84,7 +76,6 @@ body {
 import Books from "./components/Books.vue";
 
 export default {
-  name: "App",
   components: {
     Books
   },

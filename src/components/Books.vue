@@ -1,43 +1,46 @@
 <template>
   <v-flex class="books-container">
-    <v-layout row wrap>
-      <v-flex xs3>
+    <v-row class="ma-0 pa-0" no-gutters>
+      <v-col md="3">
         <v-subheader class="grey--text text--darken-1" align-left>BOOKS</v-subheader>
-      </v-flex>
-      <v-flex xs9 right-align>
-        <v-overflow-btn
-          v-model="currentSelectedBookUuid"
-          :items="currentUser.books"
-          label="name"
+      </v-col>
+      <v-col md="9" right-align>
+         <v-select
+           v-model="currentSelectedBookUuid"
+          :items="currentUser.books" 
           class="book-selection"
           @change="bookSelected()"
-          editable
           item-text="name"
           item-value="uuid"
-          prepend-icon="book"
-          chips
-          dense
-          flat
-          rounded
-          solo
-        ></v-overflow-btn>
-      </v-flex>
-    </v-layout>
+          prepend-icon="mdi-notebook"
+          editable
+            attach
+            chips 
+            dense
+            flat
+            solo
+          ></v-select> 
+      </v-col>
+    </v-row>
     <v-list class="grow" v-model="currentSelectedListUuid">
-      <v-list-tile v-for="list in currentBook.lists" :key="list.uuid" @click="listClick(list)">
+      <v-list-item v-for="list in currentBook.lists" :key="list.uuid" @click="listClick(list)">
         <v-list-icon>
-          <v-icon>list</v-icon>
+          <v-icon>mdi-format-list-bulleted</v-icon>
         </v-list-icon>
-        <v-list-tile-title v-text="list.name" class="list-title"></v-list-tile-title>
-      </v-list-tile>
+        <v-list-item-content>
+          <v-list-item-title v-text="list.name" class="list-title"></v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
     <v-list>
-      <v-list-tile @click="newList()">
-        <v-list-tile-action>
-          <v-icon color="darken-1">add_circle_outline</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-title class="text--darken-1">New List</v-list-tile-title>
-      </v-list-tile>
+      <v-list-item @click="newList()">
+        <v-list-item-icon>
+          <v-icon color="darken-1">mdi-table-column-plus-before</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title class="text--darken-1">New List</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
   </v-flex>
 </template>
@@ -57,8 +60,7 @@ import { mapState } from "vuex";
 
 export default {
   data: function() {
-    return { 
-    };
+    return {};
   },
   computed: {
     ...mapState(["currentUser", "currentBook", "currentList"]),
@@ -68,6 +70,15 @@ export default {
       },
       set(v) {
         this.$store.dispatch("selectBook", v);
+      }
+    },
+    currentSelectedListUuid: {
+      get() {
+        if (this.currentList) return this.currentList.uuid;
+        else return "";
+      },
+      set(v) {
+        //this.$store.dispatch("selectList", v);
       }
     }
   },

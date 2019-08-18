@@ -13,7 +13,7 @@
           </v-flex>
           <v-flex class="lg12 md12">
             <v-chip class="mr-2" v-clipboard:copy="listItem.r__uri">
-              <v-icon left>link</v-icon>
+              <v-icon left>mdi-link</v-icon>
               {{listItem.r__uri}}
             </v-chip>
           </v-flex>

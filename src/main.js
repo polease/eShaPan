@@ -12,9 +12,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBrain } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueClipboard from 'vue-clipboard2'
- 
+import vuetify from './plugins/vuetify';
+
 // vueclipboard
-VueClipboard.config.autoSetContainer = true 
+VueClipboard.config.autoSetContainer = true
 Vue.use(VueClipboard)
 
 //fafont
@@ -36,6 +37,7 @@ const router = new VueRouter({
 new Vue({
   store,
   router,
-  render: h => h(App),
+  vuetify,
+  render: h => h(App)
 }).$mount('#app')
 

@@ -45,6 +45,9 @@
       <v-tab-item class="my-3">
         <resource-view></resource-view>
       </v-tab-item>
+      <v-tab-item class="my-3">
+        <timeline-view></timeline-view>
+      </v-tab-item>
     </v-tabs>
   </v-flex>
 </template>
@@ -63,6 +66,7 @@
 import ListView from "./ListView.vue";
 import TableView from "./TableView.vue";
 import ResourceView from "./ResourceView.vue";
+import TimelineView from "./TimelineView.vue"
 
 import { mapState } from "vuex";
 
@@ -70,7 +74,8 @@ export default {
   components: {
     ListView,
     TableView,
-    ResourceView
+    ResourceView,
+    TimelineView
   },
   computed: {
     ...mapState(["listTypes", "currentList"]),

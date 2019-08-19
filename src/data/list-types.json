@@ -18,9 +18,11 @@
     "prefix": "t__",
     "definition": [
       { "text": "Owner", "value": "t__owner" },
-      { "text": "StartDate", "value": "t__startDate" },
-      { "text": "EndDate", "value": "t__endDate" },
+      { "text": "StartDate", "value": "t__startDateTime" },
+      { "text": "EndDate", "value": "t__endDateTime" },
       { "text": "Status", "value": "t__status" },
+      { "text": "Percentage", "value": "t__percentage" },
+      { "text": "Task Type", "value": "t__type" },
       { "text": "Note", "value": "t__note" }
     ]
   },

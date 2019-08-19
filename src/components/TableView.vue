@@ -37,6 +37,8 @@
               flat
               hide-no-data
               hide-details
+
+        @change="updateListItem(item)"
             />
           </td>
         </tr>
@@ -121,6 +123,9 @@ export default {
     setData() {
       if (this.$store.state.currentList != null)
         this.listItems = this.$store.state.currentList.items;
+    },
+    updateListItem(listItem){
+      this.$store.dispatch("saveCurrentList");
     }
   }
 };

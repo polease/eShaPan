@@ -47,4 +47,47 @@ function newListItem(list){
   return newItem;
 }
 
-export { newList,newListItem, getListMeta };
+
+function convertToTimelineTasks(list){
+  let tasks = list.items.map((item, i) =>{
+    let task = {
+      id: i,
+      label : item.__name,
+      type: item.t__type,
+      start : item.t__startDateTime, 
+      end : item.t__endDateTime,
+      percentage : item.t__percentage
+    };
+      if(!item.t__type)
+      item.t__type = "task";
+
+      if(item.t__percentage == 100){
+        task.style = {
+          base: {
+            fill: "green",
+            stroke: "#7E349D"
+          }
+        }
+      }else if(item.t__percentage > 0){
+        task.style = {
+          base: {
+            fill: "yellow",
+            stroke: "#7E349D"
+          }
+        }
+      }else {
+        task.style = {
+          base: {
+            fill: "gray",
+            stroke: "#7E349D"
+          }
+        }
+      }
+
+    return task;
+  });
+
+  return tasks;
+}
+
+export { newList,newListItem, getListMeta,convertToTimelineTasks };

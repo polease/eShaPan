@@ -14,6 +14,16 @@
         :style="{margin: generateMargin(listItem)}"
       ></v-text-field>
     </v-layout>
+ <v-btn
+      :loading="loading3"
+      :disabled="loading3"
+      class="ma-3"
+      @click="newListItem(0)"
+    >
+      New Item
+      <v-icon right dark>mdi-table-row-plus-after</v-icon>
+    </v-btn>
+
   </v-flex>
 </template>
 
@@ -59,10 +69,13 @@ export default {
       else if (!event.shiftKey) listItem.level = listItem.level + 1;
       event.preventDefault();
     },
-    async enterListItem(event, listItem, index) {
-      await this.$store.dispatch("createListItem", index);
+    async newListItem(index){
+       await this.$store.dispatch("createListItem", index);
       this.$refs.listItems[index + 1].focus();
       await this.$store.dispatch("saveCurrentList");
+    },
+    async enterListItem(event, listItem, index) {
+      await newListItem(index);
     },
     keyUpListItem(event, listItem, index) {
       if (index > 0) this.$refs.listItems[index - 1].focus();

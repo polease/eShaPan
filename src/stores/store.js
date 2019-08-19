@@ -48,6 +48,9 @@ export default new Vuex.Store({
     },
     createList(state, payload, index) {
       state.currentList = payload;
+    },
+    updateListDefinition(state, definition){
+      state.currentList.definition = definition;
     }
   },
   actions: {
@@ -73,6 +76,9 @@ export default new Vuex.Store({
     async selectBook ({commit}, uuid){
       let book = await ListService.getBook(uuid);
       commit("setCurrentBook", book);
+    },
+    async updateBook({ commit }, book) { 
+      await ListService.saveBook(book);
     },
     async getList({ commit }, uuid) {
       const list = await ListService.getList(uuid);
@@ -101,11 +107,38 @@ export default new Vuex.Store({
 
     },
     async updateCurrentListName({ commit }, newName) {
-      this.state.currentList.name = newName;
+      let list = this.state.currentList;
+      list.name = newName;
       let listMetas = this.state.currentBook.lists.filter(
-        l => l.uuid == this.state.currentList.uuid
+        l => l.uuid == list.uuid
       );
       if (listMetas.length > 0) listMetas[0].name = newName;
+      await ListService.updateList(list.uuid,{name:newName});
+
+
+      this.dispatch("updateBook", this.state.currentBook);
+    },
+    async updateCurrentListBaseTypes({ commit }, baseTypeKeys) {
+      let list = this.state.currentList;
+      let baseTypes = this.state.listTypes.filter(type => baseTypeKeys.includes(type.key));
+
+
+      // find all fields in baseTypes but not exists in list definitions
+      let listFieldKeys = list.definition.map(listField => listField.value);
+      baseTypes.forEach(type => {
+        type.definition.forEach(field =>{
+          if(!listFieldKeys.includes(field.value))
+            list.definition.splice(list.definition.length,0, field);
+        });
+      });
+       
+      await ListService.updateList(list.uuid,{baseTypes:baseTypeKeys, definition:list.definition});
+    },
+    async updateCurrentListDefinition({ commit }, definition) {
+      let list = this.state.currentList;
+      await ListService.updateList(list.uuid,{ definition:list.definition});
+
+      commit("updateListDefinition", definition);
     }
   }
 });

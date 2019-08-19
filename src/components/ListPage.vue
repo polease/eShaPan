@@ -13,10 +13,10 @@
       <v-flex md4 lg3>
         <v-select
           class="ma-0 pa-0"
-          v-model="value"
+          v-model="baseTypes"
           :items="listTypes"
           item-text="name"
-          item-value="uuid"
+          item-value="key"
           prepend-icon="mdi-shape"
           attach
           chips
@@ -72,7 +72,17 @@ export default {
     TableView,
     ResourceView
   },
-  computed: mapState(["listTypes", "currentList"]),
+  computed: {
+    ...mapState(["listTypes", "currentList"]),
+     baseTypes: {
+      get() {
+        return this.currentList.baseTypes;
+      },
+      set(v) {
+        this.$store.dispatch("updateCurrentListBaseTypes",  v);
+      }
+    },
+  },
   data() {
     return {};
   },
@@ -84,7 +94,7 @@ export default {
       );
     },
     tableViewClicked() {
-      this.$refs.tableView.setData();
+      //this.$refs.tableView.setData();
     }
   }
 };

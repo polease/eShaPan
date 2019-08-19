@@ -19,19 +19,19 @@
       <template v-slot:item="{item}">
         <tr>
           <td
-            class="text-xs-right"
+            class="list-item-field-container"
             v-for="(p, propIndex) in currentList.definition.filter(i =>i.type !='system')"
             :key="propIndex"
           >
             <span
               v-if="p.type === 'index'"
               class="list-item-prefix"
-            >{{currentList.items.indexOf(item)}}</span>
+            >{{currentList.items.indexOf(item)+1}}</span>
             <v-text-field
               v-if="p.type != 'index'"
               v-model="item[p.value]"
               single-line
-              class="body-1 pa-0"
+              class="pa-0 list-item-field"
               ref="'listItem_'+p.value"
               flat
               hide-no-data
@@ -44,6 +44,17 @@
         <v-btn color="primary" @click="initialize">Add list item</v-btn>
       </template>
     </v-data-table>
+    <v-btn
+      :loading="loading3"
+      :disabled="loading3"
+      class="ma-3"
+      @click="newListItem(0)"
+    >
+      New Item
+      <v-icon right dark>mdi-table-row-plus-after</v-icon>
+    </v-btn>
+ 
+    <list-definition-edit></list-definition-edit>
   </v-flex>
 </template>
 
@@ -52,8 +63,19 @@
   .list-item-prefix {
     color: gray;
     padding-top: 10px;
+    padding-left:10px;
+    text-align: center;
     width: 14px;
     font-size: 10px;
+
+  }
+
+  .list-item-field-container{
+    padding: 0px;
+  }
+
+  .list-item-field{
+    width:100%;
   }
 
   .v-text-field input {
@@ -64,10 +86,14 @@
 
 <script>
 import { mapState } from "vuex";
+import ListDefinitionEdit from "./ListDefinitionEdit.vue";
 
 //var jmespath = require("jmespath");
 
 export default {
+  components: {
+    ListDefinitionEdit
+  },
   data() {
     return {
       dense: false,
@@ -90,23 +116,10 @@ export default {
   computed: mapState(["currentList"]),
   mounted() {},
   methods: {
-    tabListItem(event, listItem) {
-      if (event.shiftKey && listItem.level > 0)
-        listItem.level = listItem.level - 1;
-      else if (!event.shiftKey) listItem.level = listItem.level + 1;
-      event.preventDefault();
-    },
-    enterListItem(event, listItem, index) {
-      var newItem = this.createListItem();
-      this.list.splice(index + 1, 0, newItem);
+    async newListItem(index){
+       await this.$store.dispatch("createListItem", index);
       this.$refs.listItems[index + 1].focus();
-    },
-    keyUpListItem(event, listItem, index) {
-      if (index > 0) this.$refs.listItems[index - 1].focus();
-    },
-    keyDownListItem(event, listItem, index) {
-      if (index < this.$refs.listItems.length - 1)
-        this.$refs.listItems[index + 1].focus();
+      await this.$store.dispatch("saveCurrentList");
     },
     generateMargin(listItem) {
       return "0 0 0 " + listItem.level * 20 + "px";

@@ -176,20 +176,7 @@ export default {
         const timeStamp = new Date(currentYear, currentMonth, currentDay, 0, 0, 0).getTime();
         return new Date(timeStamp + hours * 60 * 60 * 1000).getTime();
       },
-    async newListItem(index) {
-      await this.$store.dispatch("createListItem", index);
-      this.$refs.listItems[index + 1].focus();
-      await this.$store.dispatch("saveCurrentList");
-    },
-    generatePadding(listItem, field) {
-      if (field.value === "__name")
-        return "0 0 0 " + listItem.level * 20 + "px";
-      else return null;
-    },
-    setData() {
-      if (this.$store.state.currentList != null)
-        this.listItems = this.$store.state.currentList.items;
-    }
+     
   }
 };
 

@@ -117,7 +117,7 @@ export default {
     },
     generatePadding(listItem, field) {
       if (field.value === "__name")
-        return "0 0 0 " + listItem.level * 20 + "px";
+        return "0 0 0 " + listItem.__level * 20 + "px";
       else return null;
     },
     setData() {

@@ -3,8 +3,8 @@
     "uuid": "d5e0dfb3-603f-4364-8cf8-c872ab1e005b",
     "name": "personal",
     "lists": [
-      { "uuid": "ddeb27fb-d9a0-4624-be4d-4615062daed4", "name": "Work task list A" },
-      { "uuid": "9002c468-22b9-4f2a-afb6-4011e6f42721", "name": "Work task list B" }
+      { "uuid": "ddeb27fb-d9a0-4624-be4d-4615062daed4", "name": "Trip to Sequoia" },
+      { "uuid": "9002c468-22b9-4f2a-afb6-4011e6f42721", "name": "" }
     ]
   },
   { "uuid": "5eb16ebb-f476-4efe-9512-7ad41e71f80a", "name": "work" },

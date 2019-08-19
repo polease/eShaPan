@@ -128,9 +128,7 @@ export default {
     this.definition = cloneDeep(this.currentList.definition);
   },
   methods: {
-       generateMargin(listItem) {
-      return "0 0 0 " + listItem.level * 20 + "px";
-    },
+   
     async updateDefinition() {
       this.$store.dispatch("updateCurrentListDefinition", this.definition);
       this.dialog = false;

@@ -1,6 +1,6 @@
 [{
   "uuid":"ddeb27fb-d9a0-4624-be4d-4615062daed4",
-  "name": "Italy Visit",
+  "name": "Trip to Sequoia",
   "baseTypes": ["task"],
   "definition": [
     { "text": "RowID", "value": "__rid", "type": "system" },

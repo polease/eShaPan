@@ -78,27 +78,7 @@ export default {
     };
   },
   methods: {
-    tabListItem(event, listItem) {
-      if (event.shiftKey && listItem.level > 0)
-        listItem.level = listItem.level - 1;
-      else if (!event.shiftKey) listItem.level = listItem.level + 1;
-      event.preventDefault();
-    },
-    enterListItem(event, listItem, index) {
-      var newItem = this.createListItem();
-      this.list.items.splice(index + 1, 0, newItem);
-      this.$refs.listItems[index + 1].focus();
-    },
-    keyUpListItem(event, listItem, index) {
-      if (index > 0) this.$refs.listItems[index - 1].focus();
-    },
-    keyDownListItem(event, listItem, index) {
-      if (index < this.$refs.listItems.length - 1)
-        this.$refs.listItems[index + 1].focus();
-    },
-    generateMargin(listItem) {
-      return "0 0 0 " + listItem.level * 20 + "px";
-    },
+     
     remove(item) {
       this.chips.splice(this.chips.indexOf(item), 1);
       this.chips = [...this.chips];

@@ -9,14 +9,13 @@
         v-on:keydown.tab="tabListItem($event,listItem,index)"
         v-on:keydown.up="keyUpListItem($event,listItem,index)"
         v-on:keydown.down="keyDownListItem($event,listItem,index)"
+        @change="updateListItem(listItem)"
         class="body-1 pa-0"
         ref="listItems"
         :style="{margin: generateMargin(listItem)}"
       ></v-text-field>
     </v-layout>
- <v-btn
-      :loading="loading3"
-      :disabled="loading3"
+ <v-btn 
       class="ma-3"
       @click="newListItem(0)"
     >
@@ -67,6 +66,9 @@ export default {
       if (event.shiftKey && listItem.level > 0)
         listItem.level = listItem.level - 1;
       else if (!event.shiftKey) listItem.level = listItem.level + 1;
+
+      listItem.__ob__.dep.notify();
+
       event.preventDefault();
     },
     async newListItem(index){
@@ -75,7 +77,7 @@ export default {
       await this.$store.dispatch("saveCurrentList");
     },
     async enterListItem(event, listItem, index) {
-      await newListItem(index);
+      await this.newListItem(index);
     },
     keyUpListItem(event, listItem, index) {
       if (index > 0) this.$refs.listItems[index - 1].focus();
@@ -86,6 +88,9 @@ export default {
     },
     generateMargin(listItem) {
       return "0 0 0 " + listItem.level * 20 + "px";
+    },
+    updateListItem(listItem){
+      this.$store.dispatch("saveCurrentList");
     }
   }
 };

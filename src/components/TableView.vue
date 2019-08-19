@@ -22,6 +22,7 @@
             class="list-item-field-container"
             v-for="(p, propIndex) in currentList.definition.filter(i =>i.type !='system')"
             :key="propIndex"
+            :style="{padding: generatePadding(item,p)}"
           >
             <span
               v-if="p.type === 'index'"
@@ -40,20 +41,12 @@
           </td>
         </tr>
       </template>
-      <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">Add list item</v-btn>
-      </template>
     </v-data-table>
-    <v-btn
-      :loading="loading3"
-      :disabled="loading3"
-      class="ma-3"
-      @click="newListItem(0)"
-    >
+    <v-btn class="ma-3" @click="newListItem(0)">
       New Item
       <v-icon right dark>mdi-table-row-plus-after</v-icon>
     </v-btn>
- 
+
     <list-definition-edit></list-definition-edit>
   </v-flex>
 </template>
@@ -63,19 +56,18 @@
   .list-item-prefix {
     color: gray;
     padding-top: 10px;
-    padding-left:10px;
+    padding-left: 10px;
     text-align: center;
     width: 14px;
     font-size: 10px;
-
   }
 
-  .list-item-field-container{
+  .list-item-field-container {
     padding: 0px;
   }
 
-  .list-item-field{
-    width:100%;
+  .list-item-field {
+    width: 100%;
   }
 
   .v-text-field input {
@@ -116,13 +108,15 @@ export default {
   computed: mapState(["currentList"]),
   mounted() {},
   methods: {
-    async newListItem(index){
-       await this.$store.dispatch("createListItem", index);
+    async newListItem(index) {
+      await this.$store.dispatch("createListItem", index);
       this.$refs.listItems[index + 1].focus();
       await this.$store.dispatch("saveCurrentList");
     },
-    generateMargin(listItem) {
-      return "0 0 0 " + listItem.level * 20 + "px";
+    generatePadding(listItem, field) {
+      if (field.value === "__name")
+        return "0 0 0 " + listItem.level * 20 + "px";
+      else return null;
     },
     setData() {
       if (this.$store.state.currentList != null)

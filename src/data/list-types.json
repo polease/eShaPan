@@ -9,6 +9,7 @@
       { "text": "Level", "value": "__level", "type": "system",  "defaultValue" : "0"  },
       { "text": "#", "value": "__index", "type": "index" },
       { "text": "Name", "value": "__name" , "type": "default" },
+      { "text": "Body", "value": "__body" , "fieldType" : "html"  },
       { "text": "Created Time", "value": "__createdtime", "type": "system", "defaultValue" : "currentTime"  },
       { "text": "Updated Time", "value": "__updatedtime",  "type": "system" , "defaultValue" : "currentTime"  }
     ]

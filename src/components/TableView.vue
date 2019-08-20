@@ -28,8 +28,13 @@
               v-if="p.type === 'index'"
               class="list-item-prefix"
             >{{currentList.items.indexOf(item)+1}}</span>
+
+            <v-btn v-else-if="p.fieldType ==='html'" @click="editHtmlBody(item,p.value)" text icon>
+              <v-icon>mdi-information-variant</v-icon>
+            </v-btn>
+
             <v-text-field
-              v-if="p.type != 'index'"
+              v-else
               v-model="item[p.value]"
               single-line
               class="pa-0 list-item-field"
@@ -37,8 +42,7 @@
               flat
               hide-no-data
               hide-details
-
-        @change="updateListItem(item)"
+              @change="updateListItem(item)"
             />
           </td>
         </tr>
@@ -48,8 +52,22 @@
       New Item
       <v-icon right dark>mdi-table-row-plus-after</v-icon>
     </v-btn>
-
     <list-definition-edit></list-definition-edit>
+    <v-dialog v-model="htmlEditorDialog" width="600px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Edit Body</span>
+        </v-card-title>
+        <v-card-text>
+           <vue-editor v-model="htmlBody"></vue-editor>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text @click="htmlEditorDialog = false">Cancel</v-btn>
+          <v-btn color="green darken-1" text @click="saveBody()">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-flex>
 </template>
 
@@ -81,15 +99,22 @@
 <script>
 import { mapState } from "vuex";
 import ListDefinitionEdit from "./ListDefinitionEdit.vue";
+import { VueEditor } from "vue2-editor";
 
 //var jmespath = require("jmespath");
 
 export default {
   components: {
-    ListDefinitionEdit
+    ListDefinitionEdit,
+    VueEditor
   },
   data() {
     return {
+      htmlEditorDialog: false,
+      htmlBody:"",
+      htmlItem:null,
+      htmlPropName:null,
+      editor: null,
       dense: false,
       height: 300,
       loading: false,
@@ -124,8 +149,18 @@ export default {
       if (this.$store.state.currentList != null)
         this.listItems = this.$store.state.currentList.items;
     },
-    updateListItem(listItem){
+    updateListItem(listItem) {
       this.$store.dispatch("saveCurrentList");
+    },
+    editHtmlBody(item, propName) {
+      this.htmlBody = item[propName];
+      this.htmlItem = item;
+      this.htmlPropName = propName;
+      this.htmlEditorDialog = true;
+    },
+    saveBody(){
+      this.htmlItem[this.htmlPropName] = this.htmlBody;
+      this.htmlEditorDialog = false;
     }
   }
 };

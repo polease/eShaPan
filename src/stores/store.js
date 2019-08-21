@@ -4,7 +4,7 @@ import shortid from "shortid";
 
 import * as List from "../models/list";
 import * as ListService from "../services/list-service";
-import { cpus } from "os";
+
 
 Vue.use(Vuex);
 
@@ -87,6 +87,13 @@ export default new Vuex.Store({
     async createListItem({ commit }, index) {
       let newItem = List.newListItem(this.state.currentList);
       this.state.currentList.items.splice(index + 1, 0, newItem);
+
+      this.dispatch("saveCurrentList");
+    },
+    async deleteListItem({ commit }, index) { 
+      this.state.currentList.items.splice(index , 1);
+
+      this.dispatch("saveCurrentList");
     },
     async saveCurrentList() {
       await ListService.saveList(this.state.currentList);
@@ -102,6 +109,20 @@ export default new Vuex.Store({
       // save list meta to currentBook
       let listMetas = [...this.state.currentBook.lists]; 
       listMetas.splice(index, 0, List.getListMeta(newList));
+      commit("setCurrentBookListMetas", listMetas);
+      await ListService.saveBook(this.state.currentBook);
+
+    },
+    async copyList({ commit }, fromList) {
+       let newList = List.copyFrom(fromList);
+      // save list
+      await ListService.saveList(newList);
+      commit("setCurrentList", newList);
+
+      // save list meta to currentBook
+      let listMetas = [...this.state.currentBook.lists]; 
+      let index = listMetas.findIndex(meta => meta.uuid === this.state.currentList.uuid);
+      listMetas.splice(index +1, 0, List.getListMeta(newList));
       commit("setCurrentBookListMetas", listMetas);
       await ListService.saveBook(this.state.currentBook);
 

@@ -1,6 +1,8 @@
 import uuidv4 from "uuid/v4";
 import shortid from "shortid";
 
+import cloneDeep from "clone-deep";
+
 function newList(baseTypes) {
   let list = {
     uuid: uuidv4(),
@@ -15,6 +17,12 @@ function newList(baseTypes) {
       list.definition.concat(baseType.definition);
     });
   return list;
+}
+
+function copyFrom(fromList){
+let newList = cloneDeep(fromList);
+newList.uuid = uuidv4();
+return newList;  
 }
 
 function getListMeta(list) {
@@ -47,6 +55,17 @@ function newListItem(list) {
   return newItem;
 }
 
+function adjustListItemLevel(listItem, levelAdjustment) {
+  let existingLevel = 0;
+  if (listItem.__level) existingLevel = listItem.__level;
+
+  let newLevel = existingLevel + levelAdjustment;
+
+  if (newLevel < 0) newLevel = 0;
+
+  listItem.__level = newLevel;
+}
+
 function convertToTimelineTasks(list) {
   let tasks = list.items.map((item, i) => {
     let task = {
@@ -56,24 +75,23 @@ function convertToTimelineTasks(list) {
       start: item.t__startDateTime,
       end: item.t__endDateTime,
       percentage: item.t__percentage,
-      parent : null
+      parent: null
     };
     if (!item.t__type) item.t__type = "task";
 
     // build parent relationship
-    if(item.__level && item.__level > 0){
+    if (item.__level && item.__level > 0) {
       //find the first level less than current item, and mark as parent
-      let itemsAhead = list.items.slice(0,i);
+      let itemsAhead = list.items.slice(0, i);
       itemsAhead.reverse();
       let parent = itemsAhead.find(p => p.__level < item.__level);
-      if(parent){
+      if (parent) {
         task.parent = parent;
         task.parentId = parent.__rid;
-      } 
+      }
     }
 
     // build dependent relationship
-    
 
     // format color based on percentage
     if (item.t__percentage == 100) {
@@ -105,4 +123,11 @@ function convertToTimelineTasks(list) {
   return tasks;
 }
 
-export { newList, newListItem, getListMeta, convertToTimelineTasks };
+export {
+  newList,
+  newListItem,
+  getListMeta,
+  convertToTimelineTasks,
+  adjustListItemLevel,
+  copyFrom
+};

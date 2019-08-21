@@ -1,8 +1,10 @@
 <template>
   <v-flex class="books-container">
+  
     <v-row class="ma-0 pa-0" no-gutters>
       <v-col md="3">
-        <v-subheader class="grey--text text--darken-1" align-left>BOOKS</v-subheader>
+        <v-subheader class="grey--text text--darken-1" 
+             align-left>BOOKS</v-subheader>
       </v-col>
       <v-col md="9" right-align>
         <v-select

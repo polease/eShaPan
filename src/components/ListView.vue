@@ -49,6 +49,7 @@
 
 <script>
 import { mapState } from "vuex";
+import * as List from "../models/list.js"
 
 export default {
   computed: mapState(["currentList"]),
@@ -57,11 +58,12 @@ export default {
   },
   methods: {
     tabListItem(event, listItem) {
-      if (!listItem.__level) listItem.__level = 0;
+      let levelAdjustment = 1;
 
-      if (event.shiftKey && listItem.__level > 0)
-        listItem.__level = listItem.__level - 1;
-      else if (!event.shiftKey) listItem.__level = listItem.__level + 1;
+      if (event.shiftKey) 
+        List.adjustListItemLevel(listItem, -levelAdjustment);
+      else 
+        List.adjustListItemLevel(listItem, levelAdjustment);
 
       listItem.__ob__.dep.notify();
 
@@ -69,8 +71,7 @@ export default {
     },
     async newListItem(index) {
       await this.$store.dispatch("createListItem", index);
-      this.$refs.listItems[index + 1].focus();
-      await this.$store.dispatch("saveCurrentList");
+      this.$refs.listItems[index + 1].focus(); 
     },
     async enterListItem(event, listItem, index) {
       await this.newListItem(index);

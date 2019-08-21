@@ -1,7 +1,16 @@
 <template>
   <v-flex class="table-view">
+    <v-toolbar collapse dense>
+      <v-btn icon @click="adjustListItemLevel(1)">
+        <v-icon>mdi-format-indent-increase</v-icon>
+      </v-btn>
+
+      <v-btn icon @click="adjustListItemLevel(-1)">
+        <v-icon>mdi-format-indent-decrease</v-icon>
+      </v-btn>
+    </v-toolbar>
     <v-data-table
-      :headers="currentList.definition.filter(i =>i.type !='system')"
+      :headers="this.headers"
       :items="currentList.items"
       dense
       class="elevation-1"
@@ -29,9 +38,14 @@
               class="list-item-prefix"
             >{{currentList.items.indexOf(item)+1}}</span>
 
-            <v-btn v-else-if="p.fieldType ==='html'" @click="editHtmlBody(item,p.value)" text icon>
-              <v-icon>mdi-information-variant</v-icon>
-            </v-btn>
+            <v-tooltip bottom v-else-if="p.fieldType ==='html'">
+              <template v-slot:activator="{ on }">
+                <v-btn @click="editHtmlBody(item,p.value)" text icon v-on="on">
+                  <v-icon>mdi-information-variant</v-icon>
+                </v-btn>
+              </template>
+              <span class="body-tooltip" v-html="item[p.value]"></span>
+            </v-tooltip>
 
             <v-text-field
               v-else
@@ -42,24 +56,34 @@
               flat
               hide-no-data
               hide-details
+              @focus="currentItem=item"
               @change="updateListItem(item)"
             />
           </td>
+          <td>
+            <v-icon small class="mr-2" @click="deleteItem(item)">mdi-trash-can-outline</v-icon>
+            <v-icon small class="mr-2" @click="addItem(item)">mdi-table-row-plus-after</v-icon>
+          </td>
         </tr>
       </template>
+      <template v-slot:item.action="{ item }"></template>
     </v-data-table>
+
+    <!-- Action for List Item -->
     <v-btn class="ma-3" @click="newListItem(0)">
       New Item
       <v-icon right dark>mdi-table-row-plus-after</v-icon>
     </v-btn>
     <list-definition-edit></list-definition-edit>
+ 
+    <!-- -->
     <v-dialog v-model="htmlEditorDialog" width="600px">
       <v-card>
         <v-card-title>
           <span class="headline">Edit Body</span>
         </v-card-title>
         <v-card-text>
-           <vue-editor v-model="htmlBody"></vue-editor>
+          <vue-editor v-model="htmlBody"></vue-editor>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -93,6 +117,9 @@
   .v-text-field input {
     font-size: 0.8em;
   }
+
+  .body-tooltip {
+  }
 }
 </style>
 
@@ -100,7 +127,8 @@
 import { mapState } from "vuex";
 import ListDefinitionEdit from "./ListDefinitionEdit.vue";
 import { VueEditor } from "vue2-editor";
-
+import * as List from "../models/list.js";
+import { saveAs } from 'file-saver';
 //var jmespath = require("jmespath");
 
 export default {
@@ -111,10 +139,13 @@ export default {
   data() {
     return {
       htmlEditorDialog: false,
-      htmlBody:"",
-      htmlItem:null,
-      htmlPropName:null,
+      htmlBody: "",
+      htmlItem: null,
+      currentItem: null,
+      htmlPropName: null,
       editor: null,
+
+
       dense: false,
       height: 300,
       loading: false,
@@ -132,7 +163,20 @@ export default {
       groupBy: []
     };
   },
-  computed: mapState(["currentList"]),
+  computed: {
+    ...mapState(["currentList"]),
+    headers: {
+      get() {
+        let columns = this.currentList.definition.filter(
+          i => i.type != "system"
+        );
+        let action = { text: "Action", value: "action" };
+        columns.splice(columns.length, 0, action);
+        return columns;
+      },
+      set(v) {}
+    }
+  },
   mounted() {},
   methods: {
     async newListItem(index) {
@@ -158,10 +202,26 @@ export default {
       this.htmlPropName = propName;
       this.htmlEditorDialog = true;
     },
-    saveBody(){
+    saveBody() {
       this.htmlItem[this.htmlPropName] = this.htmlBody;
       this.htmlEditorDialog = false;
-    }
+
+      this.updateListItem(this.htmlItem);
+    },
+    adjustListItemLevel(levelAdjustment) {
+      List.adjustListItemLevel(this.currentItem, levelAdjustment);
+
+      this.currentItem.__ob__.dep.notify();
+    },
+    async addItem(item) {
+      let index = this.currentList.items.indexOf(item);
+      await this.$store.dispatch("createListItem", index);
+    },
+    async deleteItem(item) {
+      let index = this.currentList.items.indexOf(item);
+      await this.$store.dispatch("deleteListItem", index);
+    },
+   
   }
 };
 </script>

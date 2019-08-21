@@ -23,8 +23,6 @@
                     flat
                     hide-no-data
                     hide-details
-
-        :style="{margin: generateMargin(item)}"
                   />
                 </td>
               </template>

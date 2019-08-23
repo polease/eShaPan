@@ -157,7 +157,7 @@ export default new Vuex.Store({
     },
     async updateCurrentListDefinition({ commit }, definition) {
       let list = this.state.currentList;
-      await ListService.updateList(list.uuid,{ definition:list.definition});
+      await ListService.updateList(list.uuid,{ definition: definition});
 
       commit("updateListDefinition", definition);
     }

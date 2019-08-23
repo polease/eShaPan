@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="800px">
+  <v-dialog v-model="dialog" persistent>
     <template v-slot:activator="{ on }">
       <v-btn v-on="on" color="blue-grey" class="white--text">
         Edit Columns
@@ -40,17 +40,40 @@
                   <span v-else>{{item.value}}</span>
                 </td>
               </template>
+              <template v-slot:item.dataType="{item}">
+                <td class="list-item-field-container">
+                  <v-row v-if="!item.type || item.type === 'custom'">
+                    <v-select
+                      v-model="item.dataType"
+                      :items="dataTypes"
+                      item-text="name"
+                      item-value="value"
+                      flat
+                      hide-no-data
+                      hide-details
+                      dense
+                      @change="itemTypeChanged(item)"
+                    />
+                    <tag-definition-edit v-if="item.dataType === 'tag'" :tags="item.tags" @save="item.tags = $event"></tag-definition-edit>
+                  </v-row>
+                </td>
+              </template>
+               <template v-slot:item.width="{item}">
+                <td class="list-item-field-container">
+                  <v-text-field
+                    v-if="item.type === 'custom' || !item.type || item.type ==='default'"
+                    v-model="item.width"
+                    single-line
+                    class="pa-0 list-item-field"
+                    flat
+                    hide-no-data
+                    hide-details
+                  /> 
+                </td>
+              </template>
               <template v-slot:item.action="{ item }">
-                <v-icon 
-                  small
-                  class="mr-2"
-                  @click="moveFieldUp(item)"
-                >mdi-menu-up</v-icon>
-                <v-icon 
-                  small
-                  class="mr-2"
-                  @click="moveFieldDown(item)"
-                >mdi-menu-down</v-icon>
+                <v-icon small class="mr-2" @click="moveFieldUp(item)">mdi-menu-up</v-icon>
+                <v-icon small class="mr-2" @click="moveFieldDown(item)">mdi-menu-down</v-icon>
 
                 <v-icon small class="mr-2" @click="addField(item)">mdi-table-row-plus-before</v-icon>
                 <v-icon
@@ -70,6 +93,7 @@
         <v-btn color="blue darken-1" text @click="updateDefinition()">Save</v-btn>
       </v-card-actions>
     </v-card>
+    <v-dialog></v-dialog>
   </v-dialog>
 </template>
 
@@ -101,21 +125,30 @@
 <script>
 import { mapState } from "vuex";
 import cloneDeep from "clone-deep";
+import TagDefinitionEdit from "./TagDefinitionEdit.vue";
 
 //var jmespath = require("jmespath");
 
 export default {
+  components: {TagDefinitionEdit},
   data() {
     return {
       dialog: false,
       definition: [],
       headers: [
+        { text: "Type", value: "type" },
         { text: "Name", value: "text" },
         { text: "Key", value: "value" },
-        { text: "Field Type", value: "type" },
+        { text: "Field Type", value: "dataType" },
         { text: "From", value: "from" },
         { text: "Default Value", value: "defaultValue" },
+        { text: "Width", value: "width" },
         { text: "", value: "action", sortable: false }
+      ],
+      dataTypes: [
+        { name: "Text", value: "text" },
+        { name: "Rich Text", value: "html" },
+        { name: "Tag", value: "tag" }
       ]
     };
   },
@@ -126,7 +159,6 @@ export default {
     this.definition = cloneDeep(this.currentList.definition);
   },
   methods: {
-   
     async updateDefinition() {
       this.$store.dispatch("updateCurrentListDefinition", this.definition);
       this.dialog = false;
@@ -143,15 +175,20 @@ export default {
       let index = this.definition.indexOf(item);
       this.definition.splice(index, 1);
     },
-    moveFieldUp(item){
-        let index = this.definition.indexOf(item); 
-        this.definition.splice(index,1);
-        this.definition.splice(index-1,0,item);
+    moveFieldUp(item) {
+      let index = this.definition.indexOf(item);
+      this.definition.splice(index, 1);
+      this.definition.splice(index - 1, 0, item);
     },
-    moveFieldDown(item){
-        let index = this.definition.indexOf(item); 
-        this.definition.splice(index,1);
-        this.definition.splice(index+1,0,item);
+    moveFieldDown(item) {
+      let index = this.definition.indexOf(item);
+      this.definition.splice(index, 1);
+      this.definition.splice(index + 1, 0, item);
+    },
+    itemTypeChanged(item){
+      if(item.dataType === "tag"){
+        item.tags = [];
+      }
     }
   }
 };

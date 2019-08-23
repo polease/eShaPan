@@ -31,6 +31,7 @@
             class="list-item-field-container"
             v-for="(p, propIndex) in currentList.definition.filter(i =>i.type !='system')"
             :key="propIndex"
+            :width="p.width"
             :style="{padding: generatePadding(item,p)}"
           >
             <span
@@ -38,7 +39,7 @@
               class="list-item-prefix"
             >{{currentList.items.indexOf(item)+1}}</span>
 
-            <v-tooltip bottom v-else-if="p.fieldType ==='html'">
+            <v-tooltip bottom v-else-if="p.dataType ==='html'">
               <template v-slot:activator="{ on }">
                 <v-btn @click="editHtmlBody(item,p.value)" text icon v-on="on">
                   <v-icon>mdi-information-variant</v-icon>
@@ -47,6 +48,22 @@
               <span class="body-tooltip" v-html="item[p.value]"></span>
             </v-tooltip>
 
+            <v-select
+              v-else-if="p.dataType === 'tag'"
+              class="pa-0 list-item-field"
+              v-model="item[p.value]"
+              :items="p.tags"
+              item-text="name"
+              item-value="value"
+              :background-color="getTagColor(item, p)"
+              deletable-chips="true"
+              flat
+              dense
+              solo
+              hide-no-data
+              hide-details
+            />
+
             <v-text-field
               v-else
               v-model="item[p.value]"
@@ -54,6 +71,7 @@
               class="pa-0 list-item-field"
               ref="'listItem_'+p.value"
               flat
+              solo
               hide-no-data
               hide-details
               @focus="currentItem=item"
@@ -75,7 +93,7 @@
       <v-icon right dark>mdi-table-row-plus-after</v-icon>
     </v-btn>
     <list-definition-edit></list-definition-edit>
- 
+
     <!-- -->
     <v-dialog v-model="htmlEditorDialog" width="600px">
       <v-card>
@@ -128,7 +146,7 @@ import { mapState } from "vuex";
 import ListDefinitionEdit from "./ListDefinitionEdit.vue";
 import { VueEditor } from "vue2-editor";
 import * as List from "../models/list.js";
-import { saveAs } from 'file-saver';
+import { saveAs } from "file-saver";
 //var jmespath = require("jmespath");
 
 export default {
@@ -144,7 +162,6 @@ export default {
       currentItem: null,
       htmlPropName: null,
       editor: null,
-
 
       dense: false,
       height: 300,
@@ -221,7 +238,13 @@ export default {
       let index = this.currentList.items.indexOf(item);
       await this.$store.dispatch("deleteListItem", index);
     },
-   
+    getTagColor(item, fieldDefinition) {
+      if (!item || !fieldDefinition || !fieldDefinition.tags) return null;
+
+      let fieldValue = item[fieldDefinition.value];
+      let tagDefinition = fieldDefinition.tags.find(t => t.name === fieldValue);
+      if (tagDefinition) return tagDefinition.color;
+    }
   }
 };
 </script>

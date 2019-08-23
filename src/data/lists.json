@@ -1,46 +1,49 @@
-[{
-  "uuid":"ddeb27fb-d9a0-4624-be4d-4615062daed4",
-  "name": "Trip to Sequoia",
-  "baseTypes": ["task"],
-  "definition": [
-    { "text": "RowID", "value": "__rid", "type": "system" },
-    { "text": "#", "value": "__index", "type": "index" },
-    { "text": "Name", "value": "__name" , "type": "default" },
-    { "text": "Created Time", "value": "__createdtime", "type": "system" },
-    { "text": "Updated Time", "value": "__updatedtime",  "type": "system"  },
-    { "text": "Owner", "value": "t__owner" },
-    { "text": "StartDate", "value": "t__startDate" },
-    { "text": "EndDate", "value": "t__endDate" },
-    { "text": "Status", "value": "t__status" },
-    { "text": "Note", "value": "t__note" }
-  ],
-  "items": [
-    {
-      "__name": "Take photo",
-      "t__owner": "Emily",
-      "t__startDate": "20190810",
-      "t__endDate": null,
-      "t__status": "open",
-      "t__note": "",
-      "r__uri":"www.google.com"
-    },
-    {
-      "__name": "Aanade",
-      "t__owner": "Emily",
-      "t__startDate": "20190810",
-      "t__endDate": null,
-      "t__status": "open",
-      "t__note": "",
-      "r__uri":"www.avanade.com"
-    }
-  ]
-}]
+[
+  {
+    "uuid": "ddeb27fb-d9a0-4624-be4d-4615062daed4",
+    "name": "Trip to Sequoia",
+    "baseTypes": ["task"],
+    "definition": [
+      { "text": "RowID", "value": "__rid", "type": "system" },
+      { "text": "#", "value": "__index", "type": "index" },
+      { "text": "Name", "value": "__name", "type": "default" },
+      { "text": "Created Time", "value": "__createdtime", "type": "system" },
+      { "text": "Updated Time", "value": "__updatedtime", "type": "system" },
+      { "text": "Owner", "value": "t__owner" },
+      { "text": "StartDate", "value": "t__startDate" },
+      { "text": "EndDate", "value": "t__endDate" },
+      {
+        "text": "Status",
+        "value": "t__status",
+        "dataType": "tag",
+        "tags": [
+          { "name": "Done", "color": "#FFF000" },
+          { "name": "In Progress", "color": "#00F000" },
+          { "name": "Open", "color": "#CCC000" }
 
-
-
-
-
-
-
-
-
+        ]
+      },
+      { "text": "Note", "value": "t__note" }
+    ],
+    "items": [
+      {
+        "__name": "Take photo",
+        "t__owner": "Emily",
+        "t__startDate": "20190810",
+        "t__endDate": null,
+        "t__status": "open",
+        "t__note": "",
+        "r__uri": "www.google.com"
+      },
+      {
+        "__name": "Aanade",
+        "t__owner": "Emily",
+        "t__startDate": "20190810",
+        "t__endDate": null,
+        "t__status": "open",
+        "t__note": "",
+        "r__uri": "www.avanade.com"
+      }
+    ]
+  }
+]

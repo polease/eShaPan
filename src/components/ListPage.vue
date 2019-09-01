@@ -33,7 +33,7 @@
               <v-icon>mdi-import</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Import from file</v-list-item-title>
+              <v-list-item-title>Import from JSON file</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item @click="exportListToJson(currentList)">
@@ -41,7 +41,15 @@
               <v-icon>mdi-export</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Export to file</v-list-item-title>
+              <v-list-item-title>Export to JSON file</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item @click="exportListToCsv(currentList)">
+            <v-list-item-icon>
+              <v-icon>mdi-export</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Export to CSV</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -99,8 +107,10 @@ import ListView from "./ListView.vue";
 import TableView from "./TableView.vue";
 import ResourceView from "./ResourceView.vue";
 import TimelineView from "./TimelineView.vue";
+
 import * as List from "../models/list.js";
 import { saveAs } from 'file-saver';
+import stringify from 'csv-stringify';
 
 import { mapState } from "vuex";
 
@@ -142,7 +152,17 @@ export default {
       var myJSON = JSON.stringify(list);
 
       var blob = new Blob([myJSON], { type: "text/plain;charset=utf-8" });
-      saveAs(blob, "list.json");
+      let name = `${list.name} ${new Date().toLocaleString()}.json`;
+      saveAs(blob, name);
+    }, 
+    async exportListToCsv(list) {
+
+      let cols = list.definition.map(col =>  col.value);
+      var myJSON = stringify(list.items, {columns : cols});
+
+      var blob = new Blob([myJSON], { type: "text/plain;charset=utf-8" });
+      let name = `${list.name} ${new Date().toLocaleString()}.csv`;
+      saveAs(blob, name);
     },
     async importJsonAsList() {
       this.importFileDialog = true;

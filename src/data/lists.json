@@ -44,6 +44,37 @@
         "t__note": "",
         "r__uri": "www.avanade.com"
       }
+    ],
+    "pans":[
+      {
+        "title":"Pan 1",
+        "type" : "auto",
+        "definition":{
+          "xDimension": "time",
+          "yDimension" : "number",
+          "x0":  "20190807", 
+          "y0":  0,  
+          "x1": "20191220", 
+          "y1": 100, 
+          "x" : [{
+            "text" : "Start Date",
+            "value": "t__startDate"
+          }],
+          "y" : [{
+            "text" : "index",
+            "value": "__index"
+          }],
+          "w" : [{
+            "text": "Effort", 
+            "value":"t__effort"
+          }],
+          "h" : [{
+            "text": "Static",
+            "value" : "5",
+            "type" : "static"
+          }]
+        }
+      }
     ]
   }
 ]

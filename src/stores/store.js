@@ -5,7 +5,6 @@ import shortid from "shortid";
 import * as List from "../models/list";
 import * as ListService from "../services/list-service";
 
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -13,9 +12,9 @@ export default new Vuex.Store({
     currentUser: {},
     currentBook: {},
     currentList: {},
-    listTypes: [],
-    loaded: false, // sets if JSON data loaded
-    errorDeleting: false // error deleting
+    currentPan: {},
+    newPan: {},
+    listTypes: []
   },
   getters: {},
   mutations: {
@@ -28,7 +27,7 @@ export default new Vuex.Store({
     setCurrentBook(state, payload) {
       state.currentBook = payload;
     },
-    setCurrentBookListMetas(state, listMetas){
+    setCurrentBookListMetas(state, listMetas) {
       state.currentBook.lists = listMetas;
     },
     setListTypes(state, payload) {
@@ -49,8 +48,11 @@ export default new Vuex.Store({
     createList(state, payload, index) {
       state.currentList = payload;
     },
-    updateListDefinition(state, definition){
+    updateListDefinition(state, definition) {
       state.currentList.definition = definition;
+    },
+    updateNewPan(state, payload) {
+      state.newPan = payload;
     }
   },
   actions: {
@@ -73,11 +75,11 @@ export default new Vuex.Store({
           this.dispatch("getList", book.lists[0].uuid);
       }
     },
-    async selectBook ({commit}, uuid){
+    async selectBook({ commit }, uuid) {
       let book = await ListService.getBook(uuid);
       commit("setCurrentBook", book);
     },
-    async updateBook({ commit }, book) { 
+    async updateBook({ commit }, book) {
       await ListService.saveBook(book);
     },
     async getList({ commit }, uuid) {
@@ -90,8 +92,8 @@ export default new Vuex.Store({
 
       this.dispatch("saveCurrentList");
     },
-    async deleteListItem({ commit }, index) { 
-      this.state.currentList.items.splice(index , 1);
+    async deleteListItem({ commit }, index) {
+      this.state.currentList.items.splice(index, 1);
 
       this.dispatch("saveCurrentList");
     },
@@ -107,25 +109,25 @@ export default new Vuex.Store({
       await ListService.saveList(newList);
 
       // save list meta to currentBook
-      let listMetas = [...this.state.currentBook.lists]; 
+      let listMetas = [...this.state.currentBook.lists];
       listMetas.splice(index, 0, List.getListMeta(newList));
       commit("setCurrentBookListMetas", listMetas);
       await ListService.saveBook(this.state.currentBook);
-
     },
     async copyList({ commit }, fromList) {
-       let newList = List.copyFrom(fromList);
+      let newList = List.copyFrom(fromList);
       // save list
       await ListService.saveList(newList);
       commit("setCurrentList", newList);
 
       // save list meta to currentBook
-      let listMetas = [...this.state.currentBook.lists]; 
-      let index = listMetas.findIndex(meta => meta.uuid === this.state.currentList.uuid);
-      listMetas.splice(index +1, 0, List.getListMeta(newList));
+      let listMetas = [...this.state.currentBook.lists];
+      let index = listMetas.findIndex(
+        meta => meta.uuid === this.state.currentList.uuid
+      );
+      listMetas.splice(index + 1, 0, List.getListMeta(newList));
       commit("setCurrentBookListMetas", listMetas);
       await ListService.saveBook(this.state.currentBook);
-
     },
     async updateCurrentListName({ commit }, newName) {
       let list = this.state.currentList;
@@ -134,32 +136,54 @@ export default new Vuex.Store({
         l => l.uuid == list.uuid
       );
       if (listMetas.length > 0) listMetas[0].name = newName;
-      await ListService.updateList(list.uuid,{name:newName});
-
+      await ListService.updateList(list.uuid, { name: newName });
 
       this.dispatch("updateBook", this.state.currentBook);
     },
     async updateCurrentListBaseTypes({ commit }, baseTypeKeys) {
       let list = this.state.currentList;
-      let baseTypes = this.state.listTypes.filter(type => baseTypeKeys.includes(type.key));
-
+      let baseTypes = this.state.listTypes.filter(type =>
+        baseTypeKeys.includes(type.key)
+      );
 
       // find all fields in baseTypes but not exists in list definitions
       let listFieldKeys = list.definition.map(listField => listField.value);
       baseTypes.forEach(type => {
-        type.definition.forEach(field =>{
-          if(!listFieldKeys.includes(field.value))
-            list.definition.splice(list.definition.length,0, field);
+        type.definition.forEach(field => {
+          if (!listFieldKeys.includes(field.value))
+            list.definition.splice(list.definition.length, 0, field);
         });
       });
-       
-      await ListService.updateList(list.uuid,{baseTypes:baseTypeKeys, definition:list.definition});
+
+      await ListService.updateList(list.uuid, {
+        baseTypes: baseTypeKeys,
+        definition: list.definition
+      });
     },
     async updateCurrentListDefinition({ commit }, definition) {
       let list = this.state.currentList;
-      await ListService.updateList(list.uuid,{ definition: definition});
+      await ListService.updateList(list.uuid, { definition: definition });
 
       commit("updateListDefinition", definition);
+    },
+    async initializeNewPan({commit}){
+      let newPan ={
+        title: "Pan 1",
+        type: "auto",
+        definition: {
+          xDimension: "number",
+          yDimension: "number",
+          x0: "0",
+          y0: "0",
+          x1: "100",
+          y1: "100",
+          x: [],
+          y: [],
+          w: [],
+          h: []
+        }
+      };
+      commit("updateNewPan", newPan);
     }
   }
 });

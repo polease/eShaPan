@@ -28,6 +28,7 @@
           </v-btn>
         </template>
         <v-list>
+            
           <v-list-item @click="importJsonAsList()">
             <v-list-item-icon>
               <v-icon>mdi-import</v-icon>
@@ -66,12 +67,8 @@
     <div class="list-meta mb-3">{{currentList.createdTime}}</div>
     <v-tabs class="views">
       <v-tab>List</v-tab>
-      <v-tab v-on:click="tableViewClicked()">Table</v-tab>
-      <v-tab>Resource</v-tab>
-      <v-tab>Timeline</v-tab>
-      <v-tab>Image</v-tab>
-      <v-tab>Landscape</v-tab>
-      <v-tab>Map</v-tab>
+      <v-tab v-on:click="tableViewClicked()">Table</v-tab> 
+      <v-tab>Pan</v-tab>
       <v-tab-item class="mx-3 my-3">
         <list-view></list-view>
       </v-tab-item>
@@ -79,11 +76,8 @@
         <table-view ref="tableView"></table-view>
       </v-tab-item>
       <v-tab-item class="my-3">
-        <resource-view></resource-view>
-      </v-tab-item>
-      <v-tab-item class="my-3">
-        <timeline-view></timeline-view>
-      </v-tab-item>
+        
+      </v-tab-item> 
     </v-tabs>
   </v-flex>
 </template>
@@ -107,6 +101,7 @@ import ListView from "./ListView.vue";
 import TableView from "./TableView.vue";
 import ResourceView from "./ResourceView.vue";
 import TimelineView from "./TimelineView.vue";
+import PanCreate from "./PanCreate.vue"
 
 import * as List from "../models/list.js";
 import { saveAs } from 'file-saver';
@@ -119,7 +114,8 @@ export default {
     ListView,
     TableView,
     ResourceView,
-    TimelineView
+    TimelineView,
+    PanCreate
   },
   computed: {
     ...mapState(["listTypes", "currentList"]),
@@ -135,7 +131,8 @@ export default {
   data() {
     return {
       importFilePath: null,
-      importFileDialog: false
+      importFileDialog: false,
+      panCreateDialog : false
     };
   },
   methods: {
@@ -176,7 +173,7 @@ export default {
         this.importFileDialog = false;
       };
       reader.readAsText(this.importFilePath);
-    }
+    } 
   }
 };
 </script>

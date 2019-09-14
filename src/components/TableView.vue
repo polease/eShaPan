@@ -93,6 +93,7 @@
       <v-icon right dark>mdi-table-row-plus-after</v-icon>
     </v-btn>
     <list-definition-edit></list-definition-edit>
+    <pan-create class="ma-1"></pan-create>
 
     <!-- -->
     <v-dialog v-model="htmlEditorDialog" width="600px">
@@ -147,12 +148,14 @@ import ListDefinitionEdit from "./ListDefinitionEdit.vue";
 import { VueEditor } from "vue2-editor";
 import * as List from "../models/list.js";
 import { saveAs } from "file-saver";
+import PanCreate from "./PanCreate.vue";
 //var jmespath = require("jmespath");
 
 export default {
   components: {
     ListDefinitionEdit,
-    VueEditor
+    VueEditor,
+    PanCreate
   },
   data() {
     return {

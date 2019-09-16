@@ -180,7 +180,9 @@ export default new Vuex.Store({
           x: [],
           y: [],
           w: [],
-          h: []
+          h: [],
+          text:[{'text' : 'Name', 'value' : '__name'}],
+          color:[]
         }
       };
       commit("updateNewPan", newPan);

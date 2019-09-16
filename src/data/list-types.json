@@ -6,8 +6,8 @@
     "type" :"default",
     "definition": [
       { "text": "RowID", "value": "__rid", "type": "system",  "defaultValue" : "uuid"  },
-      { "text": "Level", "value": "__level", "type": "system",  "defaultValue" : "0"  },
-      { "text": "#", "value": "__index", "type": "index", "width" : "40" },
+      { "text": "Level", "value": "__level", "type": "system",  "defaultValue" : "0" , "dataType" : "number" },
+      { "text": "#", "value": "__index", "type": "index", "width" : "40", "dataType" : "number" },
       { "text": "Name", "value": "__name" , "type": "default", "width" : "300" },
       { "text": "Body", "value": "__body" , "dataType" : "html", "width" : "20"  },
       { "text": "Created Time", "value": "__createdtime", "type": "system", "defaultValue" : "currentTime"  },
@@ -20,10 +20,10 @@
     "prefix": "t__",
     "definition": [
       { "text": "Owner", "value": "t__owner" },
-      { "text": "StartDate", "value": "t__startDateTime" },
-      { "text": "EndDate", "value": "t__endDateTime" },
+      { "text": "StartDate", "value": "t__startDateTime" , "dataType" : "datetime" },
+      { "text": "EndDate", "value": "t__endDateTime" , "dataType" : "datetime" },
       { "text": "Status", "value": "t__status", "dataType" : "tag" },
-      { "text": "Percentage", "value": "t__percentage" },
+      { "text": "Percentage", "value": "t__percentage",  "dataType" : "number" },
       { "text": "Task Type", "value": "t__type" },
       { "text": "Note", "value": "t__note" }
     ]

@@ -5,13 +5,14 @@
     "baseTypes": ["task"],
     "definition": [
       { "text": "RowID", "value": "__rid", "type": "system" },
-      { "text": "#", "value": "__index", "type": "index" },
+      { "text": "#", "value": "__index", "type": "index" , "dataType" : "number" },
       { "text": "Name", "value": "__name", "type": "default" },
       { "text": "Created Time", "value": "__createdtime", "type": "system" },
       { "text": "Updated Time", "value": "__updatedtime", "type": "system" },
       { "text": "Owner", "value": "t__owner" },
       { "text": "StartDate", "value": "t__startDate" },
       { "text": "EndDate", "value": "t__endDate" },
+      { "text": "Effort", "value": "t__effort", "dataType" : "number" },
       {
         "text": "Status",
         "value": "t__status",
@@ -72,6 +73,14 @@
             "text": "Static",
             "value" : "5",
             "type" : "static"
+          }],
+          "text" : [{
+            "text": "Name", 
+            "value":"__name"
+          }],
+          "color" : [{
+            "text": "Status", 
+            "value":"t__status"
           }]
         }
       }

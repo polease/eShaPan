@@ -48,6 +48,7 @@
     ],
     "pans":[
       {
+        "uuid" : "2790bcf5-23a9-4233-bc0e-349df5aba47d",
         "title":"Pan 1",
         "type" : "auto",
         "definition":{

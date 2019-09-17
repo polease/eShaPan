@@ -1,8 +1,11 @@
 <template>
   <v-dialog v-model="dialog" persistent width="1024" height="800">
     <template v-slot:activator="{ on }">
-      <v-btn v-on="on" color="blue-grey" class="white--text" @click="initNewPan()">
+      <v-btn v-if="!pan" v-on="on" color="blue-grey" class="white--text" @click="initNewPan()">
         Create Sha Pan
+        <v-icon right dark>mdi-image-filter-hdr</v-icon>
+      </v-btn>
+      <v-btn v-else v-on="on" icon color="blue-grey" class="white--text" @click="editCurrentPan()">
         <v-icon right dark>mdi-image-filter-hdr</v-icon>
       </v-btn>
     </template>
@@ -253,6 +256,7 @@
                 <draggable
                   v-model="staticFields"
                   :group="{ name: 'people', pull: 'clone', put: false }"
+                  :clone="cloneStaticField"
                   @start="drag=true"
                   @end="drag=false"
                 >
@@ -439,40 +443,27 @@ export default {
       staticFields: [{ text: "Static", value: "", type: "static" }]
     };
   },
-  props: ["tags"],
+  props: ["pan"],
   computed: {
     ...mapState(["currentList", "newPan"])
   },
   mounted() {},
   methods: {
-    add(item) {
-      let index = this.items.indexOf(item);
-      this.items.splice(index + 1, 0, {
-        name: "",
-        color: "#FFFFFF"
-      });
-    },
-    deleteTag(item) {
-      let index = this.items.indexOf(item);
-      this.items.splice(index, 1);
-    },
-    moveUp(item) {
-      let index = this.items.indexOf(item);
-      this.items.splice(index, 1);
-      this.items.splice(index - 1, 0, item);
-    },
-    moveDown(item) {
-      let index = this.items.indexOf(item);
-      this.items.splice(index, 1);
-      this.items.splice(index + 1, 0, item);
-    },
+     cloneStaticField(item){
+       return {
+         ...item
+       };
+     },
     save() {
-      this.$emit("save", this.items);
+      this.$store.dispatch("savePan", this.newPan);
       this.dialog = false;
     },
     xDimensionChanged() {},
     initNewPan() {
       this.$store.dispatch("initializeNewPan");
+    },
+    editCurrentPan(){
+      this.$store.dispatch("editPan", this.pan);
     },
     xChanged(event) {
       if (event.added && this.newPan.definition.x.length > 0) {

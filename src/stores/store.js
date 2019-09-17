@@ -53,6 +53,9 @@ export default new Vuex.Store({
     },
     updateNewPan(state, payload) {
       state.newPan = payload;
+    },
+    updateCurrentPan(state, payload) {
+      state.currentPan = payload;
     }
   },
   actions: {
@@ -167,25 +170,27 @@ export default new Vuex.Store({
       commit("updateListDefinition", definition);
     },
     async initializeNewPan({commit}){
-      let newPan ={
-        title: "Pan 1",
-        type: "auto",
-        definition: {
-          xDimension: "number",
-          yDimension: "number",
-          x0: "0",
-          y0: "0",
-          x1: "100",
-          y1: "100",
-          x: [],
-          y: [],
-          w: [],
-          h: [],
-          text:[{'text' : 'Name', 'value' : '__name'}],
-          color:[]
-        }
-      };
+      let newPan = List.newPan();
       commit("updateNewPan", newPan);
+    },
+    async editPan({commit}, pan){
+      let newPan = pan;
+      commit("updateNewPan", newPan);
+    },
+    
+    async savePan({commit}, pan){
+      let list = this.state.currentList;
+      let index = list.pans.findIndex(t=>t.uuid === pan.uuid);
+      if(index > -1)
+        list.pans.splice(index,1,pan);
+      else
+        list.pans.push(pan);
+      
+      await ListService.updateList(list.uuid, {pans : list.pans});
+
+      commit("updateCurrentPan", pan);
+      this.dispatch("initializeNewPan");
+
     }
   }
 });

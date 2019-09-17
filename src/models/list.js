@@ -9,7 +9,8 @@ function newList(baseTypes) {
     name: "",
     baseTypes: [],
     definition: [],
-    items: []
+    items: [],
+    pans:[]
   };
   if (baseTypes && baseTypes.length && baseTypes.length > 0)
     baseTypes.forEach(baseType => {
@@ -123,11 +124,37 @@ function convertToTimelineTasks(list) {
   return tasks;
 }
 
+
+
+function newPan() {
+  let newPan ={
+    uuid: uuidv4(),
+    title: "Pan 1",
+    type: "auto",
+    definition: {
+      xDimension: "number",
+      yDimension: "number",
+      x0: "0",
+      y0: "0",
+      x1: "100",
+      y1: "100",
+      x: [],
+      y: [],
+      w: [],
+      h: [],
+      text:[{'text' : 'Name', 'value' : '__name'}],
+      color:[]
+    }
+  };
+  return newPan;
+}
+
 export {
   newList,
   newListItem,
   getListMeta,
   convertToTimelineTasks,
   adjustListItemLevel,
-  copyFrom
+  copyFrom,
+  newPan
 };

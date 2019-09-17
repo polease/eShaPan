@@ -68,15 +68,15 @@
     <v-tabs class="views">
       <v-tab>List</v-tab>
       <v-tab v-on:click="tableViewClicked()">Table</v-tab> 
-      <v-tab>Pan</v-tab>
+      <v-tab v-for="pan in currentList.pans" :key="pan.uuid">{{pan.title}}</v-tab>
       <v-tab-item class="mx-3 my-3">
         <list-view></list-view>
       </v-tab-item>
       <v-tab-item class="my-3">
         <table-view ref="tableView"></table-view>
       </v-tab-item>
-      <v-tab-item class="my-3">
-        
+      <v-tab-item class="my-3" v-for="pan in currentList.pans" :key="pan.uuid">
+        <pan-view :pan="pan" ></pan-view>
       </v-tab-item> 
     </v-tabs>
   </v-flex>
@@ -102,6 +102,7 @@ import TableView from "./TableView.vue";
 import ResourceView from "./ResourceView.vue";
 import TimelineView from "./TimelineView.vue";
 import PanCreate from "./PanCreate.vue"
+import PanView from "./PanView.vue"
 
 import * as List from "../models/list.js";
 import { saveAs } from 'file-saver';
@@ -115,7 +116,8 @@ export default {
     TableView,
     ResourceView,
     TimelineView,
-    PanCreate
+    PanCreate,
+    PanView
   },
   computed: {
     ...mapState(["listTypes", "currentList"]),

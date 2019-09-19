@@ -1,4 +1,5 @@
 import uuidv4 from "uuid/v4";
+import moment from "moment"
 import shortid from "shortid";
 
 import cloneDeep from "clone-deep";
@@ -65,6 +66,10 @@ function adjustListItemLevel(listItem, levelAdjustment) {
   if (newLevel < 0) newLevel = 0;
 
   listItem.__level = newLevel;
+}
+
+function cleanUp(list){
+  list.items.forEach((t, index) => t.__index = index);
 }
 
 function convertToTimelineTasks(list) {
@@ -149,12 +154,24 @@ function newPan() {
   return newPan;
 }
 
+function getItemPropertyValue(item, propDefinition){
+  let result = item[propDefinition.value];
+  if(propDefinition.dataType === "time")
+    result = moment(result).toDate();
+  else if(propDefinition.dataType === "number")
+    result = parseFloat(result);
+   
+  return result;
+}
+
 export {
   newList,
   newListItem,
+  cleanUp,
   getListMeta,
   convertToTimelineTasks,
   adjustListItemLevel,
   copyFrom,
-  newPan
+  newPan,
+  getItemPropertyValue
 };

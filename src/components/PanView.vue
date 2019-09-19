@@ -1,21 +1,26 @@
 <template>
   <v-container>
-       <v-toolbar collapse dense>
-<pan-create :pan="pan"></pan-create> 
-<v-btn   icon color="blue-grey" class="white--text" @click="renderPan">
+    <v-toolbar collapse dense class="toolbar" width="200">
+      <v-btn icon color="blue-grey" class="white--text" @click="renderPan">
         <v-icon right dark>mdi-refresh</v-icon>
       </v-btn>
+      <pan-create :pan="pan"></pan-create>
+      <v-btn icon color="blue-grey" class="white--text" @click="deletePan">
+        <v-icon right dark>mdi-delete</v-icon>
+      </v-btn>
     </v-toolbar>
-    <div :id="id"></div>
+    <div :id="id" class="ma-3"></div>
   </v-container>
 </template>
 
 <style lang="scss">
-rect{ 
+
+.toolbar{
+  width: 200px;
 }
-text{
-    font-size:12px;
-    font-family: 'Courier New', Courier, monospace;
+text {
+  font-size: 12px;
+  font-family: Roboto, sans-serif;
 }
 </style>
 
@@ -23,14 +28,15 @@ text{
 import { mapState } from "vuex";
 import cloneDeep from "clone-deep";
 import * as d3 from "d3";
-import PanCreate from "./PanCreate.vue"
+import PanCreate from "./PanCreate.vue";
+import * as List from "../models/list.js";
 
 export default {
-    components: {PanCreate},
+  components: { PanCreate },
 
   data() {
     return {
-       id: 'd3-' + Math.round(Math.random() * 1000000),
+      id: "d3-" + Math.round(Math.random() * 1000000),
       dialog: false,
       colorDialog: false,
       ddd: {},
@@ -46,7 +52,7 @@ export default {
         ["#00FFFF", "#00AAAA", "#005555"],
         ["#0000FF", "#0000AA", "#000055"]
       ],
-      items: this.tags
+      items: []
     };
   },
   computed: {
@@ -54,77 +60,152 @@ export default {
   },
   props: ["pan"],
   mounted() {
-      this.renderPan();
+    this.renderPan();
   },
   methods: {
+    /// Transform list.items into this.items
+    /// {x, y, w, h, color}
+    prepareData() {
+      this.items = this.currentList.items.map((data, i, array) => {
+        let newI = {};
+        newI.x = this.getValue(this.pan.definition.x[0], data, i, array);
+        newI.y = this.getValue(this.pan.definition.y[0], data, i, array);
+        newI.w = this.getValue(this.pan.definition.w[0], data, i, array);
+        newI.h = this.getValue(this.pan.definition.h[0], data, i, array);
+        newI.text = this.getValue(this.pan.definition.text[0], data, i, array);
+        newI.color = this.getColorValue(
+          this.pan.definition.color[0],
+          this.currentList.definition,
+          data,
+          i,
+          array
+        );
+
+        return newI;
+      });
+    },
     renderPan() {
-        d3.select("svg").remove();
+      const CANVAS = { width: 1000, height: 800 };
+      const MARGIN = { top: 30, right: 30, bottom: 30, left: 30 };
+
+      // Setup data
+      this.prepareData();
+
+      d3.select(`#${this.id} svg`).remove();
       d3.select(`#${this.id}`)
         .append("svg")
-        .attr("width", 1000)
-        .attr("height", 800);
+        .attr("width", CANVAS.width)
+        .attr("height", CANVAS.height);
       // .style('background', this.chart.background);
       this.ddd.svg = d3.select(`#${this.id} svg`);
+
+      // Create scale
+      let xScale, yScale;
+      if (this.pan.definition.xDimension === "time")
+        xScale = d3
+          .scaleTime()
+          .domain([
+            new Date(this.pan.definition.x0),
+            new Date(this.pan.definition.x1)
+          ])
+          .range([MARGIN.left, CANVAS.width - MARGIN.right]);
+      else
+        xScale = d3
+          .scaleLinear()
+          .domain([
+            parseInt(this.pan.definition.x0),
+            parseInt(this.pan.definition.x1)
+          ])
+          .range([MARGIN.left, CANVAS.width - MARGIN.right]);
+
+      if (this.pan.definition.yDimension === "time")
+        yScale = d3
+          .scaleTime()
+          .domain([
+            new Date(this.pan.definition.y0),
+            new Date(this.pan.definition.y1)
+          ])
+          .range([MARGIN.top, CANVAS.height - MARGIN.bottom]);
+      else
+        yScale = d3
+          .scaleLinear()
+          .domain([
+            parseInt(this.pan.definition.y0),
+            parseInt(this.pan.definition.y1)
+          ])
+          .range([MARGIN.top, CANVAS.height - MARGIN.bottom]);
 
       // draw the shape
       this.ddd.item = this.ddd.svg
         .append("g")
-        .attr("transform", `translate( 1, 0)`)
         .selectAll("rect")
-        .data(this.currentList.items)
+        .data(this.items)
         .enter()
         .append("rect");
       this.ddd.item
-        .attr("fill", (data, i, array) =>
-          this.getColorValue(
-            this.pan.definition.color[0],
-            this.currentList.definition,
-            data,
-            i,
-            array
-          )
-        )
-        .attr("x", (data, i, array) => this.getValue(this.pan.definition.x[0], data, i, array))
-        .attr("y",  (data, i, array)  => this.getValue(this.pan.definition.w[0], data, i, array))
-        .attr("width", (data, i, array) =>
-          this.getValue(this.pan.definition.w[0], data, i, array)
-        )
-        .attr("height",  (data, i, array)  => this.getValue(this.pan.definition.h[0], data, i, array));
-    
-    //draw the text 
+        .attr("fill", data => data.color)
+        .attr("x", data => xScale(data.x))
+        .attr("y", data => yScale(data.y))
+        .attr("width", (data, i, array) => {
+          if (this.pan.definition.w[0].dataType === "time")
+            return xScale(data.w) - xScale(data.x); 
+          else return Scale(data.x + data.w) - xScale(data.x);
+        })
+        .attr("height", (data, i, array) => {
+          if (this.pan.definition.h[0].dataType === "time")
+            return yScale(data.h) - yScale(data.y); 
+          else return yScale(data.y + data.h) - yScale(data.y);
+        });
+
+      //draw the text
       this.ddd.text = this.ddd.svg
         .append("g")
-        .attr("transform", `translate( 1, 0)`)
+        .attr("transform", `translate(5, 15)`)
         .selectAll("text")
-        .data(this.currentList.items)
+        .data(this.items)
         .enter()
         .append("text");
-      this.ddd.text 
-        .attr("x", (data, i, array) => this.getValue(this.pan.definition.x[0], data, i, array))
-        .attr("y",  (data, i, array)  => this.getValue(this.pan.definition.w[0], data, i, array))
-        .attr("width", (data, i, array) =>
-          this.getValue(this.pan.definition.w[0], data, i, array)
-        )
-         .text((data, i, array) => this.getValue(this.pan.definition.text[0], data, i, array))
-       
-        
-    
+      this.ddd.text
+        .attr("x", data => xScale(data.x))
+        .attr("y", data => yScale(data.y))
+        .attr("width", (data, i, array) => {
+          if (this.pan.definition.w[0].dataType === "time")
+            return xScale(data.w) - xScale(data.x);
+          else  
+            return xScale(data.x + data.w) - xScale(data.x);
+        })
+        .text(data => data.text);
+
+      // Add scales to axis
+      var x_axis = d3.axisBottom().scale(xScale);
+      var y_axis = d3.axisLeft().scale(yScale);
+      this.ddd.svg
+        .append("g")
+        .attr("transform", `translate(0, ${MARGIN.top})`)
+        .call(x_axis);
+      this.ddd.svg
+        .append("g")
+        .attr("transform", `translate(${MARGIN.left}, 0)`)
+        .call(y_axis);
     },
     getValue(dim, item, index, items) {
-        if(!dim)
-            return null;
+      if (!dim) return null;
       if (dim.type === "static") return dim.value;
-
-      //if(dim.type === 'accumulate')
-      //
-
-      return item[dim.value];
+      else if (dim.type === "accumulate" && dim.dataType === "number") {
+        let initValue = 0;
+        let result = items.reduce((accumulator, loopItem, loopI, array) => {
+          if (loopI < index) return accumulator + List.getItemPropertyValue(loopItem, dim);
+          else return accumulator;
+        }, initValue);
+        return result;
+      } 
+      else 
+        return List.getItemPropertyValue(item, dim);
     },
-    getColorValue(dim, listDefinition, item, index, items) {
 
-        const DEFAULT_COLOR = "lightseagreen";
-        if(!dim)
-            return DEFAULT_COLOR;
+    getColorValue(dim, listDefinition, item, index, items) {
+      const DEFAULT_COLOR = "lightseagreen";
+      if (!dim) return DEFAULT_COLOR;
       if (dim.type === "static") return dim.value;
 
       //if(dim.type === 'accumulate')
@@ -141,6 +222,9 @@ export default {
     save() {
       this.$emit("save", this.items);
       this.dialog = false;
+    },
+    deletePan() {
+      this.$store.dispatch("deletePan", this.pan);
     }
   }
 };

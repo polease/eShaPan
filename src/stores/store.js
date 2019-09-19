@@ -101,6 +101,9 @@ export default new Vuex.Store({
       this.dispatch("saveCurrentList");
     },
     async saveCurrentList() {
+      //Logic to clean up list
+      List.cleanUp(this.state.currentList);
+
       await ListService.saveList(this.state.currentList);
     },
     async createList({ commit }, index) {
@@ -191,6 +194,24 @@ export default new Vuex.Store({
       commit("updateCurrentPan", pan);
       this.dispatch("initializeNewPan");
 
+    },
+    async deletePan({commit}, pan){
+      let list = this.state.currentList;
+      let index = list.pans.findIndex(t=>t.uuid === pan.uuid);
+      if(index > -1)
+        list.pans.splice(index,1); 
+    
+      
+      await ListService.updateList(list.uuid, {pans : list.pans});
+
+      let previousPan = null;
+      if(index-1 > -1)
+        previousPan = list.pans[index-1];
+      else if(list.pans.length > 0)
+        previousPan = list.pans[list.length-1];
+
+      commit("updateCurrentPan", previousPan);
+      this.dispatch("initializeNewPan");
     }
   }
 });

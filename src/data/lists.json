@@ -10,16 +10,16 @@
       { "text": "Created Time", "value": "__createdtime", "type": "system" },
       { "text": "Updated Time", "value": "__updatedtime", "type": "system" },
       { "text": "Owner", "value": "t__owner" },
-      { "text": "StartDate", "value": "t__startDate" },
-      { "text": "EndDate", "value": "t__endDate" },
+      { "text": "StartDate", "value": "t__startDate" , "dataType":"time"},
+      { "text": "EndDate", "value": "t__endDate", "dataType":"time"},
       { "text": "Effort", "value": "t__effort", "dataType" : "number" },
       {
         "text": "Status",
         "value": "t__status",
         "dataType": "tag",
         "tags": [
-          { "name": "Done", "color": "#FFF000" },
-          { "name": "In Progress", "color": "#00F000" },
+          { "name": "Done", "color": "green" },
+          { "name": "In Progress", "color": "yellow" },
           { "name": "Open", "color": "#CCC000" }
 
         ]
@@ -28,19 +28,21 @@
     ],
     "items": [
       {
-        "__name": "Take photo",
+        "__name": "Create Project Plan",
         "t__owner": "Emily",
-        "t__startDate": "20190810",
-        "t__endDate": null,
+        "t__startDate": "2019-08-10",
+        "t__endDate": "2019-08-20",
+        "t__effort": "10",
         "t__status": "open",
         "t__note": "",
-        "r__uri": "www.google.com"
+        "r__uri": "http://www.pmp.com"
       },
       {
-        "__name": "Aanade",
-        "t__owner": "Emily",
-        "t__startDate": "20190810",
-        "t__endDate": null,
+        "__name": "Design solution",
+        "t__owner": "Joh ",
+        "t__startDate": "2019-08-21",
+        "t__endDate": "2019-09-20",
+        "t__effort": "20",
         "t__status": "open",
         "t__note": "",
         "r__uri": "www.avanade.com"

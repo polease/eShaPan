@@ -20,8 +20,8 @@
     "prefix": "t__",
     "definition": [
       { "text": "Owner", "value": "t__owner" },
-      { "text": "StartDate", "value": "t__startDateTime" , "dataType" : "datetime" },
-      { "text": "EndDate", "value": "t__endDateTime" , "dataType" : "datetime" },
+      { "text": "StartDate", "value": "t__startDateTime" , "dataType" : "time" },
+      { "text": "EndDate", "value": "t__endDateTime" , "dataType" : "time" },
       { "text": "Status", "value": "t__status", "dataType" : "tag" },
       { "text": "Percentage", "value": "t__percentage",  "dataType" : "number" },
       { "text": "Task Type", "value": "t__type" },

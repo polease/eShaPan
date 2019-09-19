@@ -6,7 +6,7 @@
         <v-icon right dark>mdi-image-filter-hdr</v-icon>
       </v-btn>
       <v-btn v-else v-on="on" icon color="blue-grey" class="white--text" @click="editCurrentPan()">
-        <v-icon right dark>mdi-image-filter-hdr</v-icon>
+        <v-icon right dark>mdi-settings</v-icon>
       </v-btn>
     </template>
     <v-card>
@@ -18,7 +18,7 @@
           <v-row>
             <v-col cols="9" class="pan-definition-container">
               <div class="pan-definition-bg">
-                <svg width="800" height="600">
+                <svg width="800" height="600" id="pansvg">
                   <line x1="5" y1="5" x2="505" y2="5" class="dimension-line"></line>
                   <polygon points="500,0 500,10 510,5" class="dimension-shape"></polygon>
                   <line x1="5" y1="5" x2="5" y2="505" class="dimension-line"></line>
@@ -35,15 +35,15 @@
               <div class="pan-x0y0">
                 <v-container>
                   <v-row dense>
-                    <v-col cols="3">x0:</v-col>
-                    <v-col>
-                      <v-text-field class="ma-0 pa-0" v-model="newPan.definition.x0" single-line></v-text-field>
+                    <v-col class="ma-0 pa-0" cols="3">x0:</v-col>
+                    <v-col class="ma-0 pa-0">
+                      <v-text-field class="ma-0 pa-0 pan-static-field" v-model="newPan.definition.x0" single-line></v-text-field>
                     </v-col>
                   </v-row>
                   <v-row dense>
-                    <v-col cols="3">y0:</v-col>
-                    <v-col>
-                      <v-text-field class="ma-0 pa-0" v-model="newPan.definition.y0" single-line></v-text-field>
+                    <v-col class="ma-0 pa-0" cols="3">y0:</v-col>
+                    <v-col class="ma-0 pa-0">
+                      <v-text-field class="ma-0 pa-0 pan-static-field" v-model="newPan.definition.y0" single-line></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -68,7 +68,7 @@
                 <v-select
                   v-model="newPan.definition.yDimension"
                   :items="dimensions"
-                  @change="xDimensionChanged()"
+                  @change="yDimensionChanged()"
                   prepend-icon="mdi-notebook"
                   editable
                   attach
@@ -82,169 +82,37 @@
               </div>
               <div class="pan-x">
                 x :
-                <div class="drop-zone">
-                  <draggable
-                    v-model="newPan.definition.x"
-                    :group="{ name: 'people',   put: true }"
-                    @change="xChanged"
-                    @start="drag=true"
-                    @end="drag=false"
-                  >
-                    <v-chip
-                      v-for="prop in newPan.definition.x"
-                      :key="prop.value"
-                      class="ma-1"
-                      close
-                      outlined
-                      @click:close="xRemoved"
-                    >
-                      <v-icon v-if="prop.type === 'static'" left>mdi-numeric</v-icon>
-                      <v-icon v-else left>mdi-auto-fix</v-icon>
-                      <v-text-field v-if="prop.type === 'static'" v-model="prop.value"/>
-                      <span v-else>{{prop.text}}</span>
-                    </v-chip>
-                  </draggable>
-                </div>
+                <pan-create-field-slot v-model="newPan.definition.x"/>
               </div>
               <div class="pan-y">
                 y :
-                <div class="drop-zone">
-                  <draggable
-                    v-model="newPan.definition.y"
-                    :group="{ name: 'people',   put: true }"
-                    @change="yChanged"
-                    @start="drag=true"
-                    @end="drag=false"
-                  >
-                    <v-chip
-                      v-for="prop in newPan.definition.y"
-                      :key="prop.value"
-                      class="ma-1"
-                      close
-                      outlined
-                      @click:close="yRemoved"
-                    >
-                      <v-icon v-if="prop.type === 'static'" left>mdi-numeric</v-icon>
-                      <v-icon v-else left>mdi-auto-fix</v-icon>
-                      <v-text-field v-if="prop.type === 'static'" v-model="prop.value"/>
-                      <span v-else>{{prop.text}}</span>
-                    </v-chip>
-                  </draggable>
-                </div>
+                <pan-create-field-slot v-model="newPan.definition.y"/>
               </div>
               <div class="pan-w">
-                width :
-                <div class="drop-zone">
-                  <draggable
-                    v-model="newPan.definition.w"
-                    :group="{ name: 'people',   put: true }"
-                    @change="wChanged"
-                    @start="drag=true"
-                    @end="drag=false"
-                  >
-                    <v-chip
-                      v-for="prop in newPan.definition.w"
-                      :key="prop.value"
-                      class="ma-1"
-                      close
-                      outlined
-                      @click:close="wRemoved"
-                    >
-                       <v-icon v-if="prop.type === 'static'" left>mdi-numeric</v-icon>
-                      <v-icon v-else left>mdi-auto-fix</v-icon>
-                      <v-text-field v-if="prop.type === 'static'" v-model="prop.value"/>
-                      <span v-else>{{prop.text}}</span>
-                    </v-chip>
-                  </draggable>
-                </div>
+                width/x':
+                <pan-create-field-slot v-model="newPan.definition.w"/>
               </div>
               <div class="pan-h">
-                height :
-                <div class="drop-zone">
-                  <draggable
-                    v-model="newPan.definition.h"
-                    :group="{ name: 'people',   put: true }"
-                    @change="hChanged"
-                    @start="drag=true"
-                    @end="drag=false"
-                  >
-                    <v-chip
-                      v-for="prop in newPan.definition.h"
-                      :key="prop.value"
-                      class="ma-1"
-                      close
-                      outlined
-                      @click:close="hRemoved"
-                    >
-                      <v-icon v-if="prop.type === 'static'" left>mdi-numeric</v-icon>
-                      <v-icon v-else left>mdi-auto-fix</v-icon>
-                      <v-text-field v-if="prop.type === 'static'" v-model="prop.value"/>
-                      <span v-else>{{prop.text}}</span>
-                    </v-chip>
-                  </draggable>
-                </div>
+                height/y':
+                <pan-create-field-slot v-model="newPan.definition.h"/>
               </div>
               <div class="pan-element">
                 text :
-                <div class="drop-zone">
-                  <draggable
-                    v-model="newPan.definition.text"
-                    :group="{ name: 'people',   put: true }"
-                    @change="textChanged"
-                    @start="drag=true"
-                    @end="drag=false"
-                  >
-                    <v-chip
-                      v-for="prop in newPan.definition.text"
-                      :key="prop.value"
-                      class="ma-1"
-                      close
-                      outlined
-                      @click:close="textRemoved"
-                    >
-                      <v-icon v-if="prop.type === 'static'" left>mdi-numeric</v-icon>
-                      <v-icon v-else left>mdi-auto-fix</v-icon>
-                      <v-text-field v-if="prop.type === 'static'" v-model="prop.value"/>
-                      <span v-else>{{prop.text}}</span>
-                    </v-chip>
-                  </draggable>
-                </div>color :
-                <div class="drop-zone">
-                  <draggable
-                    v-model="newPan.definition.color"
-                    :group="{ name: 'people',   put: true }"
-                    @change="colorChanged"
-                    @start="drag=true"
-                    @end="drag=false"
-                  >
-                    <v-chip
-                      v-for="prop in newPan.definition.color"
-                      :key="prop.value"
-                      class="ma-1"
-                      close
-                      outlined
-                      @click:close="colorRemoved"
-                    >
-                      <v-icon v-if="prop.type === 'static'" left>mdi-numeric</v-icon>
-                      <v-icon v-else left>mdi-auto-fix</v-icon>
-                      <v-text-field v-if="prop.type === 'static'" v-model="prop.value"/>
-                      <span v-else>{{prop.text}}</span>
-                    </v-chip>
-                  </draggable>
-                </div>
+                <pan-create-field-slot v-model="newPan.definition.text"/>color :
+                <pan-create-field-slot v-model="newPan.definition.color"/>
               </div>
               <div class="pan-x1y1">
                 <v-container>
                   <v-row dense>
-                    <v-col cols="3">x1:</v-col>
-                    <v-col>
-                      <v-text-field class="ma-0 pa-0" v-model="newPan.definition.x1" single-line></v-text-field>
+                    <v-col class="ma-0 pa-0" cols="3">x1:</v-col>
+                    <v-col class="ma-0 pa-0">
+                      <v-text-field class="ma-0 pa-0 pan-static-field" v-model="newPan.definition.x1" single-line></v-text-field>
                     </v-col>
                   </v-row>
                   <v-row dense>
-                    <v-col cols="3">y1:</v-col>
-                    <v-col>
-                      <v-text-field class="ma-0 pa-0" v-model="newPan.definition.y1" single-line></v-text-field>
+                    <v-col class="ma-0 pa-0" cols="3">y1:</v-col>
+                    <v-col class="ma-0 pa-0">
+                      <v-text-field class="ma-0 pa-0 pan-static-field" v-model="newPan.definition.y1" single-line></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -272,6 +140,7 @@
                 <draggable
                   v-model="currentList.definition"
                   :group="{ name: 'people', pull: 'clone', put: false }"
+                  :clone="cloneListField"
                   @start="drag=true"
                   @end="drag=false"
                 >
@@ -285,15 +154,13 @@
 
                 <v-subheader class="grey--text text--darken-1" align-left>Accumulated Fields</v-subheader>
                 <draggable
-                  v-model="currentList.definition"
+                  v-model="this.accumulateFields"
+                  :clone="cloneAccumulateField"
                   :group="{ name: 'people', pull: 'clone', put: false }"
                   @start="drag=true"
                   @end="drag=false"
                 >
-                  <v-row
-                    v-for="prop in currentList.definition.filter(t=>t.dataType ==='number')"
-                    :key="prop.value"
-                  >
+                  <v-row v-for="prop in this.accumulateFields" :key="prop.value">
                     <v-chip class="ma-1" outlined>
                       <v-icon left>mdi-sigma</v-icon>
                       {{prop.text}}
@@ -331,7 +198,6 @@
 
 .comment-line {
   stroke-dasharray: 5, 5;
-
   stroke: lightgray;
   stroke-width: 1px;
 }
@@ -366,7 +232,7 @@
 .pan-x {
   position: absolute;
   left: 30px;
-  top: 260px;
+  top: 240px;
   width: 160px;
   height: 80px;
   background-color: lightyellow;
@@ -389,15 +255,15 @@
 .pan-w {
   position: absolute;
   left: 220px;
-  top: 360px;
+  top: 380px;
   width: 160px;
   height: 80px;
   background-color: lightyellow;
 }
 .pan-h {
   position: absolute;
-  left: 420px;
-  top: 220px;
+  left: 440px;
+  top: 240px;
   width: 160px;
   height: 80px;
   background-color: lightyellow;
@@ -413,15 +279,25 @@
 .pan-x1y1 {
   position: absolute;
   left: 300px;
-  top: 440px;
+  top: 460px;
   width: 160px;
   height: 100px;
   background-color: lightyellow;
+}
+
+.pan-static-field{
+   
 }
 .drop-zone {
   width: 160px;
   height: 40px;
   background-color: yellow;
+}
+
+.curlyBrace {
+  stroke: lightgray;
+  stroke-width: 1px;
+  fill: none;
 }
 </style>
 
@@ -429,95 +305,99 @@
 import { mapState } from "vuex";
 import cloneDeep from "clone-deep";
 import draggable from "vuedraggable";
+import * as d3 from "d3";
+import PanCreateFieldSlot from "./PanCreateFieldSlot.vue";
+import * as SVG from "../models/svg.js";
 
 //var jmespath = require("jmespath");
 
 export default {
   components: {
-    draggable
+    draggable,
+    PanCreateFieldSlot
   },
   data() {
     return {
       dialog: false,
       dimensions: ["number", "time"],
-      staticFields: [{ text: "Static", value: "", type: "static" }]
+      staticFields: [{ text: "Static", value: "1", type: "static" }]
     };
   },
   props: ["pan"],
   computed: {
-    ...mapState(["currentList", "newPan"])
+    ...mapState(["currentList", "newPan"]),
+    accumulateFields: {
+      get() {
+        return this.currentList.definition
+          .filter(t => t.dataType === "number")
+          .map(t => {
+            return { ...t, type: "accumulate" };
+          });
+      }
+    }
   },
-  mounted() {},
+  updated() {
+    let coords = [{ x1: 5, y1: 205, x2: 205, y2: 205 },
+    { x1: 205, y1: 205, x2: 205, y2: 5 },
+    { x1: 405, y1: 355, x2: 405, y2: 205 },
+    { x1: 205, y1: 355, x2: 405, y2: 355 }];
+
+    
+    var svg = d3
+      .select("#pansvg"); 
+    var braces = svg.selectAll("path")
+      .data(coords)
+      .enter()
+      .append("path")
+      .attr("class", "curlyBrace")
+      .attr("d", function(d) {
+        return SVG.makeCurlyBrace(d.x1, d.y1, d.x2, d.y2, 30, 0.6);
+      });
+  },
   methods: {
-     cloneStaticField(item){
-       return {
-         ...item
-       };
-     },
+    cloneStaticField(item) {
+      return {
+        ...item
+      };
+    },
+    cloneAccumulateField(item) {
+      return {
+        ...item,
+        type: "accumulate"
+      };
+    },
+    cloneListField(item) {
+      return {
+        ...item
+      };
+    },
     save() {
       this.$store.dispatch("savePan", this.newPan);
       this.dialog = false;
     },
-    xDimensionChanged() {},
+    xDimensionChanged() {
+      if (this.newPan.definition.xDimension === "time") {
+        this.newPan.definition.x0 = "2019-01-01";
+        this.newPan.definition.x1 = "2020-01-01";
+      } else {
+        this.newPan.definition.x0 = "0";
+        this.newPan.definition.x1 = "100";
+      }
+    },
+    yDimensionChanged() {
+      if (this.newPan.definition.yDimension === "time") {
+        this.newPan.definition.y0 = "2019-01-01";
+        this.newPan.definition.y1 = "2020-01-01";
+      } else {
+        this.newPan.definition.y0 = "0";
+        this.newPan.definition.y1 = "100";
+      }
+    },
     initNewPan() {
       this.$store.dispatch("initializeNewPan");
     },
-    editCurrentPan(){
+    editCurrentPan() {
       this.$store.dispatch("editPan", this.pan);
-    },
-    xChanged(event) {
-      if (event.added && this.newPan.definition.x.length > 0) {
-        this.newPan.definition.x = [];
-        this.newPan.definition.x.push(event.added.element);
-      }
-    },
-    xRemoved() {
-      this.newPan.definition.x = [];
-    },
-    yChanged(event) {
-      if (event.added && this.newPan.definition.y.length > 0) {
-        this.newPan.definition.y = [];
-        this.newPan.definition.y.push(event.added.element);
-      }
-    },
-    yRemoved() {
-      this.newPan.definition.y = [];
-    },
-    hChanged(event) {
-      if (event.added && this.newPan.definition.h.length > 0) {
-        this.newPan.definition.h = [];
-        this.newPan.definition.h.push(event.added.element);
-      }
-    },
-    hRemoved() {
-      this.newPan.definition.h = [];
-    },
-    wChanged(event) {
-      if (event.added && this.newPan.definition.w.length > 0) {
-        this.newPan.definition.w = [];
-        this.newPan.definition.w.push(event.added.element);
-      }
-    },
-    wRemoved() {
-      this.newPan.definition.w = [];
-    },
-    textChanged(event) {
-      if (event.added && this.newPan.definition.text.length > 0) {
-        this.newPan.definition.text = [];
-        this.newPan.definition.text.push(event.added.element);
-      }
-    },
-    textRemoved() {
-      this.newPan.definition.text = [];
-    },
-    colorChanged(event) {
-      if (event.added && this.newPan.definition.color.length > 0) {
-        this.newPan.definition.color = [];
-        this.newPan.definition.color.push(event.added.element);
-      }
-    },
-    colorRemoved() {
-      this.newPan.definition.color = [];
     }
   }
 };

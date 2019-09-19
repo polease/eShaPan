@@ -56,12 +56,12 @@
               item-text="name"
               item-value="value"
               :background-color="getTagColor(item, p)"
-              deletable-chips="true"
               flat
               dense
               solo
               hide-no-data
               hide-details
+              @change="updateListItem(item)"
             />
 
             <v-text-field

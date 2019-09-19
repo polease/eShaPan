@@ -148,7 +148,7 @@ export default {
       dataTypes: [
         { name: "Text", value: "text" },
         { name: "Number", value: "number" },
-        { name: "Date Time", value: "datetime" },
+        { name: "Date Time", value: "time" },
         { name: "Rich Text", value: "html" },
         { name: "Tag", value: "tag" }
       ]

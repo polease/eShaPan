@@ -4,7 +4,7 @@
       <v-list dense>
         <books></books>
 
-        <v-subheader class="grey--text text--darken-1 mt-3" align-left>Settings</v-subheader>
+        <!-- <v-subheader class="grey--text text--darken-1 mt-3" align-left>Settings</v-subheader>
 
         <v-list-item class="mt-3">
           <v-list-item-icon>
@@ -22,7 +22,7 @@
           <v-list-item-content>
             <v-list-item-title class="grey--text text--darken-1">Manage Subscriptions</v-list-item-title>
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item> -->
       </v-list>
     </v-navigation-drawer>
     <v-app-bar class="sys-toolbar" dense fixed clipped-left app>
@@ -31,7 +31,7 @@
       </v-app-bar-nav-icon>
 
       <v-toolbar-title class="mr-12 align-center">
-        <span class="title app-title">沙盘</span>
+        <span class="title app-title">eShaPan</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
 

@@ -146,6 +146,7 @@ export default {
         .attr("fill", data => data.color)
         .attr("x", data => xScale(data.x))
         .attr("y", data => yScale(data.y))
+        .transition()
         .attr("width", (data, i, array) => {
           if (this.pan.definition.w[0].dataType === "time")
             return xScale(data.w) - xScale(data.x); 
@@ -168,6 +169,7 @@ export default {
       this.ddd.text
         .attr("x", data => xScale(data.x))
         .attr("y", data => yScale(data.y))
+        .transition()
         .attr("width", (data, i, array) => {
           if (this.pan.definition.w[0].dataType === "time")
             return xScale(data.w) - xScale(data.x);

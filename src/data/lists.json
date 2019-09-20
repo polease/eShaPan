@@ -56,26 +56,26 @@
         "definition":{
           "xDimension": "time",
           "yDimension" : "number",
-          "x0":  "20190807", 
+          "x0":  "2019-08-07", 
           "y0":  0,  
-          "x1": "20191220", 
+          "x1": "2019-12-20", 
           "y1": 100, 
           "x" : [{
             "text" : "Start Date",
             "value": "t__startDate"
           }],
           "y" : [{
-            "text" : "index",
-            "value": "__index"
+            "text" : "Effort",
+            "value": "t__effort",
+            "type" : "accumulate"
           }],
           "w" : [{
-            "text": "Effort", 
-            "value":"t__effort"
+            "text": "End Date", 
+            "value":"t__endDate"
           }],
           "h" : [{
-            "text": "Static",
-            "value" : "5",
-            "type" : "static"
+            "text": "Effort",
+            "value" : "t__effort"
           }],
           "text" : [{
             "text": "Name", 

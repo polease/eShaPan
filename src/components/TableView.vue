@@ -39,7 +39,7 @@
               class="list-item-prefix"
             >{{currentList.items.indexOf(item)+1}}</span>
 
-            <v-tooltip bottom v-else-if="p.dataType ==='html'">
+            <v-tooltip bottom v-else-if="p.dataType ==='html'" color="#D7D7D7">
               <template v-slot:activator="{ on }">
                 <v-btn @click="editHtmlBody(item,p.value)" text icon v-on="on">
                   <v-icon :color="item[p.value]?'primary':'gray'">mdi-information-variant</v-icon>

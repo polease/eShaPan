@@ -42,7 +42,7 @@
             <v-tooltip bottom v-else-if="p.dataType ==='html'" color="#D7D7D7">
               <template v-slot:activator="{ on }">
                 <v-btn @click="editHtmlBody(item,p.value)" text icon v-on="on">
-                  <v-icon :color="item[p.value]?'primary':'gray'">mdi-information-variant</v-icon>
+                  <v-icon :color="item[p.value]?'primary':'#D7D7D7'">mdi-information-variant</v-icon>
                 </v-btn>
               </template>
               <span class="body-tooltip" v-html="item[p.value]"></span>

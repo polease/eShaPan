@@ -1,9 +1,8 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" fixed clipped app>
+      <books></books>
       <v-list dense>
-        <books></books>
-
         <!-- <v-subheader class="grey--text text--darken-1 mt-3" align-left>Settings</v-subheader>
 
         <v-list-item class="mt-3">
@@ -22,7 +21,7 @@
           <v-list-item-content>
             <v-list-item-title class="grey--text text--darken-1">Manage Subscriptions</v-list-item-title>
           </v-list-item-content>
-        </v-list-item> -->
+        </v-list-item>-->
       </v-list>
     </v-navigation-drawer>
     <v-app-bar class="sys-toolbar" dense fixed clipped-left app>
@@ -91,11 +90,11 @@ export default {
     Books
   },
   data: () => ({
-    drawer: null,
-     
+    drawer: null
   }),
   async mounted() {
-    await this.$store.dispatch("initializeNewPan"); 
+    await this.$store.dispatch("initializeNewPan");
+    
   },
   props: {
     source: String

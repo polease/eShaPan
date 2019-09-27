@@ -88,7 +88,7 @@
     </v-data-table>
 
     <!-- Action for List Item -->
-    <v-btn class="ma-3" @click="newListItem(0)">
+    <v-btn class="ma-3" @click="newListItemToLast()">
       New Item
       <v-icon right dark>mdi-table-row-plus-after</v-icon>
     </v-btn>
@@ -199,6 +199,13 @@ export default {
   },
   mounted() {},
   methods: {
+     async newListItemToLast() {
+      let index = 0;
+      if(this.currentList.items && this.currentList.items.length > 0)
+        index = this.currentList.items.length-1;
+      await this.$store.dispatch("createListItem", index);
+      this.$refs.listItems[index + 1].focus(); 
+    },
     async newListItem(index) {
       await this.$store.dispatch("createListItem", index);
       this.$refs.listItems[index + 1].focus();

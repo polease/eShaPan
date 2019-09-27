@@ -1,92 +1,1157 @@
 [
-  {
-    "uuid": "ddeb27fb-d9a0-4624-be4d-4615062daed4",
-    "name": "Trip to Sequoia",
-    "baseTypes": ["task"],
-    "definition": [
-      { "text": "RowID", "value": "__rid", "type": "system" },
-      { "text": "#", "value": "__index", "type": "index" , "dataType" : "number" },
-      { "text": "Name", "value": "__name", "type": "default" },
-      { "text": "Created Time", "value": "__createdtime", "type": "system" },
-      { "text": "Updated Time", "value": "__updatedtime", "type": "system" },
-      { "text": "Owner", "value": "t__owner" },
-      { "text": "StartDate", "value": "t__startDate" , "dataType":"time"},
-      { "text": "EndDate", "value": "t__endDate", "dataType":"time"},
-      { "text": "Effort", "value": "t__effort", "dataType" : "number" },
-      {
-        "text": "Status",
-        "value": "t__status",
-        "dataType": "tag",
-        "tags": [
-          { "name": "Done", "color": "green" },
-          { "name": "In Progress", "color": "yellow" },
-          { "name": "Open", "color": "#CCC000" }
-
+    {
+        "uuid": "ddeb27fb-d9a0-4624-be4d-4615062daed4",
+        "name": "Sample Traditional Project Plan",
+        "baseTypes": [
+            "task"
+        ],
+        "definition": [
+            {
+                "text": "RowID",
+                "value": "__rid",
+                "type": "system"
+            },
+            {
+                "text": "#",
+                "value": "__index",
+                "type": "index",
+                "dataType": "number"
+            },
+            {
+                "text": "Name",
+                "value": "__name",
+                "type": "default",
+                "width": "300"
+            },
+            {
+                "text": "Created Time",
+                "value": "__createdtime",
+                "type": "system"
+            },
+            {
+                "text": "Updated Time",
+                "value": "__updatedtime",
+                "type": "system"
+            },
+            {
+                "text": "Owner",
+                "value": "t__owner",
+                "dataType": "text"
+            },
+            {
+                "text": "StartDate",
+                "value": "t__startDate",
+                "dataType": "time"
+            },
+            {
+                "text": "EndDate",
+                "value": "t__endDate",
+                "dataType": "time"
+            },
+            {
+                "text": "Effort",
+                "value": "t__effort",
+                "dataType": "number"
+            },
+            {
+                "text": "Note",
+                "value": "t__note",
+                "dataType": "html"
+            },
+            {
+                "text": "Status",
+                "value": "t__status",
+                "dataType": "tag",
+                "tags": [
+                    {
+                        "name": "Milestone",
+                        "color": "#D83FAA"
+                    },
+                    {
+                        "name": "Done",
+                        "color": "green"
+                    },
+                    {
+                        "name": "In Progress",
+                        "color": "yellow"
+                    },
+                    {
+                        "name": "Open",
+                        "color": "#989892"
+                    }
+                ]
+            }
+        ],
+        "items": [
+            {
+                "__name": "PROJECT DEFINITION",
+                "t__owner": "Emily",
+                "t__startDate": "2019-08-10",
+                "t__endDate": "2019-08-20",
+                "t__effort": "1",
+                "t__status": "Milestone",
+                "t__note": "2323",
+                "r__uri": "http://www.pmp.com",
+                "__index": 0
+            },
+            {
+                "__name": "Business Assessment / Opportunity Definition",
+                "t__owner": "John",
+                "t__startDate": "2019-08-10",
+                "t__endDate": "2019-08-15",
+                "t__effort": "1",
+                "t__status": "Done",
+                "t__note": "",
+                "r__uri": "www.avanade.com",
+                "__index": 1,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 2,
+                "__name": "Define Charter and Scope of Project",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": "Emily",
+                "t__startDate": "2019-08-15",
+                "t__endDate": "2019-08-20",
+                "t__effort": "1",
+                "t__status": "Done",
+                "t__note": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 3,
+                "__name": "PLANNING",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": "Iris",
+                "t__startDate": "2019-08-22",
+                "t__endDate": "2019-09-01",
+                "t__effort": "1",
+                "t__status": "Milestone",
+                "t__note": null,
+                "__level": 0
+            },
+            {
+                "__rid": null,
+                "__index": 4,
+                "__name": "Prepare project plan draft",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": "Iris",
+                "t__startDate": "2019-08-22",
+                "t__endDate": "2019-08-27",
+                "t__effort": "1",
+                "t__status": "Done",
+                "t__note": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 5,
+                "__name": "Develop project communication plan ",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": "Iris",
+                "t__startDate": "2019-08-27",
+                "t__endDate": "2019-08-29",
+                "t__effort": "1",
+                "t__status": "In Progress",
+                "t__note": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 6,
+                "__name": "Conduct project team kick-off & planning",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": "Iris",
+                "t__startDate": "2019-08-29",
+                "t__endDate": "2019-08-30",
+                "t__effort": "1",
+                "t__status": "In Progress",
+                "t__note": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 7,
+                "__name": "Onboard Staff as planned",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": "Iris",
+                "t__startDate": "2019-08-30",
+                "t__endDate": "2019-09-01",
+                "t__effort": null,
+                "t__status": "In Progress",
+                "t__note": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 8,
+                "__name": "REQUIREMENTS ",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": "Jose",
+                "t__startDate": "2019-09-01",
+                "t__endDate": "2019-9-30",
+                "t__effort": null,
+                "t__status": "Milestone",
+                "t__note": null
+            },
+            {
+                "__rid": null,
+                "__index": 9,
+                "__name": "Identify and prepare Working Group team",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": "Jose",
+                "t__startDate": "2019-09-01",
+                "t__endDate": "2019-09-5",
+                "t__effort": null,
+                "t__status": "Open",
+                "t__note": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 10,
+                "__name": "Conduct interviews / analysis sessions",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": "Jose",
+                "t__startDate": "2019-09-05",
+                "t__endDate": "2019-09-25",
+                "t__effort": null,
+                "t__status": "Open",
+                "t__note": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 11,
+                "__name": "Final BRD Review",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": "Jose",
+                "t__startDate": "2019-09-25",
+                "t__endDate": "2019-09-30",
+                "t__effort": null,
+                "t__status": "Open",
+                "t__note": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 12,
+                "__name": "DESIGN PHASE",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": "Johny",
+                "t__startDate": "2019-10-01",
+                "t__endDate": "2019-10-15",
+                "t__effort": null,
+                "t__note": null,
+                "t__status": "Open"
+            },
+            {
+                "__rid": null,
+                "__index": 13,
+                "__name": "Environment Planning, document on confluence",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 14,
+                "__name": "Functional Design Specifications",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 15,
+                "__name": "Application Design (UI Mock-ups, Use Cases, Prototype)",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 16,
+                "__name": "Data Conversion, Migration Design",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 17,
+                "__name": "Reports Design (operational, ad hoc, other)",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 18,
+                "__name": "Access & Security Design",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 19,
+                "__name": "Data Base Conceptual Design",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 20,
+                "__name": "Interface, Integration Logical Design",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 21,
+                "__name": "IT infrastructure / technology summary, document",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 22,
+                "__name": "Publish Design Documents to repository (BOX, Confluence)",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 23,
+                "__name": "DEVELOPMENT ",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null
+            },
+            {
+                "__rid": null,
+                "__index": 24,
+                "__name": "Data Base Development",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 25,
+                "__name": "Application Development (UI, Flows, other)",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 26,
+                "__name": "TEST",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null
+            },
+            {
+                "__rid": null,
+                "__index": 27,
+                "__name": "Test Planning",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 28,
+                "__name": "SIT",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 29,
+                "__name": "UAT",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 30,
+                "__name": "CAE / READINESS (Training, Communications, Cust. Support)",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null
+            },
+            {
+                "__rid": null,
+                "__index": 31,
+                "__name": "Training",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 32,
+                "__name": "Communication",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 33,
+                "__name": "Customer Support",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 34,
+                "__name": "ROLLOUT (Pilot or Full Production)",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 0
+            },
+            {
+                "__rid": null,
+                "__index": 35,
+                "__name": "Move to Production Checklist",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null
+            },
+            {
+                "__rid": null,
+                "__index": 36,
+                "__name": "System Readiness Review",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 37,
+                "__name": "Approval to Deploy, Development Team",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 38,
+                "__name": "Approval to Deploy, Business Owners",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 39,
+                "__name": "Deploy Application to Production",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 40,
+                "__name": "Production Verification by SME's, BA's, Tech Lead, QA",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 41,
+                "__name": "GO-LIVE",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null
+            },
+            {
+                "__rid": null,
+                "__index": 42,
+                "__name": "Communicate Go-Live to User Community and Project Team",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            },
+            {
+                "__rid": null,
+                "__index": 43,
+                "__name": "Go-Live Support",
+                "__createdtime": null,
+                "__updatedtime": null,
+                "t__owner": null,
+                "t__startDate": null,
+                "t__endDate": null,
+                "t__effort": null,
+                "t__note": null,
+                "t__status": null,
+                "__level": 1
+            }
+        ],
+        "pans": [
+            {
+                "uuid": "fcbbdaaa-f438-4369-b90a-9c1a1ba931ed",
+                "title": "Gant Pan",
+                "type": "auto",
+                "definition": {
+                    "xDimension": "time",
+                    "yDimension": "number",
+                    "x0": "2019-08-01",
+                    "y0": "0",
+                    "x1": "2020-01-01",
+                    "y1": "20",
+                    "x": [
+                        {
+                            "text": "StartDate",
+                            "value": "t__startDate",
+                            "dataType": "time"
+                        }
+                    ],
+                    "y": [
+                        {
+                            "text": "#",
+                            "value": "__index",
+                            "type": "index",
+                            "dataType": "number"
+                        }
+                    ],
+                    "w": [
+                        {
+                            "text": "EndDate",
+                            "value": "t__endDate",
+                            "dataType": "time"
+                        }
+                    ],
+                    "h": [
+                        {
+                            "text": "Static",
+                            "value": "1",
+                            "type": "static"
+                        }
+                    ],
+                    "text": [
+                        {
+                            "text": "Name",
+                            "value": "__name"
+                        }
+                    ],
+                    "color": [
+                        {
+                            "text": "Status",
+                            "value": "t__status",
+                            "dataType": "tag",
+                            "tags": [
+                                {
+                                    "name": "Done",
+                                    "color": "green"
+                                },
+                                {
+                                    "name": "In Progress",
+                                    "color": "yellow"
+                                },
+                                {
+                                    "name": "Open",
+                                    "color": "#CCC000"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
         ]
-      },
-      { "text": "Note", "value": "t__note" }
-    ],
-    "items": [
-      {
-        "__name": "Create Project Plan",
-        "t__owner": "Emily",
-        "t__startDate": "2019-08-10",
-        "t__endDate": "2019-08-20",
-        "t__effort": "10",
-        "t__status": "open",
-        "t__note": "",
-        "r__uri": "http://www.pmp.com"
-      },
-      {
-        "__name": "Design solution",
-        "t__owner": "Joh ",
-        "t__startDate": "2019-08-21",
-        "t__endDate": "2019-09-20",
-        "t__effort": "20",
-        "t__status": "open",
-        "t__note": "",
-        "r__uri": "www.avanade.com"
-      }
-    ],
-    "pans":[
-      {
-        "uuid" : "2790bcf5-23a9-4233-bc0e-349df5aba47d",
-        "title":"Pan 1",
-        "type" : "auto",
-        "definition":{
-          "xDimension": "time",
-          "yDimension" : "number",
-          "x0":  "2019-08-07", 
-          "y0":  0,  
-          "x1": "2019-12-20", 
-          "y1": 100, 
-          "x" : [{
-            "text" : "Start Date",
-            "value": "t__startDate"
-          }],
-          "y" : [{
-            "text" : "Effort",
-            "value": "t__effort",
-            "type" : "accumulate"
-          }],
-          "w" : [{
-            "text": "End Date", 
-            "value":"t__endDate"
-          }],
-          "h" : [{
-            "text": "Effort",
-            "value" : "t__effort"
-          }],
-          "text" : [{
-            "text": "Name", 
-            "value":"__name"
-          }],
-          "color" : [{
-            "text": "Status", 
-            "value":"t__status"
-          }]
-        }
-      }
-    ]
-  }
+    },
+    {
+        "uuid": "e16c27c7-ae5b-4873-b438-29e6e4c6aa46",
+        "name": "Sample 出生证三级认证和旅行证换发",
+        "baseTypes": [
+            "task"
+        ],
+        "definition": [
+            {
+                "text": "RowID",
+                "value": "__rid",
+                "type": "system",
+                "defaultValue": "uuid"
+            },
+            {
+                "text": "Level",
+                "value": "__level",
+                "type": "system",
+                "defaultValue": "0"
+            },
+            {
+                "text": "#",
+                "value": "__index",
+                "type": "index"
+            },
+            {
+                "text": "Name",
+                "value": "__name",
+                "type": "default",
+                "width": "400"
+            },
+            {
+                "text": "Status",
+                "value": "t__status",
+                "width": "10",
+                "dataType": "tag",
+                "tags": [
+                    {
+                        "name": "Prepare",
+                        "color": "#E5E5A7"
+                    },
+                    {
+                        "name": "Done",
+                        "color": "#00AA00"
+                    }
+                ]
+            },
+            {
+                "text": "Body",
+                "value": "__body",
+                "fieldType": "html",
+                "dataType": "html",
+                "tags": [
+                    {
+                        "name": "ok",
+                        "color": "#0000FF"
+                    }
+                ],
+                "width": "10"
+            },
+            {
+                "text": "Print Tag",
+                "value": "printtag",
+                "type": "custom",
+                "dataType": "tag",
+                "tags": [
+                    {
+                        "name": "",
+                        "color": "#FFFFFF"
+                    },
+                    {
+                        "name": "Yes",
+                        "color": "#CFCFF3"
+                    }
+                ],
+                "width": "10"
+            },
+            {
+                "text": "Copy Tag",
+                "value": "copytag",
+                "type": "custom",
+                "dataType": "tag",
+                "tags": [
+                    {
+                        "name": "",
+                        "color": "#FFFFFF"
+                    },
+                    {
+                        "name": "Yes",
+                        "color": "#00FFFF"
+                    }
+                ],
+                "width": "10"
+            },
+            {
+                "text": "Created Time",
+                "value": "__createdtime",
+                "type": "system",
+                "defaultValue": "currentTime"
+            },
+            {
+                "text": "Updated Time",
+                "value": "__updatedtime",
+                "type": "system",
+                "defaultValue": "currentTime"
+            },
+            {
+                "text": "StartDate",
+                "value": "t__startDateTime"
+            }
+        ],
+        "items": [
+            {
+                "__rid": "8ab76028-14ba-4d39-8a69-2ec14474431a",
+                "__level": 0,
+                "__index": 0,
+                "__name": "出生证三级认证",
+                "__body": "<p><span style=\"color: rgba(0, 0, 0, 0.87);\">San Diego County Death/Birth</span></p><p><a href=\"https://www.google.com/search?q=san+diego+county+death/birth+san+marcos+address&amp;stick=H4sIAAAAAAAAAOPgE-LWT9c3LEmutDQtMNKSzU620s_JT04syczPgzOsElNSilKLixex6hcn5imkZKam5ysk55fmlVQqpKQmlmToJ2UWlWQogCRzE4uS84sVoDoAw79JYGAAAAA&amp;ludocid=7868034423228038550&amp;sa=X&amp;ved=2ahUKEwjj5_2Iw5LkAhWHtZ4KHcu8B6QQ6BMwGHoECBAQAw\" target=\"_blank\" style=\"color: rgb(26, 13, 171);\"><strong><span class=\"ql-cursor\">﻿</span>Address</strong></a><strong style=\"color: rgb(34, 34, 34);\">:&nbsp;</strong><span style=\"color: rgb(34, 34, 34);\">141 E Carmel St, San Marcos, CA 92078</span></p>",
+                "__createdtime": "2019-08-20T18:25:29.503Z",
+                "__updatedtime": "2019-08-20T18:25:29.503Z",
+                "t__type": "task",
+                "tag": null,
+                "copy": ""
+            },
+            {
+                "__rid": "bd296900-b498-4658-97f8-e0e37106cce3",
+                "__level": 1,
+                "__index": 1,
+                "__name": "第一步：县级打印和认证",
+                "__body": "<p><strong style=\"color: rgba(0, 0, 0, 0.87);\">San Diego County Death/Birth</strong></p><p><span style=\"color: rgb(34, 34, 34);\">141 E Carmel St, San Marcos, CA 92078</span></p>",
+                "__createdtime": "2019-08-20T22:45:25.542Z",
+                "__updatedtime": "2019-08-20T22:45:25.542Z",
+                "t__status": "Done",
+                "t__type": "task",
+                "t__startDateTime": "2019-08-19",
+                "tag": "ok"
+            },
+            {
+                "__rid": "92df9602-e6c7-463a-bd2d-ca43a59b09fc",
+                "__level": 1,
+                "__index": 2,
+                "__name": "第二步：加州州务卿认证",
+                "__body": "<h2>加州州务卿认证：</h2><p>Los Angeles Regional Office</p><p>300 South Spring Street, Room 12513&nbsp;</p><p>Los Angeles, CA 90013</p><p>213-897-3062</p><p>&nbsp;</p><p>8:00 am to 5:00 pm</p><p>&nbsp;</p><p><span style=\"background-color: yellow;\">出生证认证是需要“Authentication Certificate”，而不是“Apostille”。</span></p>",
+                "__createdtime": "2019-08-20T22:43:00.390Z",
+                "__updatedtime": "2019-08-20T22:43:00.390Z",
+                "t__type": "task",
+                "t__startDateTime": "2019-08-30 9:00"
+            },
+            {
+                "__rid": "5e1422d4-843c-4559-8bdd-65b5841cf78c",
+                "__level": 2,
+                "__index": 3,
+                "__name": "1. 县级认证出生证",
+                "t__status": "Done",
+                "__body": null,
+                "__createdtime": "2019-08-21T05:14:16.267Z",
+                "__updatedtime": "2019-08-21T05:14:16.267Z",
+                "t__startDateTime": null,
+                "t__type": "task"
+            },
+            {
+                "__rid": "815bef3f-8479-4344-8e77-a492e017bccb",
+                "__level": 2,
+                "__index": 4,
+                "__name": "2. 出生证复印件（4个，每个2份）",
+                "t__status": "Prepare",
+                "__body": null,
+                "print": "",
+                "__createdtime": "2019-08-21T16:42:15.986Z",
+                "__updatedtime": "2019-08-21T16:42:15.986Z",
+                "t__startDateTime": null,
+                "t__type": "task",
+                "copy": "Y",
+                "copytag": "Yes"
+            },
+            {
+                "__rid": "1c7cda4a-60ff-4042-933e-373e7065190c",
+                "__level": 1,
+                "__index": 5,
+                "__name": "第三步：大使馆认证",
+                "t__status": null,
+                "__body": "<p>海外申请护照在线预约</p><p><a href=\"http://ppt.mfa.gov.cn/appo/page/agreement.html\" target=\"_blank\">http://ppt.mfa.gov.cn/appo/page/agreement.html</a></p><p><br></p><p><br></p><p>&nbsp;</p><h2>领事认证</h2><p><a href=\"http://losangeles.china-consulate.org/chn/lszj/gzrz/rzxz/t1447254.htm\" target=\"_blank\">http://losangeles.china-consulate.org/chn/lszj/gzrz/rzxz/t1447254.htm</a></p><p><span style=\"color: rgb(51, 51, 51);\">在美国，</span><a href=\"http://losangeles.chineseconsulate.org/chn/lszj/gzrz/rzxz/\" target=\"_blank\">领事认证</a><span style=\"color: rgb(51, 51, 51);\">是中国驻美使领馆对美国务院或有关州州务卿认证（Authentication）过的文书进行证明（Legalization）。</span><span style=\"color: red;\">经公证或认证程序办理的文书，效力相同，均可在中国境内使用。</span></p><p>拟送往中国香港、澳门地区使用的有关文书，如已经美国当地机构公证，并经有关州务卿或美国国务院办理附加证明书（Apostille）后，即可直接在香港、澳门使用，无需向驻美使领馆申请办理领事认证。</p><p>&nbsp;</p><p><strong>【认证程序】</strong></p><p>申请领事认证的文书应按以下程序办理：</p><p><strong style=\"color: rgb(204, 51, 51);\">（一）第一步，公证员公证：</strong><span style=\"color: rgb(51, 51, 51);\">文书应当首先由当地公证员（Notary Public）办理公证或由有权机关（如出生、死亡、婚姻登记处、法院、联邦政府部门）出具“核证副本”（Certified Copy）或证书。</span></p><p><span style=\"color: rgb(51, 51, 51);\">加州公证员，请</span><a href=\"http://www.sos.ca.gov/notary/notary-public-listing/\" target=\"_blank\">点击这里</a><span style=\"color: rgb(51, 51, 51);\">查询。亚利桑那州，请</span><a href=\"http://apps.azsos.gov/apps/notary/search/Default.aspx\" target=\"_blank\">点击这里</a><span style=\"color: rgb(51, 51, 51);\">。新墨西哥州，请</span><a href=\"http://www.123notary.com/new_mexico_notary/\" target=\"_blank\">点击这里</a><span style=\"color: rgb(51, 51, 51);\">。夏威夷州，请</span><a href=\"https://notary.ehawaii.gov/notary/public/publicsearch.html\" target=\"_blank\">点击这里</a><span style=\"color: rgb(51, 51, 51);\">。</span></p><p><strong style=\"color: rgb(204, 51, 51);\">（二）第二步，州务卿认证：</strong><span style=\"color: rgb(51, 51, 51);\">再由所在州州务卿（Secretary of State）办公室办理认证。但个别州要求在州务卿之前，先向County Clerk申请认证。了解驻洛杉矶总领馆领区州务卿联系方式，请</span><a href=\"http://losangeles.chineseconsulate.org/chn/lszj/qtxx/zlfg/t1550597.htm\" target=\"_blank\">点击这里</a><span style=\"color: rgb(51, 51, 51);\">。经州务卿认证的文书，如送有关总领馆认证，则无需事先送美国国务院认证。</span></p><p><strong style=\"color: rgb(204, 51, 51);\">（三）第三步，使领馆认证：</strong><span style=\"color: rgb(51, 51, 51);\">将经州务卿认证过的文件，送大使馆或相关总领事馆申请领事认证。请</span><span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 128);\">根据以上第二步所提的州务卿办公室所在地</span><span style=\"color: rgb(51, 51, 51);\">，按照中国驻美使领馆</span><a href=\"http://www.china-embassy.org/chn/zmzlglj/t84176.htm\" target=\"_blank\">领区划分</a><span style=\"color: rgb(51, 51, 51);\">，向大使馆或</span><span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 128);\">相应的</span><span style=\"color: rgb(51, 51, 51);\">总领事馆递交认证申请。如未能按照领区划分递交申请的，将不予办理。</span></p><p><span style=\"color: rgb(51, 51, 51);\">申请公证还是认证？请</span><a href=\"http://losangeles.chineseconsulate.org/chn/lszj/gzrz/gzrzlc/\" target=\"_blank\">点击这里</a><span style=\"color: rgb(51, 51, 51);\">。认证常见问答，请</span><a href=\"http://losangeles.chineseconsulate.org/chn/lszj/gzrz/cjwd/t1447258.htm\" target=\"_blank\">点击这里</a><span style=\"color: rgb(51, 51, 51);\">。</span></p><p>&nbsp;</p><p><span style=\"color: rgb(51, 51, 51);\">&nbsp;</span><span style=\"color: rgb(204, 51, 51);\">【</span><strong style=\"color: rgb(204, 51, 51);\">申请材料】</strong></p><p><strong style=\"color: rgb(51, 51, 51);\">（一）申请表。</strong><span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 128);\">用电脑填写并打印签署</span><span style=\"color: rgb(51, 51, 51);\">的</span><a href=\"http://www.china-embassy.org/chn/lszj/bgxz/P020171116190800392917.pdf\" target=\"_blank\">《中华人民共和国驻外使领馆领事认证申请表》</a><span style=\"color: rgb(51, 51, 51);\">1份，</span><span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 128);\">恕不接受手写表格</span><span style=\"color: rgb(51, 51, 51);\">。认证申请表须由申请人本人在“申请人/代理人签名”处签名。如系代理人递交申请的，代理人须一并签名。请</span><a href=\"http://losangeles.china-consulate.org/chn/lszj/bgxz/tbxz/t1583812.htm\" target=\"_blank\">点击这里</a><span style=\"color: rgb(51, 51, 51);\">，了解填表注意事项。</span></p><p><strong>（二）认证文书。</strong>已经州务卿认证，拟送往总领馆认证的文书原件。</p><p><strong>（三）认证书复印件。</strong>州务卿出具的认证书（即州务卿签字、印章页）复印件1份。</p><p><strong>（三）申请人护照及复印件。</strong>申请人本人有效护照原件及带照片资料页复印件，或绿卡原件及复印件。</p><p><strong>（四）有效身份证件及复印件。</strong>如委托他人代办，还应同时提交代理人有效身份证件（护照或驾照）原件及复印件。</p><p><strong>（五）公司文件。</strong>如办理公司营业执照文件认证，还应同时提交公司法人代表身份证件（护照或驾照）复印件，以及证明公司法人代表身份的公司文件。</p><p><strong>（六）其他。</strong>领事官员认为与办理认证申请有关的其他证明文件。</p><p>&nbsp;</p><p><strong>【注意事项】</strong></p><p>（一）文书内容和办理程序必须真实、完整、合法，不得有违反中国法律或可能损害中国国家及社会公共利益的内容。</p><p>（二）申请认证的文书在两页以上的，应装订成册，并采用火漆加封或加盖骑缝章或钢印等措施，以保证文书的完整性，不被撤换。经使领馆认证过的文书，不得任意拆装或涂改。因申请人自行拆装或涂改文件引起的问题及相关法律责任，由申请人承担。</p><p>（三）用于到中国结婚登记的无配偶声明或证明自公证出具之日起6个月内有效。用于赴华收养的婚姻状况、健康、财产、收入和无违法犯罪记录公证书，自公证之日起至申请收养登记之日止（不含中国收养中心审理时间），6个月有效。</p><p>（四）文书不符合以下要求，不予认证：</p><p>1、内容可能损害中国国家及社会公共利益的；</p><p>2、未完成前期当地公证、认证程序的；</p><p>3、格式、装订不规范，或文件有涂改、拆换的；</p><p>4、规定有有效期而超出有效期的；</p><p>5、使领馆根据中国法律法规认为不予认证的其他情形。</p><p>（五）认证书涉及当事各方隐私和权益。根据规定，<span style=\"background-color: rgb(255, 255, 128);\">驻外使领馆不接受国内外有关单位、个人（包括申请人本人）事后的查询和验证。</span>国内有关单位如对认证书真伪有疑议的，应通过有关地方外办或外交部领事司向驻外使领馆查证。</p><p>&nbsp;</p><p><strong>【申请方式】</strong></p><p>（一）可由本人或委托代理人、代理机构协助递交申请（无需提供代理委托书）。但如使领馆要求，申请人本人应前往使领馆接受面谈。</p><p><span style=\"color: rgb(51, 51, 51);\">（二）递交认证申请和领取认文书证均无需预约，可在总领馆</span><a href=\"http://losangeles.chineseconsulate.org/chn/lszj/gywm/bgsj/\" target=\"_blank\">对外办公时间</a><span style=\"color: rgb(51, 51, 51);\">前往办理。</span></p><p>&nbsp;</p><p><strong>【办理时间、取证、收费标准和付款方式】</strong></p><p><span style=\"color: black;\">请</span><a href=\"http://losangeles.chineseconsulate.org/chn/lszj/sfbz/gzrzsf/\" target=\"_blank\">点击这里</a><span style=\"color: black;\">，了解认证</span><span style=\"color: black; background-color: rgb(255, 255, 128);\">办理时间、取证、收费标准和付款方式</span><span style=\"color: black;\">。</span></p>",
+                "__createdtime": "2019-08-21T05:08:50.499Z",
+                "__updatedtime": "2019-08-21T05:08:50.499Z",
+                "t__startDateTime": "2019-08-30 10:30",
+                "t__type": "task"
+            },
+            {
+                "__rid": "5e00e051-2011-4f62-9d73-491c3feceb38",
+                "__level": 2,
+                "__index": 6,
+                "__name": "1. 领事认证申请表（打印5份）",
+                "t__status": "Prepare",
+                "__body": null,
+                "__createdtime": "2019-08-21T05:08:52.228Z",
+                "__updatedtime": "2019-08-21T05:08:52.228Z",
+                "t__startDateTime": null,
+                "t__type": "task",
+                "print": "Y",
+                "printtag": "Yes"
+            },
+            {
+                "__rid": "1adfda9e-eafe-49e5-bc57-0d6f5b1b687a",
+                "__level": 2,
+                "__index": 7,
+                "__name": "2. 认证文书",
+                "t__status": null,
+                "__body": null,
+                "__createdtime": "2019-08-21T05:18:00.658Z",
+                "__updatedtime": "2019-08-21T05:18:00.658Z",
+                "t__startDateTime": null,
+                "t__type": "task"
+            },
+            {
+                "__rid": "8dd05591-bc6a-4604-b77a-7373f93c0f2f",
+                "__level": 2,
+                "__index": 8,
+                "__name": "3. 认证文书复印件",
+                "t__status": null,
+                "__body": null,
+                "__createdtime": "2019-08-21T05:25:04.681Z",
+                "__updatedtime": "2019-08-21T05:25:04.681Z",
+                "t__startDateTime": null,
+                "print": "Y（使馆）",
+                "t__type": "task",
+                "printtag": "",
+                "copytag": "Yes"
+            },
+            {
+                "__rid": "022e7ffb-9184-4ee6-bb76-efedd2357b6b",
+                "__level": 2,
+                "__index": 9,
+                "__name": "4. 申请人护照及复印件（复印）",
+                "t__status": "Prepare",
+                "__body": null,
+                "__createdtime": "2019-08-21T05:25:04.310Z",
+                "__updatedtime": "2019-08-21T05:25:04.310Z",
+                "t__startDateTime": null,
+                "print": "Y",
+                "t__type": "task",
+                "printtag": "",
+                "copytag": "Yes"
+            },
+            {
+                "__rid": "6b01f4ce-0dc2-4d0c-b324-6a27ca6accb4",
+                "__level": null,
+                "__index": 10,
+                "__name": "旅行证换发",
+                "t__status": null,
+                "__body": "<p><strong>旅行证：儿童换发、补发</strong></p><p>&nbsp;</p><p><strong>【适用情形】</strong></p><p>（一）现持有中华人民共和国旅行证的儿童在旅行证到期前后（通常不超过6个月）申请换发新的旅行证；</p><p>（二）儿童遗失或毁损原持旅行证申请补发新旅行证的。</p><p><strong style=\"color: black;\">》</strong><span style=\"color: rgb(51, 51, 51);\">旅行证办理因个案不同而办理时间可能较长。请注意，在未持有效旅行证前，不应事先购买机票。由此引起的责任应自行承担。</span></p><p><strong style=\"color: black;\">》</strong><span style=\"color: black;\">除法律有规定的之外，持</span><span style=\"color: rgb(51, 51, 51);\">中国旅行证者，可在有效期内（不受6个月有效的限制）入境中国（大陆），并在有效期内停留。</span></p><p>&nbsp;</p><p><strong>【所需材料】</strong></p><p><span style=\"background-color: rgb(255, 255, 128); color: black;\">儿童办理旅行证须提前预约（请点击</span><a href=\"https://ppt.mfa.gov.cn/appo/\" target=\"_blank\" style=\"background-color: rgb(255, 255, 128);\">这里</a><span style=\"background-color: rgb(255, 255, 128); color: black;\">预约）。</span><span style=\"color: rgb(51, 51, 51);\">申请材料如下：</span></p><p><strong style=\"color: rgb(0, 0, 204);\">（一）申请表格。</strong><span style=\"color: black;\">在线预约、填表并打印</span><a href=\"http://losangeles.china-consulate.org/chn/lszj/bgxz/hzlxzbg/P020180210064134276239.pdf\" target=\"_blank\">《中华人民共和国护照/旅行证/回国证明申请表》</a><span style=\"color: rgb(51, 51, 51);\">。</span></p><p><strong style=\"color: black;\">》</strong><span style=\"color: rgb(51, 51, 51);\">此类申请均须预约、填表。成功后，请</span><span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 128);\">依照网页提示打印申请表等材料</span><span style=\"color: rgb(51, 51, 51);\">，并按预约时间，由父母一方或监护人陪同儿童本人前来递交申请（请注意，预约选择的时间是大致时间，进入大厅后需按到达先后顺序另行取号等候）。预约填表遇到问题？请</span><a href=\"http://ppt.mfa.gov.cn/appo/helpManual.html\" target=\"_blank\">点击这里</a><span style=\"color: rgb(51, 51, 51);\">。</span></p><p><strong style=\"color: black;\">》</strong><span style=\"color: rgb(51, 51, 51);\">如因奔丧、就医等人道主义原因急需办理旅行证却又无法预约就近时段的，可</span><a href=\"mailto:layuyue@gmail.com\" target=\"_blank\">发送邮件</a><span style=\"color: rgb(51, 51, 51);\">（</span><a href=\"mailto:layuyue@gmail.com\" target=\"_blank\">layuyue@gmail.com</a><span style=\"color: rgb(51, 51, 51);\">）说明情况并提交相应支持材料，总领馆将视情安排。</span></p><p><strong style=\"color: black;\">》</strong><span style=\"color: rgb(51, 51, 51);\">预约填表时所填写的信息将</span><span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 128);\">直接用于制作旅行证</span><span style=\"color: rgb(51, 51, 51);\">，请注意</span><span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 128);\">使用简体字，确保有关信息，特别是姓名、性别、出生日期等个人信息准确无误</span><span style=\"color: rgb(51, 51, 51);\">，并承担由此引起的一切责任。</span></p><p><strong style=\"color: black;\">》</strong><span style=\"color: rgb(51, 51, 51);\">为维护公平秩序，杜绝恶意占号等行为，系统设定为</span><span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 128);\">完成后不能立即修改</span><span style=\"color: rgb(51, 51, 51);\">。如确需修改，请先取消预约，并在取消预约72小时后重新预约。建议在最后提交预约信息前，仔细检查核对并确保相关信息准确无误。</span></p><p><strong style=\"color: rgb(0, 0, 204);\">（二）标准照片。</strong><span style=\"color: rgb(51, 51, 51);\">2寸正面免冠6个月内、光面、纸质照片2张（1张粘贴在申请表上，照片详细要求，请</span><a href=\"http://losangeles.china-consulate.org/chn/lszj/qtxx/zlfg/t1142946.htm\" target=\"_blank\">点击这里</a><span style=\"color: rgb(51, 51, 51);\">）。</span></p><p><strong style=\"color: black;\">》</strong><span style=\"color: rgb(51, 51, 51);\">旅行证在线填表时需上传申请人数码照片。如出现“照片不合格”提示，可忽略这一步继续，并在递交申请时携带照片数码光盘（恕不接受U盘等其他存储介质）。</span></p><p><strong style=\"color: black;\">》</strong><span style=\"color: rgb(51, 51, 51);\">如预约填表时成功提交照片，则只需1张纸质照片，无需携带光盘。</span></p><p><strong>（三）原旅行证原件及复印件（如有）。</strong></p><p><strong style=\"color: rgb(0, 0, 204);\">（四）遗失或毁损说明。</strong><span style=\"color: rgb(51, 51, 51);\">如原旅行证遗失或被毁损，应行手书说明旅行证遗失、被盗或毁损的情况。可</span><a href=\"http://losangeles.china-consulate.org/chn/zjfw/forms/hzlvxzbg/P020181031258842248887.pdf\" target=\"_blank\">点击参考此表</a><span style=\"color: rgb(51, 51, 51);\">。</span></p><p><strong style=\"color: rgb(0, 0, 204);\">（五）监护人陪伴到场。</strong><span style=\"color: rgb(51, 51, 51);\">未满16周岁儿童申请换发、补发旅行证，应由父母一方或其法定监护人陪同到场，并提供相应证明其身份和监护资格的材料（如护照、出生证明或法定监护权证明等的原件和复印件）。</span></p><p>&nbsp;</p><p><strong>【申请方式】</strong></p><p><span style=\"color: rgb(51, 51, 51);\">（一）根据规定，旅行证申请人需与领事官员至少见面一次，儿童应由父母一方或监护人陪同到</span><a href=\"http://losangeles.china-consulate.org/chn/lszj/gywm/bgdd/\" target=\"_blank\">总领馆办证大厅</a><span style=\"color: rgb(51, 51, 51);\">或总领馆外地办公现场。除非本网站另有说明，恕不接受邮寄等其他方式递送申请。</span></p><p>（二）夏威夷、塞班、关岛、美属萨摩亚等外岛申请人，原则上应在我馆例行派员外地现场办证时递交申请。特殊情况急于使用旅行证的，考虑到申请人路途遥远，特做专门安排，请请参见本页文末的外岛专门安排。<strong>&nbsp;</strong></p><p>&nbsp;</p><p><strong>【办理时间、取证、收费标准和付款方式】</strong></p><p><strong style=\"color: black;\">请</strong><a href=\"http://losangeles.china-consulate.org/chn/lszj/sfbz/hzlxzsf/t1447559.htm\" target=\"_blank\"><strong>点击这里</strong></a><strong style=\"color: black;\">，了解</strong><span style=\"color: black; background-color: rgb(255, 255, 128);\">办理时间、取证、收费标准和付款方式</span><strong style=\"color: black;\">。</strong><span style=\"color: rgb(51, 51, 51);\">&nbsp;</span></p><p>&nbsp;</p><p><a href=\"http://losangeles.china-consulate.org/chn/lszj/hzlxz/hzlxzxz/t1626341.htm\" target=\"_blank\">http://losangeles.china-consulate.org/chn/lszj/hzlxz/hzlxzxz/t1626341.htm</a></p>",
+                "__createdtime": "2019-08-21T05:25:04.069Z",
+                "__updatedtime": "2019-08-21T05:25:04.069Z",
+                "t__startDateTime": null,
+                "t__type": "task"
+            },
+            {
+                "__rid": "8caea863-7c51-4435-91a0-0d1a1edeaa3e",
+                "__level": 1,
+                "__index": 11,
+                "__name": "1. 照片（电子+打印）",
+                "t__status": "Done",
+                "__body": null,
+                "__createdtime": "2019-08-21T05:25:03.789Z",
+                "__updatedtime": "2019-08-21T05:25:03.789Z",
+                "t__startDateTime": "2019-08-01",
+                "t__type": "task"
+            },
+            {
+                "__rid": "3e255ad1-c3a8-4731-9561-8ec2553dbfe4",
+                "__level": 1,
+                "__index": 12,
+                "__name": "2. 在线预约",
+                "t__status": "Done",
+                "__body": null,
+                "__createdtime": "2019-08-21T05:25:03.419Z",
+                "__updatedtime": "2019-08-21T05:25:03.419Z",
+                "t__startDateTime": "2019-08-05",
+                "t__type": "task"
+            },
+            {
+                "__rid": "4f8e7420-2319-4efa-9776-3f3843a366f5",
+                "__level": 1,
+                "__index": 13,
+                "__name": "3. 旅行证申请表打印（2份）",
+                "t__status": "Prepare",
+                "__body": null,
+                "print": "Y",
+                "__createdtime": "2019-08-21T16:37:29.182Z",
+                "__updatedtime": "2019-08-21T16:37:29.182Z",
+                "t__startDateTime": null,
+                "t__type": "task",
+                "printtag": "Yes"
+            },
+            {
+                "__rid": "5a65a2cf-03ee-4156-ac74-75b1d341dd51",
+                "__level": 1,
+                "__index": 14,
+                "__name": "4. 原旅行证原件及复印件（2份）",
+                "t__status": "Prepare",
+                "__body": null,
+                "print": "Y",
+                "__createdtime": "2019-08-21T16:37:48.015Z",
+                "__updatedtime": "2019-08-21T16:37:48.015Z",
+                "t__startDateTime": null,
+                "t__type": "task",
+                "printtag": "",
+                "copytag": "Yes"
+            },
+            {
+                "__rid": "80091290-f465-43d0-b3ec-731dff29beed",
+                "__level": 1,
+                "__index": 15,
+                "__name": "5. 监护人证件（护照首页+签证页+入境章页+中国出境章页）复印件（4*2*2=16份）",
+                "t__status": "Prepare",
+                "__body": null,
+                "print": "Y",
+                "__createdtime": "2019-08-21T16:40:43.041Z",
+                "__updatedtime": "2019-08-21T16:40:43.041Z",
+                "t__startDateTime": null,
+                "t__type": "task",
+                "printtag": "",
+                "copytag": "Yes"
+            },
+            {
+                "__rid": "ff0c91b9-0a4f-44f3-a213-9fd2e6d5ba1a",
+                "__level": 1,
+                "__index": 16,
+                "__name": "6. 797复印件+EAD复印件（2*2*2=8份）",
+                "t__status": "Prepare",
+                "__body": null,
+                "print": "Y",
+                "__createdtime": "2019-08-22T04:42:30.255Z",
+                "__updatedtime": "2019-08-22T04:42:30.255Z",
+                "t__startDateTime": null,
+                "t__type": "task",
+                "copytag": "Yes"
+            },
+            {
+                "__rid": "237b4df5-1f35-41d8-a156-a064ba86040e",
+                "__level": 1,
+                "__index": 17,
+                "__name": "7. 公司入职证明（2份）",
+                "t__status": "Prepare",
+                "__body": null,
+                "print": "Y",
+                "__createdtime": "2019-08-21T16:40:42.280Z",
+                "__updatedtime": "2019-08-21T16:40:42.280Z",
+                "t__startDateTime": null,
+                "t__type": "task",
+                "printtag": "Yes"
+            },
+            {
+                "__rid": "6169404b-bbbb-421d-9464-1c1a54d90471",
+                "__level": 1,
+                "__index": 18,
+                "__name": "8. 结婚证复印件（1份）",
+                "t__status": "Prepare",
+                "__body": null,
+                "print": "Y",
+                "__createdtime": "2019-08-22T04:46:58.619Z",
+                "__updatedtime": "2019-08-22T04:46:58.619Z",
+                "t__startDateTime": null,
+                "t__type": "task",
+                "copytag": "Yes"
+            },
+            {
+                "__rid": "a30b0395-f9e2-451c-ad50-16e12c792868",
+                "__level": 0,
+                "__index": 19,
+                "__name": "其他材料",
+                "t__status": null,
+                "__body": null,
+                "print": null,
+                "__createdtime": "2019-08-22T04:46:57.889Z",
+                "__updatedtime": "2019-08-22T04:46:57.889Z",
+                "t__startDateTime": null,
+                "t__type": "task"
+            },
+            {
+                "__rid": "126e8407-faad-455c-8b9c-001e1e98bf5e",
+                "__level": 1,
+                "__index": 20,
+                "__name": "1. i94打印 （2*2份）",
+                "t__status": "Prepare",
+                "__body": null,
+                "print": "Y",
+                "__createdtime": "2019-08-21T16:40:41.985Z",
+                "__updatedtime": "2019-08-21T16:40:41.985Z",
+                "t__startDateTime": null,
+                "t__type": "task",
+                "copy": "",
+                "printtag": "Yes"
+            }
+        ]
+    }
 ]

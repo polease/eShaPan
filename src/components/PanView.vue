@@ -68,10 +68,10 @@ export default {
     prepareData() {
       this.items = this.currentList.items.map((data, i, array) => {
         let newI = {};
-        newI.x = this.getValue(this.pan.definition.x[0], data, i, array);
-        newI.y = this.getValue(this.pan.definition.y[0], data, i, array);
-        newI.w = this.getValue(this.pan.definition.w[0], data, i, array);
-        newI.h = this.getValue(this.pan.definition.h[0], data, i, array);
+        newI.x = this.getValue( this.pan.definition.x[0], data, i, array, "x");
+        newI.y = this.getValue(this.pan.definition.y[0], data, i, array, "y");
+        newI.w = this.getValue(this.pan.definition.w[0], data, i, array, "w");
+        newI.h = this.getValue(this.pan.definition.h[0], data, i, array, "h");
         newI.text = this.getValue(this.pan.definition.text[0], data, i, array);
         newI.color = this.getColorValue(
           this.pan.definition.color[0],
@@ -190,9 +190,15 @@ export default {
         .attr("transform", `translate(${MARGIN.left}, 0)`)
         .call(y_axis);
     },
-    getValue(dim, item, index, items) {
+    getValue(dim, item, index, items, dimEnum) {
       if (!dim) return null;
-      if (dim.type === "static") return dim.value;
+      if (dim.type === "static") 
+      {
+        if(dimEnum === 'x' || dimEnum == 'y' || dimEnum ==='w' || dimEnum ==='h')
+          return parseFloat(dim.value);
+        else
+          return dim.value;
+      }
       else if (dim.type === "accumulate" && dim.dataType === "number") {
         let initValue = 0;
         let result = items.reduce((accumulator, loopItem, loopI, array) => {

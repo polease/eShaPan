@@ -1,10 +1,8 @@
 <template>
   <v-flex class="books-container">
-  
-    <v-row class="ma-0 pa-0" no-gutters>
+    <v-row class="ma-0 pa-0" no-gutters dense>
       <v-col md="3">
-        <v-subheader class="grey--text text--darken-1" 
-             align-left>BOOKS</v-subheader>
+        <v-subheader class="grey--text text--darken-1" align-left>BOOKS</v-subheader>
       </v-col>
       <v-col md="9" right-align>
         <v-select
@@ -26,8 +24,8 @@
         ></v-select>
       </v-col>
     </v-row>
-    <v-list class="grow" v-model="currentSelectedListUuid">
-      <v-list-item v-for="list in currentBook.lists" :key="list.uuid" @click="listClick(list)">
+    <v-list dense v-model="currentSelectedListUuid">
+      <v-list-item v-for="list in currentBook.lists" :key="list.uuid" @click="listClick(list)" :to="'/list/'+list.uuid">
         <v-list-item-icon>
           <v-icon>mdi-format-list-bulleted</v-icon>
         </v-list-item-icon>
@@ -36,16 +34,10 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
-    <v-list>
-      <v-list-item @click="newList()">
-        <v-list-item-icon>
-          <v-icon color="darken-1">mdi-table-column-plus-before</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title class="text--darken-1">New List</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
+    <v-btn class="ma-3" @click="newList()">
+      <v-icon left dark>mdi-table-column-plus-before</v-icon>
+      New List
+    </v-btn>
   </v-flex>
 </template>
 
@@ -54,17 +46,21 @@
   .book-selection {
     height: 20px;
   }
-  .list-title {
-    padding-left: 10px;
-  }
+
+ 
 }
+ .new-list{
+    background-color : gray;
+  }
 </style>
 <script>
 import { mapState } from "vuex";
 
 export default {
   data: function() {
-    return {};
+    return {
+      selectNewList: 0
+    };
   },
   computed: {
     ...mapState(["currentUser", "currentBook", "currentList"]),
@@ -83,12 +79,13 @@ export default {
       },
       set(v) {
         //this.$store.dispatch("selectList", v);
+        //this.listClick(v);
       }
     }
   },
   async mounted() {
-    await this.$store.dispatch("getUserData");
-    this.currentSelectedBookUuid = this.$store.state.currentBook.uuid;
+    await this.$store.dispatch("getUserData"); 
+    this.$router.push({ path: `/list/${this.currentList.uuid}` });
   },
   methods: {
     bookSelected() {

@@ -13,7 +13,7 @@
       <v-card-text>
         <v-container>
           <v-flex class="table-view">
-            <v-data-table :headers="headers" :items="definition" class="elevation-1">
+            <v-data-table :headers="headers" :items="definition.filter(t=>t.type !='system')" class="elevation-1">
               <template v-slot:item.text="{item}">
                 <td class="list-item-field-container">
                   <v-text-field
@@ -88,6 +88,7 @@
         <small>*indicates required field</small>
       </v-card-text>
       <v-card-actions>
+        <v-btn color="blue darken-1" text @click="addFieldAfter(definition.length-1)">New Column</v-btn>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
         <v-btn color="blue darken-1" text @click="updateDefinition()">Save</v-btn>
@@ -167,6 +168,9 @@ export default {
     },
     addField(item) {
       let index = this.definition.indexOf(item);
+      this.addFieldAfter(index);
+    },
+     addFieldAfter(index) { 
       this.definition.splice(index + 1, 0, {
         text: "",
         value: "",

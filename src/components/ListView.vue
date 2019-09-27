@@ -9,13 +9,14 @@
         v-on:keydown.tab="tabListItem($event,listItem,index)"
         v-on:keydown.up="keyUpListItem($event,listItem,index)"
         v-on:keydown.down="keyDownListItem($event,listItem,index)"
+        v-on:keyup.delete="keyDeleteListItem($event,listItem,index)"
         @change="updateListItem(listItem)"
         class="body-1 pa-0"
         ref="listItems"
         :style="{margin: generateMargin(listItem)}"
       ></v-text-field>
     </v-layout>
-    <v-btn class="ma-3" @click="newListItem(0)">
+    <v-btn class="ma-3" @click="newListItemToLast()">
       New Item
       <v-icon right dark>mdi-table-row-plus-after</v-icon>
     </v-btn>
@@ -69,6 +70,13 @@ export default {
 
       event.preventDefault();
     },
+    async newListItemToLast() {
+      let index = 0;
+      if(this.currentList.items && this.currentList.items.length > 0)
+        index = this.currentList.items.length-1;
+      await this.$store.dispatch("createListItem", index);
+      this.$refs.listItems[index + 1].focus(); 
+    },
     async newListItem(index) {
       await this.$store.dispatch("createListItem", index);
       this.$refs.listItems[index + 1].focus(); 
@@ -82,6 +90,14 @@ export default {
     keyDownListItem(event, listItem, index) {
       if (index < this.$refs.listItems.length - 1)
         this.$refs.listItems[index + 1].focus();
+    }
+    ,keyDeleteListItem(event, listItem, index) {
+      if (!listItem.__name || listItem.__name.length === 0 )
+      {
+        this.$refs.listItems[index - 1].focus();
+      this.$store.dispatch("deleteListItem", index);
+
+      }
     },
     generateMargin(listItem) {
       return "0 0 0 " + listItem.__level * 20 + "px";

@@ -7,7 +7,7 @@ import cloneDeep from "clone-deep";
 function newList(baseTypes) {
   let list = {
     uuid: uuidv4(),
-    name: "",
+    name: "New List",
     baseTypes: [],
     definition: [],
     items: [],
@@ -15,8 +15,8 @@ function newList(baseTypes) {
   };
   if (baseTypes && baseTypes.length && baseTypes.length > 0)
     baseTypes.forEach(baseType => {
-      list.baseTypes.concat(baseType.name);
-      list.definition.concat(baseType.definition);
+      list.baseTypes.push(baseType.key);
+      list.definition = list.definition.concat(baseType.definition);
     });
   return list;
 }
@@ -36,7 +36,7 @@ function getListMeta(list) {
   }
 }
 
-function newListItem(list) {
+function newListItem(list, index) {
   let newItem = {};
   if (list.definition) {
     list.definition.forEach(prop => {
@@ -54,6 +54,10 @@ function newListItem(list) {
       newItem[prop.value] = v;
     });
   }
+
+  if(list.items[index])
+    newItem["__level"] = list.items[index]["__level"];
+
   return newItem;
 }
 

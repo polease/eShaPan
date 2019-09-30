@@ -1,5 +1,5 @@
 <template>
-  <v-flex class="mx-2 my-2" fill-height align-start v-resize="onResize">
+  <v-container v-resize="onResize">
     <v-row>
       <v-text-field
         class="title mt-0 pt-0 ml-3"
@@ -58,9 +58,27 @@
     </v-row>
     <v-row>
       <v-tabs class="views" v-if="!isMobile">
-        <router-link :to="{name: 'listview', params: {id: $route.params.uuid}}" tag="v-tab"><v-tab>List</v-tab></router-link>
-        <router-link :to="{name: 'tableview', params: {id: $route.params.uuid}}" tag="v-tab"><v-tab>Table</v-tab></router-link>
-        <v-tab v-for="pan in currentList.pans" :key="pan.uuid">{{pan.title}}</v-tab>
+        <router-link :to="{name: 'listview', params: {id: $route.params.uuid}}" tag="v-tab">
+          <v-tab>
+            <v-icon left>mdi-format-list-bulleted</v-icon>List
+          </v-tab>
+        </router-link>
+        <router-link :to="{name: 'tableview', params: {id: $route.params.uuid}}" tag="v-tab">
+          <v-tab>
+            <v-icon left>mdi-table</v-icon>Table
+          </v-tab>
+        </router-link>
+        <router-link
+          v-for="pan in currentList.pans"
+          :key="pan.uuid"
+          :to="{name: 'panview', params: {id: $route.params.uuid, pan:pan}}"
+          tag="v-tab"
+        >
+          <v-tab>
+            <v-icon left>mdi-image-filter-hdr</v-icon>
+            {{pan.title}}
+          </v-tab>
+        </router-link>
         <!-- <v-tab-item class="mx-3 my-3">
         <list-view></list-view>
       </v-tab-item>
@@ -77,13 +95,30 @@
     </v-row>
     <v-bottom-navigation v-if="isMobile" v-model="bottomNav" app>
       <router-link :to="{name: 'listview', params: {id: $route.params.uuid}}" tag="v-btn">
-        <v-btn value="list">List</v-btn>
+        <v-btn value="list">
+          List
+          <v-icon>mdi-format-list-bulleted</v-icon>
+        </v-btn>
       </router-link>
-      <router-link :to="{name: 'tableview', params: {id: $route.params.uuid}}" tag="v-btn">
-        <v-btn value="table">Table</v-btn>
+      <router-link
+        :to="{name: 'tableview', params: {id: $route.params.uuid, pan: pan}}"
+        tag="v-btn"
+      >
+        <v-btn value="table">
+          Table
+          <v-icon>mdi-table</v-icon>
+        </v-btn>
       </router-link>
-      <router-link to="pan" tag="v-btn">
-        <v-btn v-for="pan in currentList.pans" :key="pan.uuid">{{pan.title}}</v-btn>
+      <router-link
+        v-for="pan in currentList.pans"
+        :key="pan.uuid"
+        :to="{name: 'panview', params: {id: $route.params.uuid, pan:pan}}"
+        tag="v-tab"
+      >
+        <v-btn>
+          {{pan.title}}
+          <v-icon>mdi-image-filter-hdr</v-icon>
+        </v-btn>
       </router-link>
     </v-bottom-navigation>
     <v-dialog v-model="importFileDialog">
@@ -94,14 +129,13 @@
         @change="onFileChange"
       ></v-file-input>
     </v-dialog>
-  </v-flex>
+  </v-container>
 </template>
 <style lang="scss" >
 .list-meta {
   font-size: 10px;
   color: gray;
 }
- 
 
 .list-type {
   max-width: 300px;

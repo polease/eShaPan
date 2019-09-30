@@ -35,7 +35,7 @@ const routes = [
       { name:"list", path: "", component: ListView },
       { name:"listview", path: "list", component: ListView },
       { name:"tableview", path: "table", component: TableView },
-      { name:"panview", path: "pan", component: PanView }
+      { name:"panview", path: "pan", component: PanView, props:true }
     ]
   },
   { path: "/login", component: LoginPage }

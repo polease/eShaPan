@@ -49,7 +49,7 @@
       </v-row>
     </v-app-bar>
     <v-content>
-      <v-container fluid fill-height>
+      <v-container align="start" justify="start">
         <router-view></router-view>
       </v-container>
     </v-content>

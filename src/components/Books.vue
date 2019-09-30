@@ -25,7 +25,12 @@
       </v-col>
     </v-row>
     <v-list dense v-model="currentSelectedListUuid">
-      <v-list-item v-for="list in currentBook.lists" :key="list.uuid" @click="listClick(list)" :to="'/list/'+list.uuid">
+      <v-list-item
+        v-for="list in currentBook.lists"
+        :key="list.uuid"
+        @click="listClick(list)"
+        :to="'/list/'+list.uuid"
+      >
         <v-list-item-icon>
           <v-icon>mdi-format-list-bulleted</v-icon>
         </v-list-item-icon>
@@ -35,8 +40,7 @@
       </v-list-item>
     </v-list>
     <v-btn class="ma-3" @click="newList()">
-      <v-icon left dark>mdi-table-column-plus-before</v-icon>
-      New List
+      <v-icon left dark>mdi-table-column-plus-before</v-icon>New List
     </v-btn>
   </v-flex>
 </template>
@@ -46,12 +50,10 @@
   .book-selection {
     height: 20px;
   }
-
- 
 }
- .new-list{
-    background-color : gray;
-  }
+.new-list {
+  background-color: gray;
+}
 </style>
 <script>
 import { mapState } from "vuex";
@@ -84,7 +86,7 @@ export default {
     }
   },
   async mounted() {
-    await this.$store.dispatch("getUserData"); 
+    await this.$store.dispatch("getUserData");
     this.$router.push({ path: `/list/${this.currentList.uuid}` });
   },
   methods: {

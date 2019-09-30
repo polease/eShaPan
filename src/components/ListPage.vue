@@ -1,5 +1,5 @@
 <template>
-  <v-flex class="mx-2 my-2" fill-height align-start>
+  <v-flex class="mx-2 my-2" fill-height align-start v-resize="onResize">
     <v-row>
       <v-text-field
         class="title mt-0 pt-0 ml-3"
@@ -28,7 +28,6 @@
           </v-btn>
         </template>
         <v-list>
-            
           <v-list-item @click="importJsonAsList()">
             <v-list-item-icon>
               <v-icon>mdi-import</v-icon>
@@ -55,7 +54,38 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <div class="list-meta mb-3">{{currentList.createdTime}}</div>
     </v-row>
+    <v-row>
+      <v-tabs class="views" v-if="!isMobile">
+        <router-link :to="{name: 'listview', params: {id: $route.params.uuid}}" tag="v-tab"><v-tab>List</v-tab></router-link>
+        <router-link :to="{name: 'tableview', params: {id: $route.params.uuid}}" tag="v-tab"><v-tab>Table</v-tab></router-link>
+        <v-tab v-for="pan in currentList.pans" :key="pan.uuid">{{pan.title}}</v-tab>
+        <!-- <v-tab-item class="mx-3 my-3">
+        <list-view></list-view>
+      </v-tab-item>
+      <v-tab-item class="my-3">
+        <table-view ref="tableView"></table-view>
+      </v-tab-item>
+      <v-tab-item class="my-3" v-for="pan in currentList.pans" :key="pan.uuid">
+        <pan-view :pan="pan"></pan-view>
+        </v-tab-item>-->
+      </v-tabs>
+    </v-row>
+    <v-row>
+      <router-view></router-view>
+    </v-row>
+    <v-bottom-navigation v-if="isMobile" v-model="bottomNav" app>
+      <router-link :to="{name: 'listview', params: {id: $route.params.uuid}}" tag="v-btn">
+        <v-btn value="list">List</v-btn>
+      </router-link>
+      <router-link :to="{name: 'tableview', params: {id: $route.params.uuid}}" tag="v-btn">
+        <v-btn value="table">Table</v-btn>
+      </router-link>
+      <router-link to="pan" tag="v-btn">
+        <v-btn v-for="pan in currentList.pans" :key="pan.uuid">{{pan.title}}</v-btn>
+      </router-link>
+    </v-bottom-navigation>
     <v-dialog v-model="importFileDialog">
       <v-file-input
         v-model="importFilePath"
@@ -64,32 +94,14 @@
         @change="onFileChange"
       ></v-file-input>
     </v-dialog>
-    <div class="list-meta mb-3">{{currentList.createdTime}}</div>
-    <v-tabs class="views">
-      <v-tab>List</v-tab>
-      <v-tab v-on:click="tableViewClicked()">Table</v-tab> 
-      <v-tab v-for="pan in currentList.pans" :key="pan.uuid">{{pan.title}}</v-tab>
-      <v-tab-item class="mx-3 my-3">
-        <list-view></list-view>
-      </v-tab-item>
-      <v-tab-item class="my-3">
-        <table-view ref="tableView"></table-view>
-      </v-tab-item>
-      <v-tab-item class="my-3" v-for="pan in currentList.pans" :key="pan.uuid">
-        <pan-view :pan="pan" ></pan-view>
-      </v-tab-item> 
-    </v-tabs>
   </v-flex>
 </template>
 <style lang="scss" >
 .list-meta {
-  margin-top: -24px;
   font-size: 10px;
   color: gray;
 }
-.views {
-  height: 20px;
-}
+ 
 
 .list-type {
   max-width: 300px;
@@ -101,12 +113,12 @@ import ListView from "./ListView.vue";
 import TableView from "./TableView.vue";
 import ResourceView from "./ResourceView.vue";
 import TimelineView from "./TimelineView.vue";
-import PanCreate from "./PanCreate.vue"
-import PanView from "./PanView.vue"
+import PanCreate from "./PanCreate.vue";
+import PanView from "./PanView.vue";
 
 import * as List from "../models/list.js";
-import { saveAs } from 'file-saver';
-import stringify from 'csv-stringify';
+import { saveAs } from "file-saver";
+import stringify from "csv-stringify";
 
 import { mapState } from "vuex";
 
@@ -132,20 +144,23 @@ export default {
   },
   data() {
     return {
+      isMobile: false,
+      bottomNav: "list",
       importFilePath: null,
       importFileDialog: false,
-      panCreateDialog : false
+      panCreateDialog: false
     };
   },
   methods: {
+    onResize() {
+      if (window.innerWidth < 769) this.isMobile = true;
+      else this.isMobile = false;
+    },
     listNameUpdated() {
       this.$store.dispatch(
         "updateCurrentListName",
         this.$store.state.currentList.name
       );
-    },
-    tableViewClicked() {
-      //this.$refs.tableView.setData();
     },
     async exportListToJson(list) {
       var myJSON = JSON.stringify(list);
@@ -153,11 +168,10 @@ export default {
       var blob = new Blob([myJSON], { type: "text/plain;charset=utf-8" });
       let name = `${list.name} ${new Date().toLocaleString()}.json`;
       saveAs(blob, name);
-    }, 
+    },
     async exportListToCsv(list) {
-
-      let cols = list.definition.map(col =>  col.value);
-      var myJSON = stringify(list.items, {columns : cols});
+      let cols = list.definition.map(col => col.value);
+      var myJSON = stringify(list.items, { columns: cols });
 
       var blob = new Blob([myJSON], { type: "text/plain;charset=utf-8" });
       let name = `${list.name} ${new Date().toLocaleString()}.csv`;
@@ -175,7 +189,7 @@ export default {
         this.importFileDialog = false;
       };
       reader.readAsText(this.importFilePath);
-    } 
+    }
   }
 };
 </script>

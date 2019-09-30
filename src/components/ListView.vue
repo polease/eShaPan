@@ -25,6 +25,7 @@
 
 <style lang="scss">
 .list-page {
+  margin-left:20px;
   width: 100%;
   .list-item {
     height: 32px;

@@ -31,6 +31,7 @@
 
       <v-toolbar-title class="mr-12 align-center">
         <span class="title app-title">eShaPan</span>
+        <span class="app-version">alpha</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
@@ -78,6 +79,13 @@ body {
     font-size: 16px;
     color: black;
     font-weight: bold;
+  }
+
+  .app-version{
+    font-size : 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-left: 10px;
+    color: gray;
   }
 
   .search {

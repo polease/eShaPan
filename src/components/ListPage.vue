@@ -123,12 +123,14 @@
     </v-row>
 
     <v-dialog v-model="importFileDialog">
+       <v-card>
       <v-file-input
         v-model="importFilePath"
         label="Select Import List File..."
         accept="*.json"
         @change="onFileChange"
       ></v-file-input>
+       </v-card>
     </v-dialog>
   </v-container>
 </template>

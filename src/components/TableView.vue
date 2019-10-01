@@ -116,6 +116,7 @@
 
 <style lang="scss">
 .table-view {
+  margin-right:20px;
   .list-item-prefix {
     color: gray;
     padding-top: 10px;
@@ -135,10 +136,7 @@
 
   .v-text-field input {
     font-size: 0.8em;
-  }
-
-  .body-tooltip {
-  }
+  } 
 }
 </style>
 

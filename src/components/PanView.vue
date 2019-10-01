@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-row>
     <v-toolbar collapse dense class="toolbar" width="200">
       <v-btn icon color="blue-grey" class="white--text" @click="renderPan">
         <v-icon right dark>mdi-refresh</v-icon>
@@ -10,7 +10,7 @@
       </v-btn>
     </v-toolbar>
     <div :id="id" class="ma-3"></div>
-  </v-container>
+  </v-row>
 </template>
 
 <style lang="scss">

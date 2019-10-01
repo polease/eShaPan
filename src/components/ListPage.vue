@@ -1,5 +1,5 @@
 <template>
-  <v-container v-resize="onResize">
+  <v-container v-resize="onResize" id="listpage">
     <v-row>
       <v-text-field
         class="title mt-0 pt-0 ml-3"
@@ -57,7 +57,35 @@
       <div class="list-meta mb-3">{{currentList.createdTime}}</div>
     </v-row>
     <v-row>
-      <v-tabs class="views" v-if="!isMobile">
+      <v-bottom-navigation v-if="$vuetify.breakpoint.smAndDown" v-model="bottomNav" app>
+        <router-link :to="{name: 'listview', params: {id: $route.params.uuid}}" tag="v-btn">
+          <v-btn value="list">
+            List
+            <v-icon>mdi-format-list-bulleted</v-icon>
+          </v-btn>
+        </router-link>
+        <router-link
+          :to="{name: 'tableview', params: {id: $route.params.uuid, pan: pan}}"
+          tag="v-btn"
+        >
+          <v-btn value="table">
+            Table
+            <v-icon>mdi-table</v-icon>
+          </v-btn>
+        </router-link>
+        <router-link
+          v-for="pan in currentList.pans"
+          :key="pan.uuid"
+          :to="{name: 'panview', params: {id: $route.params.uuid, pan:pan}}"
+          tag="v-tab"
+        >
+          <v-btn>
+            {{pan.title}}
+            <v-icon>mdi-image-filter-hdr</v-icon>
+          </v-btn>
+        </router-link>
+      </v-bottom-navigation>
+      <v-tabs class="views" v-else>
         <router-link :to="{name: 'listview', params: {id: $route.params.uuid}}" tag="v-tab">
           <v-tab>
             <v-icon left>mdi-format-list-bulleted</v-icon>List
@@ -79,48 +107,21 @@
             {{pan.title}}
           </v-tab>
         </router-link>
-        <!-- <v-tab-item class="mx-3 my-3">
-        <list-view></list-view>
-      </v-tab-item>
-      <v-tab-item class="my-3">
-        <table-view ref="tableView"></table-view>
-      </v-tab-item>
-      <v-tab-item class="my-3" v-for="pan in currentList.pans" :key="pan.uuid">
-        <pan-view :pan="pan"></pan-view>
-        </v-tab-item>-->
       </v-tabs>
     </v-row>
     <v-row>
       <router-view></router-view>
     </v-row>
-    <v-bottom-navigation v-if="isMobile" v-model="bottomNav" app>
-      <router-link :to="{name: 'listview', params: {id: $route.params.uuid}}" tag="v-btn">
-        <v-btn value="list">
-          List
-          <v-icon>mdi-format-list-bulleted</v-icon>
-        </v-btn>
-      </router-link>
-      <router-link
-        :to="{name: 'tableview', params: {id: $route.params.uuid, pan: pan}}"
-        tag="v-btn"
-      >
-        <v-btn value="table">
-          Table
-          <v-icon>mdi-table</v-icon>
-        </v-btn>
-      </router-link>
-      <router-link
-        v-for="pan in currentList.pans"
-        :key="pan.uuid"
-        :to="{name: 'panview', params: {id: $route.params.uuid, pan:pan}}"
-        tag="v-tab"
-      >
-        <v-btn>
-          {{pan.title}}
-          <v-icon>mdi-image-filter-hdr</v-icon>
-        </v-btn>
-      </router-link>
-    </v-bottom-navigation>
+
+    <v-row  v-if="$vuetify.breakpoint.smAndDown">
+       <v-btn fab   fixed bottom right x-small  @click="up" class="up-button">
+        <v-icon>mdi-arrow-up-bold</v-icon>
+      </v-btn>
+      <v-btn fab   fixed bottom right x-small   @click="down">
+        <v-icon>mdi-arrow-down-bold</v-icon>
+      </v-btn>
+    </v-row>
+
     <v-dialog v-model="importFileDialog">
       <v-file-input
         v-model="importFilePath"
@@ -178,6 +179,7 @@ export default {
   },
   data() {
     return {
+      fab: false,
       isMobile: false,
       bottomNav: "list",
       importFilePath: null,
@@ -186,9 +188,11 @@ export default {
     };
   },
   methods: {
-    onResize() {
-      if (window.innerWidth < 769) this.isMobile = true;
-      else this.isMobile = false;
+ up() {
+      window.scrollBy(0, -100);
+    },
+    down() {
+      window.scrollBy(0, 100);
     },
     listNameUpdated() {
       this.$store.dispatch(

@@ -48,7 +48,7 @@
         ></v-text-field>
       </v-row>
     </v-app-bar>
-    <v-content>
+    <v-content id="main">
       <v-container align="start" justify="start">
         <router-view></router-view>
       </v-container>
@@ -62,8 +62,13 @@ body {
   height: 100%;
   margin: 0px;
   padding: 0px;
-  overflow-y: auto;
+
 }
+
+// Debug outline elements
+// * {
+//    outline: 1px solid red;
+//   }
 
 .sys-toolbar {
   background-color: #c0c0c0 !important;

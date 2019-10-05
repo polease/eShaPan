@@ -9,15 +9,14 @@
         v-on:keydown.tab="tabListItem($event,listItem,index)"
         v-on:keydown.up="keyUpListItem($event,listItem,index)"
         v-on:keydown.down="keyDownListItem($event,listItem,index)"
-        v-on:keyup.delete="keyDeleteListItem($event,listItem,index)"
+        v-on:keydown.delete="keyDeleteListItem($event,listItem,index)"
+        v-on:keyup.space="keySpaceListItem($event,listItem,index)"
         @change="updateListItem(listItem)"
         class="body-1 pa-0"
         ref="listItems"
         :style="{margin: generateMargin(listItem)}"
       ></v-text-field>
     </v-row>
-     
- 
 
     <v-btn class="ma-3" @click="newListItemToLast()">
       New Item
@@ -27,8 +26,7 @@
 </template>
 
 <style lang="scss">
-
-.up-button{
+.up-button {
   margin-bottom: 40px;
 }
 
@@ -60,7 +58,7 @@
 <script>
 import { mapState } from "vuex";
 import * as List from "../models/list.js";
-  import * as easings from 'vuetify/es5/services/goto/easing-patterns';
+import * as easings from "vuetify/es5/services/goto/easing-patterns";
 
 export default {
   computed: mapState(["currentList"]),
@@ -69,8 +67,7 @@ export default {
       fab: false
     };
   },
-  methods: { 
-   
+  methods: {
     tabListItem(event, listItem) {
       let levelAdjustment = 1;
 
@@ -104,8 +101,28 @@ export default {
     },
     keyDeleteListItem(event, listItem, index) {
       if (!listItem.__name || listItem.__name.length === 0) {
-        this.$refs.listItems[index - 1].focus();
-        this.$store.dispatch("deleteListItem", index);
+        event.preventDefault();
+
+        if (listItem.__level > 0) {
+          List.adjustListItemLevel(listItem, -1);
+
+          listItem.__ob__.dep.notify();
+        } else {
+          this.$refs.listItems[index - 1].focus();
+          this.$store.dispatch("deleteListItem", index);
+        }
+      }
+    },
+    keySpaceListItem(event, listItem, index) {
+      if (!listItem.__name || listItem.__name.length >= 2) {
+        if (listItem.__name.substring(0, 2) === "  ") {
+          listItem.__name = listItem.__name.substring(2);
+
+          let levelAdjustment = 1;
+          List.adjustListItemLevel(listItem, levelAdjustment);
+
+          listItem.__ob__.dep.notify();
+        }
       }
     },
     generateMargin(listItem) {
